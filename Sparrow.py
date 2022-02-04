@@ -46,34 +46,10 @@ async def on_message(message):
     elif message.content.startswith('^hello') or message.content.startswith('/hello'):
         msg = 'Hello {0.author.mention}'.format(message)
         await message.channel.send(msg)
-        print('Message sent')
-        print(message.content)
-        print(message.author)
-        print(message.channel)
-        print(message.guild)
-        print(message.id)
-        print(message.type)
-        print(message.attachments)
-        print(client.user.id)
-        print(client.user.name)
-        print(client.user.discriminator)
-        print('-------')
     elif message.content.startswith('^help') or message.content.startswith('/help'):
         msg = 'Hello {0.author.mention}\n ^help * displays this message \n ^lol * gives random jokes \n ^hello * says hello \n ^log * shows some nerdy stuff \n'.format(
             message)
         await message.channel.send(msg)
-        print('Message sent')
-        print(message.content)
-        print(message.author)
-        print(message.channel)
-        print(message.guild)
-        print(message.id)
-        print(message.type)
-        print(message.attachments)
-        print(client.user.id)
-        print(client.user.name)
-        print(client.user.discriminator)
-        print('-------')
     elif message.content.startswith('^log') or message.content.startswith('/log'):
         msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n-------'.format(
             message)
@@ -95,11 +71,13 @@ async def on_message(message):
         await message.channel.send("/share")
         await asyncio.sleep(15)
         await message.channel.send("+share")
-    if message.content.startswith("^meme") or message.content.startswith("/meme"):
-        r = requests.get(
-            'https://api.imgflip.com/get_memes').json()
-        meme = r['data']['memes'][random.randint(0, len(r['data']['memes']) - 1)]['url']
-        await message.channel.send(meme)
+    async with aiohttp.ClientSession() as cs:
+        if message.content.startswith('^mems') or message.content.startswith('/mems'):
+            async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as r:
+                res = await r.json()
+                embed = discord.Embed(title="Memes", description="Here are some memes", color=0x00ff00)
+                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+                await message.channel.send(embed=embed)
 
 
 
