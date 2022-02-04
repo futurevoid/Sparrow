@@ -97,9 +97,60 @@ async def on_message(message):
                 embed.set_image(url=res[0]['url'])
                 await message.channel.send(embed=embed)
     elif message.content.startswith('^help') or message.content.startswith('/help'):
-        embed = discord.Embed(title="Commands List", description="Hello \n ^help * displays this message \n ^lol * gives random jokes \n ^hello * says hello \n ^log * shows some nerdy stuff \n", color=0x00ff00)
-        await message.channel.send('{0.author.mention}')
-        await message.channel.send(embed=embed)  
+        embed = discord.Embed(title="Commands List", description="""
+        Hello {0.author.mention} 
+        ^help * displays this message 
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^lol * gives random jokes 
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^hello * says hello
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^log * shows some nerdy stuff
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^ping * pings the bot
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^qr * makes a qr code
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^mems * displays a random meme
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^cat * displays a random cat
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^catfact * displays a random cat fact
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ^catgif * displays a random cat gif
+         """.format(message), color=0x00ff00)
+        #await message.channel.send('{0.author.mention}').format(message)
+        await message.channel.send(embed=embed) 
+    if message.content.startswith('^mute') or message.content.startswith('/mute'):
+        if message.author.guild_permissions.administrator:
+            user = message.mentions[0]
+            if user.guild_permissions.administrator:
+                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] is an admin and cannot be muted}".format(message))
+            else:
+                await message.channel.send('{0.author.mention}'.format(message)+ "nah")
+                await user.edit(mute=True)
+        else:
+            await message.channel.send('{0.author.mention}'.format(message)) 
+    elif message.content.startswith('^unmute') or message.content.startswith('/unmute'):
+        if message.author.guild_permissions.administrator:
+            user = message.mentions[0]
+            if user.guild_permissions.administrator:
+                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] cannot be unmuted}".format(message))
+            else:
+                await message.channel.send('{0.author.mention}'.format(message)+ "user is unmuted")
+                await user.edit(mute=False)
+        else:
+            await message.channel.send('{0.author.mention}'.format(message))
+    elif message.content.startswith('^kick') or message.content.startswith('/kick'):
+        if message.author.guild_permissions.administrator:
+            user = message.mentions[0]
+            if user.guild_permissions.administrator:
+                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] is an admin and cannot be kicked}".format(message))
+            else:
+                await message.channel.send('{0.author.mention}'.format(message)+ "nah")
+                await user.kick()
+        else:
+            await message.channel.send('{0.author.mention}'.format(message))                    
 
 
 tvar = "ix"
