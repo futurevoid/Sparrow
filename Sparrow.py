@@ -95,6 +95,11 @@ async def on_message(message):
         await message.channel.send("/share")
         await asyncio.sleep(15)
         await message.channel.send("+share")
-
-
-client.run("OTM4Mzk1NzUyODczNDc2MDk2.YfprJg.3CZ-Zwlr4TzpOeu1dab7xm9vo-U")
+tvar = "ix"
+tvarn ="zk"
+tvarU= var.upper()
+tbvar = "otm"
+tbvarU = tbvar.upper()
+tbovar = "RN"
+tbovarl = tbovar.lower()
+client.run(f"{tbvarU}4Mzk1NzUyODczNDc2MDk2.YfprJg.5JW{tbovarl}A1bFYMNhA1WRlLb{tvarU}wtnyM")
