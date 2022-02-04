@@ -27,6 +27,7 @@ async def on_ready():
     print('------')
 
 
+
 # bot prefix
 bot = commands.Bot(command_prefix='^')
 
@@ -45,10 +46,6 @@ async def on_message(message):
         await message.channel.send(joke)
     elif message.content.startswith('^hello') or message.content.startswith('/hello'):
         msg = 'Hello {0.author.mention}'.format(message)
-        await message.channel.send(msg)
-    elif message.content.startswith('^help') or message.content.startswith('/help'):
-        msg = 'Hello {0.author.mention}\n ^help * displays this message \n ^lol * gives random jokes \n ^hello * says hello \n ^log * shows some nerdy stuff \n'.format(
-            message)
         await message.channel.send(msg)
     elif message.content.startswith('^log') or message.content.startswith('/log'):
         msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n-------'.format(
@@ -99,8 +96,10 @@ async def on_message(message):
                 embed = discord.Embed(title="Cat GIF", description="Here is a cat gif", color=0x00ff00)
                 embed.set_image(url=res[0]['url'])
                 await message.channel.send(embed=embed)
-
-
+    elif message.content.startswith('^help') or message.content.startswith('/help'):
+        embed = discord.Embed(title="Commands List", description="Hello \n ^help * displays this message \n ^lol * gives random jokes \n ^hello * says hello \n ^log * shows some nerdy stuff \n", color=0x00ff00)
+        await message.channel.send('{0.author.mention}')
+        await message.channel.send(embed=embed)  
 
 
 tvar = "ix"
