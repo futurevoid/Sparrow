@@ -125,7 +125,7 @@ async def on_message(message):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] is an admin and cannot be muted}".format(message))
+                await message.channel.send('{0.author.mention}'.format(message)+f"{message.mentions[0]} is an admin and cannot be muted")
             else:
                 await message.channel.send('{0.author.mention}'.format(message)+ "nah")
                 await user.edit(mute=True)
@@ -135,7 +135,7 @@ async def on_message(message):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] cannot be unmuted}".format(message))
+                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] cannot be unmuted}")
             else:
                 await message.channel.send('{0.author.mention}'.format(message)+ "user is unmuted")
                 await user.edit(mute=False)
@@ -145,7 +145,7 @@ async def on_message(message):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] is an admin and cannot be kicked}".format(message))
+                await message.channel.send('{0.author.mention}'.format(message)+"{message.mentions[0] is an admin and cannot be kicked}")
             else:
                 await message.channel.send('{0.author.mention}'.format(message)+ "nah")
                 await user.kick()
