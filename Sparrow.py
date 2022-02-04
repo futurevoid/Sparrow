@@ -95,9 +95,38 @@ async def on_message(message):
         await message.channel.send("/share")
         await asyncio.sleep(15)
         await message.channel.send("+share")
+    if message.content.startswith("^meme") or message.content.startswith("/meme"):
+        r = requests.get(
+            'https://api.imgflip.com/get_memes').json()
+        meme = r['data']['memes'][random.randint(0, len(r['data']['memes']) - 1)]['url']
+        await message.channel.send(meme)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 tvar = "ix"
 tvarn ="zk"
-tvarU= var.upper()
+tvarU= tvar.upper()
 tbvar = "otm"
 tbvarU = tbvar.upper()
 tbovar = "RN"
