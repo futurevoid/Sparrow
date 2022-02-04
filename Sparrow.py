@@ -78,9 +78,31 @@ async def on_message(message):
                 embed = discord.Embed(title="Memes", description="Here are some memes", color=0x00ff00)
                 embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
                 await message.channel.send(embed=embed)
-
-
-
+    if message.content.startswith('^cat') or message.content.startswith('/cat'):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get('https://aws.random.cat/meow') as r:
+                res = await r.json()
+                embed = discord.Embed(title="Cat", description="Here is a cat", color=0x00ff00)
+                embed.set_image(url=res['file'])
+                await message.channel.send(embed=embed)                        
+    elif message.content.startswith('^catfact') or message.content.startswith('/catfact'):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get('https://catfact.ninja/fact') as r:
+                res = await r.json()
+                embed = discord.Embed(title="Cat Fact", description="Here is a cat fact", color=0x00ff00)
+                embed.set_image(url=res['fact'])
+                await message.channel.send(embed=embed)                        
+    elif message.content.startswith('^catgif') or message.content.startswith('/catgif'):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get('https://api.thecatapi.com/v1/images/search') as r:
+                res = await r.json()
+                embed = discord.Embed(title="Cat GIF", description="Here is a cat gif", color=0x00ff00)
+                embed.set_image(url=res[0]['url'])
+                await message.channel.send(embed=embed)
+    else:
+        embed = discord.Embed(title="Invalid Command", description="For real!,For real bruh🤣!", color=0x00ff00)
+        await message.channel.send(embed=embed)
+        
 
 
 
