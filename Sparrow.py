@@ -99,12 +99,8 @@ async def on_message(message):
                 embed = discord.Embed(title="Cat GIF", description="Here is a cat gif", color=0x00ff00)
                 embed.set_image(url=res[0]['url'])
                 await message.channel.send(embed=embed)
-    else:
-        embed = discord.Embed(title="Invalid Command", description="For real!,For real bruh🤣!", color=0x00ff00)
-        await message.channel.send(embed=embed)
 
 
-        
 
 
 tvar = "ix"
