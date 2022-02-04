@@ -102,26 +102,9 @@ async def on_message(message):
     else:
         embed = discord.Embed(title="Invalid Command", description="For real!,For real bruh🤣!", color=0x00ff00)
         await message.channel.send(embed=embed)
+
+
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 tvar = "ix"
