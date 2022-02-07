@@ -30,7 +30,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    await client.change_presence(activity = discord.Game("0xhelp for help")) 
+    await client.change_presence(activity = discord.Game("0xhelp for help " + "0xhelp للمساعده")) 
 
 # bot prefix
 bot = commands.Bot(command_prefix='0x')
