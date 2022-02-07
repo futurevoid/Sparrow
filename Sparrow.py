@@ -2,6 +2,7 @@
 # (in this case, the time is set to 5 seconds)
 import asyncio
 import datetime as dt
+from importlib.resources import contents
 import json
 import os
 import random
@@ -72,6 +73,7 @@ async def on_message(message):
         embed.add_field(name="0xmute <user>", value="Mutes a user", inline=False)
         embed.add_field(name="0xunmute <user>", value="Unmutes a user", inline=False)
         embed.add_field(name="0xqr <content>", value="Creates a QR code with your content", inline=False)
+        embed.add_field(name="0xmushaf", value="Shows a mushaf page", inline=False)
         await message.channel.send(embed=embed)
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
         if message.author.guild_permissions.administrator:
@@ -126,12 +128,12 @@ async def on_message(message):
             await message.channel.purge(limit=mc)
         else:
             await message.channel.send('{0.author.mention} not an admin'.format(message))
-    elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
+    elif message.content.startswith('0xmushaf'):
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://www.searchtruth.org/quran/images1/{message.content[8:]}.jpg') as r:
+            async with cs.get(f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg') as r:
                 #res = await r.json()
-                embed = discord.Embed(title="Quran Image", description="Here is a quran image", color=0x00ff00)
-                embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{message.content[8:]}.jpg')
+                embed = discord.Embed(title=f"mushaf:{message.content[9:]}", description="", color=0x00ff00)
+                embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg')
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
@@ -149,13 +151,44 @@ async def on_message(message):
                     embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}", description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
+    elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
+          await message.channel.send(f'{message.author.mention} send the hadith book name')
+          book = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0) 
+          await message.channel.send(f'{message.author.mention} send the hadith number')
+          hadith_number= await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+          hadith_no = hadith_number.content
+          hadith_number_int = int(hadith_no)
+          bookcontent = book.content
+          async with aiohttp.ClientSession() as cs:
+                async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontent}/{hadith_number_int}') as r:
+                    res = await r.json()
+                    if book.content == 'bukhari':
+                        embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)
+                    elif book.content == 'muslim':
+                        embed = discord.Embed(title=f"صحيح مسلم:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)
+                    elif book.content == 'abudawud':
+                        embed = discord.Embed(title=f"سنن ابي داود:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)
+                    elif book.content == 'tirmidzi':
+                        embed = discord.Embed(title=f"جامع الترمذي:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)    
+                    elif book.content == 'nasai':
+                        embed = discord.Embed(title=f"سنن النسائي:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)
+                    elif book.content == 'malik':
+                        embed = discord.Embed(title=f"موطأ مالك:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)
+                    elif book.content == 'ibnu-majah':
+                        embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                        await message.channel.send(embed=embed)
+
+                    #embed = discord.Embed(title=f"{res['data']['title']}", description=f"{res['data']['text']}", color=0x00ff00)
+                                    
     
     
-    #await message.channel.send('0xayah')
-        #asyncio.sleep(300)
-        #asyncio.create_task(message.channel.send('0xayah'))
-        #asyncio.loop = asyncio.get_event_loop()
-        #asyncio.loop.run_until_complete(message.channel.send('0xayah'))
+
 
 
 
