@@ -184,7 +184,9 @@ async def on_message(message):
                     elif book.content == 'ibnu-majah':
                         embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                         await message.channel.send(embed=embed)
-
+                    else:
+                        await message.channel.send(f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
+                        await message.channel.send(f'{message.author.mention} كتب الحديث المتوفرة هي: bukhari = صحيح البخاري, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
                     #embed = discord.Embed(title=f"{res['data']['title']}", description=f"{res['data']['text']}", color=0x00ff00)
                                     
     
