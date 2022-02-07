@@ -11,7 +11,7 @@ import time
 from email import message
 import aiohttp
 import discord
-#from more_itertools import sliced
+# from more_itertools import sliced
 import requests
 from discord import FFmpegPCMAudio
 from discord.ext import commands
@@ -32,7 +32,6 @@ async def on_ready():
     print('------')
 
 
-
 # bot prefix
 bot = commands.Bot(command_prefix='0x')
 
@@ -41,6 +40,7 @@ bot = commands.Bot(command_prefix='0x')
 # create a function that will run when a message is sent
 @client.event
 async def on_message(message):
+    global hadith_number_int
     if message.author == client.user:
         return
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
@@ -56,12 +56,13 @@ async def on_message(message):
         msg = f'Pong! 🏓 {message.author.mention} {int(ping)}ms'.format(message)
         await message.channel.send(msg)
     elif message.content.startswith('0xqr') or message.content.startswith('/qr'):
-        sliced =message.content[4:]
-        slicedr = sliced.replace(" ", "%20") 
+        sliced = message.content[4:]
+        slicedr = sliced.replace(" ", "%20")
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
-        await message.channel.send(msg)                       
+        await message.channel.send(msg)
     elif message.content.startswith('0xhelp') or message.content.startswith('/help'):
-        embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message), color=0x00ff00)
+        embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
+                              color=0x00ff00)
         embed.add_field(name="0xhelp", value="Shows the help menu", inline=False)
         embed.add_field(name="0xping", value="Shows the bot latency", inline=False)
         embed.add_field(name="0xqr <content>", value="Creates a QR code with your content", inline=False)
@@ -69,7 +70,7 @@ async def on_message(message):
         embed.add_field(name="0xautoayah", value="Shows a random ayah every 5 minutes", inline=False)
         embed.add_field(name="0xayah <surah number:ayah number>", value="Shows a  ayah", inline=False)
         embed.add_field(name="0xhadith", value="Shows you a hadith", inline=False)
-        #embed.add_field(name="0xhadith_info" , value="Shows the hadith info", inline=False)
+        # embed.add_field(name="0xhadith_info" , value="Shows the hadith info", inline=False)
         embed.add_field(name="0xkick <user>", value="Kicks a user", inline=False)
         embed.add_field(name="0xban <user>", value="Bans a user", inline=False)
         embed.add_field(name="0xunban <user>", value="Unbans a user", inline=False)
@@ -80,19 +81,21 @@ async def on_message(message):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+f"{message.mentions[0]} is an admin and cannot be muted")
+                await message.channel.send(
+                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be muted")
             else:
-                await message.channel.send('{0.author.mention}'.format(message)+ "user is muted")
+                await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
                 await user.edit(mute=True)
         else:
-            await message.channel.send('{0.author.mention}'.format(message)) 
+            await message.channel.send('{0.author.mention}'.format(message))
     elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+f"{message.mentions[0]} cannot be unmuted")
+                await message.channel.send(
+                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unmuted")
             else:
-                await message.channel.send('{0.author.mention}'.format(message)+ "user is unmuted")
+                await message.channel.send('{0.author.mention}'.format(message) + "user is unmuted")
                 await user.edit(mute=False)
         else:
             await message.channel.send('{0.author.mention}'.format(message))
@@ -100,16 +103,17 @@ async def on_message(message):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+f"{message.mentions[0]} is an admin and cannot be kicked")
+                await message.channel.send(
+                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be kicked")
             else:
-                await message.channel.send('{0.author.mention}'.format(message)+ "user is kicked")
+                await message.channel.send('{0.author.mention}'.format(message) + "user is kicked")
                 await user.guild.kick(user)
         else:
             await message.channel.send('{0.author.mention}'.format(message))
     elif message.content.startswith('0xban') or message.content.startswith('/ban'):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
-            await message.channel.send('{0.author.mention}'.format(message)+ "user is banned")
+            await message.channel.send('{0.author.mention}'.format(message) + "user is banned")
             await user.guild.ban(user)
         else:
             await message.channel.send('{0.author.mention}'.format(message))
@@ -117,22 +121,23 @@ async def on_message(message):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
             if user.guild_permissions.administrator:
-                await message.channel.send('{0.author.mention}'.format(message)+f"{message.mentions[0]} cannot be unbanned")
+                await message.channel.send(
+                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unbanned")
             else:
-                await message.channel.send('{0.author.mention}'.format(message)+ "user is unbanned")
+                await message.channel.send('{0.author.mention}'.format(message) + "user is unbanned")
                 await user.guild.unban(user)
         else:
             await message.channel.send('{0.author.mention} not an admin'.format(message))
     elif message.content.startswith('0xclear') or message.content.startswith('/clear'):
         if message.author.guild_permissions.administrator:
-            mc=int(message.content[7:])
+            mc = int(message.content[7:])
             await message.channel.purge(limit=mc)
         else:
             await message.channel.send('{0.author.mention} not an admin'.format(message))
     elif message.content.startswith('0xmushaf'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg') as r:
-                #res = await r.json()
+                # res = await r.json()
                 embed = discord.Embed(title=f"mushaf:{message.content[9:]}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg')
                 await message.channel.send(embed=embed)
@@ -140,69 +145,78 @@ async def on_message(message):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'http://api.alquran.cloud/v1/ayah/{message.content[6:]}') as r:
                 res = await r.json()
-                embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}", description=f"{res['data']['text']}", color=0x00ff00)
-                #embed.set_image(url=res['data']['url'])
-                await message.channel.send(embed=embed)                        
+                embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
+                                      description=f"{res['data']['text']}", color=0x00ff00)
+                # embed.set_image(url=res['data']['url'])
+                await message.channel.send(embed=embed)
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
         while True:
             async with aiohttp.ClientSession() as cs:
-                randayah = random.randint(1,6236)
+                randayah = random.randint(1, 6236)
                 async with cs.get(f'http://api.alquran.cloud/v1/ayah/{randayah}') as r:
                     res = await r.json()
-                    embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}", description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
+                    embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
+                                          description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
-          await message.channel.send(f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
-          await message.channel.send(f'{message.author.mention} كتب الحديث المتوفرة هي:\n صحيح البخاري= bukhari \n صحيح مسلم = muslim\n سنن ابي داود = abudawud\n جامع الترمذي = tirmidzi\n سنن النسائي = nasai\n موطأ مالك = malik\n سنن ابن ماجة = ibnu-majah')
-          await message.channel.send(f'{message.author.mention} send the hadith book name \n اكتب اسم الكتاب الذي تريده  ')
-          book = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0) 
-          await message.channel.send(f'{message.author.mention} send the hadith number \n اكتب رقم الحديث الذي تريده')
-          hadith_number= await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-          hadith_no = hadith_number.content
-          try:
+        await message.channel.send(
+            f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
+        await message.channel.send(
+            f'{message.author.mention} كتب الحديث المتوفرة هي:\n صحيح البخاري= bukhari \n صحيح مسلم = muslim\n سنن ابي داود = abudawud\n جامع الترمذي = tirmidzi\n سنن النسائي = nasai\n موطأ مالك = malik\n سنن ابن ماجة = ibnu-majah')
+        await message.channel.send(
+            f'{message.author.mention} send the hadith book name \n اكتب اسم الكتاب الذي تريده  ')
+        book = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        await message.channel.send(f'{message.author.mention} send the hadith number \n اكتب رقم الحديث الذي تريده')
+        hadith_number = await client.wait_for('message', check=lambda message: message.author == message.author,
+                                              timeout=60.0)
+        hadith_no = hadith_number.content
+        try:
             hadith_number_int = int(float(hadith_no))
-          except ValueError:
-              pass
-          bookcontent = book.content
-          async with aiohttp.ClientSession() as cs:
-                async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontent}/{hadith_number_int}') as r:
-                    res = await r.json()
-                    if book.content == 'bukhari':
-                        embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)
-                    elif book.content == 'muslim':
-                        embed = discord.Embed(title=f"صحيح مسلم:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)
-                    elif book.content == 'abudawud':
-                        embed = discord.Embed(title=f"سنن ابي داود:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)
-                    elif book.content == 'tirmidzi':
-                        embed = discord.Embed(title=f"جامع الترمذي:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)    
-                    elif book.content == 'nasai':
-                        embed = discord.Embed(title=f"سنن النسائي:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)
-                    elif book.content == 'malik':
-                        embed = discord.Embed(title=f"موطأ مالك:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)
-                    elif book.content == 'ibnu-majah':
-                        embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                        await message.channel.send(embed=embed)
-                    else:
-                        await message.channel.send(f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
-                    #embed = discord.Embed(title=f"{res['data']['title']}", description=f"{res['data']['text']}", color=0x00ff00)
-                                    
-    
-    
-
-
+        except ValueError:
+            pass
+        bookcontent = book.content
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontent}/{hadith_number_int}') as r:
+                res = await r.json()
+                if book.content == 'bukhari':
+                    embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                elif book.content == 'muslim':
+                    embed = discord.Embed(title=f"صحيح مسلم:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                elif book.content == 'abudawud':
+                    embed = discord.Embed(title=f"سنن ابي داود:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                elif book.content == 'tirmidzi':
+                    embed = discord.Embed(title=f"جامع الترمذي:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                elif book.content == 'nasai':
+                    embed = discord.Embed(title=f"سنن النسائي:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                elif book.content == 'malik':
+                    embed = discord.Embed(title=f"موطأ مالك:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                elif book.content == 'ibnu-majah':
+                    embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}",
+                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                    await message.channel.send(embed=embed)
+                else:
+                    await message.channel.send(
+                        f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
+                # embed = discord.Embed(title=f"{res['data']['title']}", description=f"{res['data']['text']}", color=0x00ff00)
 
 
 tvar = "ix"
-tvarn ="zk"
-tvarU= tvar.upper()
+tvarn = "zk"
+tvarU = tvar.upper()
 tbvar = "otm"
 tbvarU = tbvar.upper()
 tbovar = "RN"
