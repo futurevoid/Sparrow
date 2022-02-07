@@ -58,36 +58,12 @@ async def on_message(message):
         sliced =message.content[4:]
         slicedr = sliced.replace(" ", "%20") 
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
-        await message.channel.send(msg)
-    # send a message to the channel every 24 hours
-    while message.content.startswith("0xautosend") or message.content.startswith("/autosend"):
-        await message.channel.send("/share")
-        await asyncio.sleep(15)
-        await message.channel.send("+share")
-        await asyncio.sleep(86400)
-        await message.channel.send("/share")
-        await asyncio.sleep(15)
-        await message.channel.send("+share")                        
-    if message.content.startswith('0xcatfact') or message.content.startswith('/catfact'):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get('https://catfact.ninja/fact') as r:
-                res = await r.json()
-                embed = discord.Embed(title="Cat Fact", description=f"Here is a cat fact\n-------------------\n{res['fact']}", color=0x00ff00)
-                await message.channel.send(embed=embed)                        
-    elif message.content.startswith('0xcat') or message.content.startswith('/cat'):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get('https://api.thecatapi.com/v1/images/search') as r:
-                res = await r.json()
-                embed = discord.Embed(title="Cat", description="Here is a cat", color=0x00ff00)
-                embed.set_image(url=res[0]['url'])
-                await message.channel.send(embed=embed)
+        await message.channel.send(msg)                       
     elif message.content.startswith('0xhelp') or message.content.startswith('/help'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message), color=0x00ff00)
         embed.add_field(name="0xhelp", value="Shows the help menu", inline=False)
         embed.add_field(name="0xping", value="Shows the bot latency", inline=False)
         embed.add_field(name="0xmushaf <page>", value="Shows a mushaf image", inline=False)
-        embed.add_field(name="0xtmems", value="Shows a random tech meme", inline=False)
-        embed.add_field(name="0xgmems", value="Shows a random gaming meme", inline=False)
         embed.add_field(name="0xautoayah", value="Shows a random ayah every 5 minutes", inline=False)
         embed.add_field(name="0xayah <surah number:ayah number>", value="Shows a  ayah", inline=False)
         embed.add_field(name="0xkick <user>", value="Kicks a user", inline=False)
@@ -96,8 +72,6 @@ async def on_message(message):
         embed.add_field(name="0xmute <user>", value="Mutes a user", inline=False)
         embed.add_field(name="0xunmute <user>", value="Unmutes a user", inline=False)
         embed.add_field(name="0xqr <content>", value="Creates a QR code with your content", inline=False)
-        embed.add_field(name="0xcat", value="Shows a random cat", inline=False)
-        embed.add_field(name="0xcatfact", value="Shows a random cat fact", inline=False)
         await message.channel.send(embed=embed)
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
         if message.author.guild_permissions.administrator:
