@@ -176,7 +176,7 @@ async def on_message(message):
             hadith_number_int = int(float(hadith_no))
         except ValueError:
             pass
-        bookcontent = book.content
+        bookcontent = book.content.lower()
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontent}/{hadith_number_int}') as r:
                 res = await r.json()
