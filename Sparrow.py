@@ -55,7 +55,7 @@ async def on_message(message):
         msg = await message.channel.send('Pinging...')
         after = time.monotonic()
         ping = (after - before) * 1000
-        await msg.edit(content=f'Pong! {ping}ms')
+        await msg.edit(content=f'Pong! 🏓 {round(ping)}ms {message.author.mention}')
     elif message.content.startswith('0xqr') or message.content.startswith('/qr'):
         sliced = message.content[4:]
         slicedr = sliced.replace(" ", "%20")
