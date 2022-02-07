@@ -30,7 +30,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-
+    await client.change_presence(activity = discord.Game("0xhelp for help")) 
 
 # bot prefix
 bot = commands.Bot(command_prefix='0x')
@@ -176,9 +176,10 @@ async def on_message(message):
             hadith_number_int = int(float(hadith_no))
         except ValueError:
             pass
-        bookcontent = book.content.lower()
+        bookcontent = book.content
+        bookcontentlower = bookcontent.lower()
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontent}/{hadith_number_int}') as r:
+            async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontentlower}/{hadith_number_int}') as r:
                 res = await r.json()
                 if book.content == 'bukhari':
                     embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}",
