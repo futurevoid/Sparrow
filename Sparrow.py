@@ -144,6 +144,7 @@ async def on_message(message):
                 #embed.set_image(url=res['data']['url'])
                 await message.channel.send(embed=embed)                        
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
+        await message.channel.purge(limit=1)
         while True:
             async with aiohttp.ClientSession() as cs:
                 randayah = random.randint(1,6236)
@@ -153,12 +154,17 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
-          await message.channel.send(f'{message.author.mention} send the hadith book name')
+          await message.channel.send(f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
+          await message.channel.send(f'{message.author.mention} كتب الحديث المتوفرة هي: صحيح البخاري= bukhari,صحيح مسلم = muslim, سنن ابي داود = abudawud, جامع الترمذي = tirmidzi, سنن النسائي = nasai, موطأ مالك = malik, سنن ابن ماجة = ibnu-majah')
+          await message.channel.send(f'{message.author.mention} send the hadith book name \n اكتب اسم الكتاب الذي تريده  ')
           book = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0) 
-          await message.channel.send(f'{message.author.mention} send the hadith number')
+          await message.channel.send(f'{message.author.mention} send the hadith number \n اكتب رقم الحديث الذي تريده')
           hadith_number= await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
           hadith_no = hadith_number.content
-          hadith_number_int = int(hadith_no)
+          try:
+            hadith_number_int = int(float(hadith_no))
+          except ValueError:
+              pass
           bookcontent = book.content
           async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontent}/{hadith_number_int}') as r:
@@ -185,8 +191,7 @@ async def on_message(message):
                         embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}", description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                         await message.channel.send(embed=embed)
                     else:
-                        await message.channel.send(f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
-                        await message.channel.send(f'{message.author.mention} كتب الحديث المتوفرة هي: bukhari = صحيح البخاري, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
+                        await message.channel.send(f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
                     #embed = discord.Embed(title=f"{res['data']['title']}", description=f"{res['data']['text']}", color=0x00ff00)
                                     
     
