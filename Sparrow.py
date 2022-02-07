@@ -51,8 +51,8 @@ async def on_message(message):
             message)
         await message.channel.send(msg)
     elif message.content.startswith('0xping') or message.content.startswith('/ping'):
-        before = time.monotonic()
-        ping = round(time.monotonic())
+        before = client.latency()
+        ping = round(client.latency())
         msg = f'Pong! 🏓 {message.author.mention} {int(ping)}ms'.format(message)
         await message.channel.send(msg)
     elif message.content.startswith('0xqr') or message.content.startswith('/qr'):
