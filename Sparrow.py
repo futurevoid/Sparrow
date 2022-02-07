@@ -178,34 +178,35 @@ async def on_message(message):
             pass
         bookcontent = book.content
         bookcontentlower = bookcontent.lower()
+        #print(bookcontentlower)
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontentlower}/{hadith_number_int}') as r:
                 res = await r.json()
-                if book.content == 'bukhari':
+                if bookcontentlower == 'bukhari':
                     embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
-                elif book.content == 'muslim':
+                elif bookcontentlower == 'muslim':
                     embed = discord.Embed(title=f"صحيح مسلم:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
-                elif book.content == 'abudawud':
+                elif bookcontentlower == 'abudawud':
                     embed = discord.Embed(title=f"سنن ابي داود:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
-                elif book.content == 'tirmidzi':
+                elif bookcontentlower == 'tirmidzi':
                     embed = discord.Embed(title=f"جامع الترمذي:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
-                elif book.content == 'nasai':
+                elif bookcontentlower == 'nasai':
                     embed = discord.Embed(title=f"سنن النسائي:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
-                elif book.content == 'malik':
+                elif bookcontentlower == 'malik':
                     embed = discord.Embed(title=f"موطأ مالك:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
-                elif book.content == 'ibnu-majah':
+                elif bookcontentlower == 'ibnu-majah':
                     embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}",
                                           description=f"{res['data']['contents']['arab']}", color=0x00ff00)
                     await message.channel.send(embed=embed)
