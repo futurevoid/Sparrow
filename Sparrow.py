@@ -155,7 +155,7 @@ async def on_message(message):
                     await asyncio.sleep(300)
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
           await message.channel.send(f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
-          await message.channel.send(f'{message.author.mention} كتب الحديث المتوفرة هي: صحيح البخاري= bukhari,صحيح مسلم = muslim, سنن ابي داود = abudawud, جامع الترمذي = tirmidzi, سنن النسائي = nasai, موطأ مالك = malik, سنن ابن ماجة = ibnu-majah')
+          await message.channel.send(f'{message.author.mention} كتب الحديث المتوفرة هي:\n صحيح البخاري= bukhari \n صحيح مسلم = muslim\n سنن ابي داود = abudawud\n جامع الترمذي = tirmidzi\n سنن النسائي = nasai\n موطأ مالك = malik\n سنن ابن ماجة = ibnu-majah')
           await message.channel.send(f'{message.author.mention} send the hadith book name \n اكتب اسم الكتاب الذي تريده  ')
           book = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0) 
           await message.channel.send(f'{message.author.mention} send the hadith number \n اكتب رقم الحديث الذي تريده')
