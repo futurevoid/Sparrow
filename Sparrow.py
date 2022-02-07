@@ -75,59 +75,44 @@ async def on_message(message):
         await message.channel.send("/share")
         await asyncio.sleep(15)
         await message.channel.send("+share")
-    async with aiohttp.ClientSession() as cs:
-        if message.content.startswith('^mems') or message.content.startswith('/mems'):
+    if message.content.startswith('^mems') or message.content.startswith('/mems'):
+        async with aiohttp.ClientSession() as cs:
             async with cs.get('https://www.reddit.com/r/memes/top/.json?sort=top&t=day') as r:
                 res = await r.json()
                 embed = discord.Embed(title="Meme GIF", description="Here is a meme gif", color=0x00ff00)
                 embed.set_image(url=res['data']['children'][random.randint(0,len(res['data']['children']))]['data']['url'])
-                await message.channel.send(embed=embed)
-    if message.content.startswith('^cat') or message.content.startswith('/cat'):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get('https://aws.random.cat/meow') as r:
-                res = await r.json()
-                embed = discord.Embed(title="Cat", description="Here is a cat", color=0x00ff00)
-                embed.set_image(url=res['file'])
                 await message.channel.send(embed=embed)                        
     elif message.content.startswith('^catfact') or message.content.startswith('/catfact'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://catfact.ninja/fact') as r:
                 res = await r.json()
-                embed = discord.Embed(title="Cat Fact", description="Here is a cat fact", color=0x00ff00)
-                embed.set_image(url=res['fact'])
+                embed = discord.Embed(title="Cat Fact", description=f"Here is a cat fact\n-------------------\n{res['fact']}", color=0x00ff00)
                 await message.channel.send(embed=embed)                        
-    elif message.content.startswith('^catgif') or message.content.startswith('/catgif'):
+    elif message.content.startswith('^cat') or message.content.startswith('/cat'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://api.thecatapi.com/v1/images/search') as r:
                 res = await r.json()
-                embed = discord.Embed(title="Cat GIF", description="Here is a cat gif", color=0x00ff00)
+                embed = discord.Embed(title="Cat", description="Here is a cat", color=0x00ff00)
                 embed.set_image(url=res[0]['url'])
                 await message.channel.send(embed=embed)
     elif message.content.startswith('^help') or message.content.startswith('/help'):
-        embed = discord.Embed(title="Commands List", description="""
-        Hello {0.author.mention} 
-        ^help * displays this message 
-        -----------------------------
-        ^lol * gives random jokes 
-        -----------------------------
-        ^hello * says hello
-        -----------------------------
-        ^log * shows some nerdy stuff
-        -----------------------------
-        ^ping * pings the bot
-        -----------------------------
-        ^qr * makes a qr code
-        -----------------------------
-        ^mems * displays a random meme
-        -----------------------------
-        ^cat * displays a random cat
-        -----------------------------
-        ^catfact * displays a random cat fact
-        -----------------------------
-        ^catgif * displays a random cat gif
-         """.format(message), color=0x00ff00)
-        #await message.channel.send('{0.author.mention}').format(message)
-        await message.channel.send(embed=embed) 
+        embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message), color=0x00ff00)
+        embed.add_field(name="^help", value="Shows the help menu", inline=False)
+        embed.add_field(name="^ping", value="Shows the bot latency", inline=False)
+        embed.add_field(name="^mushaf <page>", value="Shows a mushaf image", inline=False)
+        embed.add_field(name="^tmems", value="Shows a random tech meme", inline=False)
+        embed.add_field(name="^gmems", value="Shows a random gaming meme", inline=False)
+        embed.add_field(name="^autoayah", value="Shows a random ayah every 5 minutes", inline=False)
+        embed.add_field(name="^ayah <surah number:ayah number>", value="Shows a  ayah", inline=False)
+        embed.add_field(name="^kick <user>", value="Kicks a user", inline=False)
+        embed.add_field(name="^ban <user>", value="Bans a user", inline=False)
+        embed.add_field(name="^unban <user>", value="Unbans a user", inline=False)
+        embed.add_field(name="^mute <user>", value="Mutes a user", inline=False)
+        embed.add_field(name="^unmute <user>", value="Unmutes a user", inline=False)
+        embed.add_field(name="^qr <content>", value="Creates a QR code with your content", inline=False)
+        embed.add_field(name="^cat", value="Shows a random cat", inline=False)
+        embed.add_field(name="^catfact", value="Shows a random cat fact", inline=False)
+        await message.channel.send(embed=embed)
     if message.content.startswith('^mute') or message.content.startswith('/mute'):
         if message.author.guild_permissions.administrator:
             user = message.mentions[0]
@@ -218,7 +203,9 @@ async def on_message(message):
                     embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}", description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
-        #await message.channel.send('^ayah')
+    
+    
+    #await message.channel.send('^ayah')
         #asyncio.sleep(300)
         #asyncio.create_task(message.channel.send('^ayah'))
         #asyncio.loop = asyncio.get_event_loop()
