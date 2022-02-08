@@ -21,6 +21,7 @@ Pillow==9.0.1
 py-cord==1.7.3
 pyparsing==3.0.7
 python-dateutil==2.8.2
+pyzbar==0.1.8
 requests==2.27.1
 six==1.16.0
 typing-extensions==4.0.1
@@ -28,4 +29,3 @@ urllib3==1.26.8
 Werkzeug==2.0.3
 yarl==1.7.2
 youtube-dl==2021.12.17
-pyzbar~=0.1.8
