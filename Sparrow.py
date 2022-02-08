@@ -232,6 +232,7 @@ async def on_message(message):
             f'{message.author.mention} send the qr code to be decoded ')
         qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)                              
         qrcontent = qr.content
+        print(qrcontent)
         try:
             img = Image.open(urllib3.request.urlopen(qrcontent))
         except:
