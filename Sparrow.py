@@ -214,26 +214,6 @@ async def on_message(message):
                 else:
                     await message.channel.send(
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
-    elif message.content.startswith('0xweather') or message.content.startswith('/weather'):
-        await message.channel.send(
-            f'{message.author.mention} send the city name \n اكتب اسم المدينة التي تريدها')
-        city = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        await message.channel.send(
-            f'{message.author.mention} send the country name \n اكتب اسم الدولة التي تريدها')
-        country = await client.wait_for('message', check=lambda message: message.author == message.author,
-                                        timeout=60.0)
-        citycontent = city.content
-        countrycontent = country.content
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://api.openweathermap.org/data/2.5/weather?q={citycontent},{countrycontent}&appid=7e0e8d9c7a8f8a8c8d9d9e3f9d0f8a8c') as r:
-                res = await r.json()
-                embed = discord.Embed(title=f"{res['name']}", description=f"{res['weather'][0]['description']}",
-                                      color=0x00ff00)
-                embed.set_thumbnail(url=f"https://openweathermap.org/img/w/{res['weather'][0]['icon']}.png")
-                embed.add_field(name="Temperature", value=f"{res['main']['temp']}°C", inline=True)
-                embed.add_field(name="Pressure", value=f"{res['main']['pressure']} hPa", inline=True)
-                embed.add_field(name="Humidity", value=f"{res['main']['humidity']}%", inline=True)       
-                await message.channel.send(embed=embed)
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
             f'{message.author.mention} send the calculation \n اكتب الحساب الذي تريده')
@@ -243,32 +223,17 @@ async def on_message(message):
             async with cs.get(f'https://api.mathjs.org/v4/?expr={calccontent}') as r:
                 res = await r.json()
                 embed = discord.Embed(title=f"{res['result']}", description=f"{res['error']}", color=0x00ff00)
-                await message.channel.send(embed=embed)            
-    elif message.content.startswith('0xtranslate') or message.content.startswith('/translate'):
-        await message.channel.send(
-            f'{message.author.mention} send the text \n اكتب النص الذي تريده')
-        text = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        await message.channel.send(
-            f'{message.author.mention} send the language \n اكتب اللغة الذي تريدها')
-        lang = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        textcontent = text.content
-        langcontent = lang.content
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200401T172739Z.1d2f1f5b5c5d5b5e.6a7a6e0e6b9f6f8a6d3f3f3a6c8a6b8&text={textcontent}&lang={langcontent}') as r:
-                res = await r.json()
-                embed = discord.Embed(title=f"{res['text'][0]}", description=f"{res['code']}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xshorten') or message.content.startswith('/shorten'):
+    elif message.content.startswith('0xqrdecode') or message.content.startswith('/qrdecode'):
         await message.channel.send(
-            f'{message.author.mention} send the url')
-        url = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        urlcontent = url.content
+            f'{message.author.mention} send the qr code \n اكتب الكود الذي تريده')
+        qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        qrcontent = qr.content
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'http://api.shorte.st/v1/data.json?key=5a5b5c5d5e5f6061&url={urlcontent}') as r:
-                res = await r.json(content_type=None)
-                embed = discord.Embed(title=f"{res['data']['url']}", description=f"{res['data']['shortenedUrl']}",
-                                      color=0x00ff00)
-                await message.channel.send(embed=embed)          
+            async with cs.get(f'https://api.qrserver.com/v1/read-qr-code/?fileurl={qrcontent}') as r:
+                res = await r.json()
+                embed = discord.Embed(title=f"{res[0]['symbol'][0]['data']}", description=f"{res[0]['symbol'][0]['error']}", color=0x00ff00)
+                await message.channel.send(embed=embed)                              
 
 
 
