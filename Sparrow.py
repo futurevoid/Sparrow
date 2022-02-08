@@ -266,7 +266,7 @@ async def on_message(message):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://api.rebrandly.com/v1/links?destination={short_urlcontent}&domain=rebrand.ly&apikey=80ba65693a1e4e1a914a44e68968d95f') as r:
                 res = await r.json()
-                embed = discord.Embed(title=f"{res['shortUrl']}", description=f"{res['error']}", color=0x00ff00)
+                embed = discord.Embed(title=f"{res}", description=f"{res}", color=0x00ff00)
                 await message.channel.send(embed=embed)            
 
 
