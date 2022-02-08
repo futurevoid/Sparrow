@@ -216,7 +216,7 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
-            f'{message.author.mention} send the calculation \n اكتب الحساب الذي تريده')
+            f'{message.author.mention} send the equation to calculate')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
         async with aiohttp.ClientSession() as cs:
@@ -226,7 +226,7 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/qrdecode'):
         await message.channel.send(
-            f'{message.author.mention} send the qr code \n اكتب الكود الذي تريده')
+            f'{message.author.mention} send the qr code to be decoded ')
         qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         qrcontent = qr.content
         async with aiohttp.ClientSession() as cs:
