@@ -26,13 +26,13 @@ import urllib3.request
 client = discord.Client()
 
 
-# create an event that will run when the bot is ready
+#create an event that will run when the bot is ready
 @client.event
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
-    print('------')
+    print('-------')
     await client.change_presence(activity = discord.Game("0xhelp for help " + "0xhelp للمساعده")) 
 
 # bot prefix
