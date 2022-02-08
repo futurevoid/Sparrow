@@ -224,7 +224,7 @@ async def on_message(message):
                 res = await r.json()
                 embed = discord.Embed(title=f"{res['result']}", description=f"{res['error']}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xqrdecode') or message.content.startswith('/qrdecode'):
+    elif message.content.startswith('0xQrdecode') or message.content.startswith('/qrdecode'):
         await message.channel.send(
             f'{message.author.mention} send the qr code \n اكتب الكود الذي تريده')
         qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
