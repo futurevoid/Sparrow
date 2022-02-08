@@ -260,14 +260,15 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xshorten') or message.content.startswith('/shorten'):
         await message.channel.send(
-            f'{message.author.mention} send the url you want to shorten')
-        short_url = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        short_urlcontent = short_url.content
+            f'{message.author.mention} send the url')
+        url = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        urlcontent = url.content
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://api.rebrandly.com/v1/links?destination={short_urlcontent}&domain=rebrand.ly&apikey=80ba65693a1e4e1a914a44e68968d95f') as r:
+            async with cs.get(f'http://api.shorte.st/v1/data.json?key=5a5b5c5d5e5f6061&url={urlcontent}') as r:
                 res = await r.json()
-                embed = discord.Embed(title=f"{res}", description=f"{res}", color=0x00ff00)
-                await message.channel.send(embed=embed)            
+                embed = discord.Embed(title=f"{res['data']['url']}", description=f"{res['data']['shortenedUrl']}",
+                                      color=0x00ff00)
+                await message.channel.send(embed=embed)          
 
 
 
