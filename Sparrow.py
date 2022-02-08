@@ -258,7 +258,7 @@ async def on_message(message):
                 res = await r.json()
                 embed = discord.Embed(title=f"{res['text'][0]}", description=f"{res['code']}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xinvite') or message.content.startswith('/invite'):
+    elif message.content.startswith('0xshorten') or message.content.startswith('/shorten'):
         await message.channel.send(
             f'{message.author.mention} send the url you want to shorten')
         short_url = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
