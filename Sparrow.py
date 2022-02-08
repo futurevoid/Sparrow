@@ -19,7 +19,10 @@ from discord.ext.commands import Bot
 from discord.utils import get
 from matplotlib import image
 from keep_alive import keep_alive
-
+from PIL import Image
+from pyzbar import pyzbar
+import urllib.request
+import urllib3.request
 client = discord.Client()
 
 
@@ -227,14 +230,16 @@ async def on_message(message):
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/qrdecode'):
         await message.channel.send(
             f'{message.author.mention} send the qr code to be decoded ')
-        qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)                              
         qrcontent = qr.content
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://api.qrserver.com/v1/read-qr-code/?fileurl={qrcontent}') as r:
-                res = await r.json()
-                embed = discord.Embed(title=f"{res[0]['symbol'][0]['data']}", description=f"{res[0]['symbol'][0]['error']}", color=0x00ff00)
-                await message.channel.send(embed=embed)                              
-
+        try:
+            img = Image.open(urllib3.request.urlopen(qrcontent))
+        except:
+            img= Image.open(qrcontent)    
+        output_unfiltered = pyzbar.decode(img)
+        output= output_unfiltered[0].data.decode('utf-8')
+        embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
+        await message.channel.send(embed=embed)
 
 
 tvar = "ix"
