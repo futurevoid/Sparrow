@@ -265,7 +265,7 @@ async def on_message(message):
         urlcontent = url.content
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'http://api.shorte.st/v1/data.json?key=5a5b5c5d5e5f6061&url={urlcontent}') as r:
-                res = await r.json()
+                res = await r.json(content_type=None)
                 embed = discord.Embed(title=f"{res['data']['url']}", description=f"{res['data']['shortenedUrl']}",
                                       color=0x00ff00)
                 await message.channel.send(embed=embed)          
