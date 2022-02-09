@@ -269,7 +269,7 @@ async def on_message(message):
         #rolecontent = role.content
         #print(rolecontent)
         user = message.mentions[0]
-        role = discord.utils.get(message.guild.roles, name=message.content[9:])
+        role = discord.utils.get(message.guild.roles, name=message.content[10:])
         print(message.content[9:])
         if role is None:
             await message.channel.send(
