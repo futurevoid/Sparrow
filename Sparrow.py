@@ -258,7 +258,7 @@ async def on_message(message):
         
         if str(reaction.emoji) == '✅':
             try:
-                user  = message.mentions[0]
+                user  = message.mentions[1]
                 role_to_add = discord.utils.get(message.guild.roles, name=rolecontent)
                 await user.add_roles(role_to_add)
                 await message.channel.send(f'{message.author.mention} your role has been added')
