@@ -270,6 +270,7 @@ async def on_message(message):
         #print(rolecontent)
         user = message.mentions[0]
         role = discord.utils.get(message.guild.roles, name=message.content[9:])
+        print(message.content[9:])
         if role is None:
             await message.channel.send(
                 f'{message.author.mention} the role name is not correct')
