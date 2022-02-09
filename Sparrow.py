@@ -45,6 +45,7 @@ bot = commands.Bot(command_prefix='0x')
 @client.event
 async def on_message(message):
     global hadith_number_int
+    global msg
     if message.author == client.user:
         return
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
