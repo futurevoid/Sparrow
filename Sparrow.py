@@ -269,7 +269,7 @@ async def on_message(message):
             await message.channel.send(
                 f'{message.author.mention} the role name is not correct')
         else:
-            await client.message.add_reaction('➕')
+            await message.add_reaction('➕')
             def check(reaction, user):
                 return user == message.mentions[0] and str(reaction.emoji) == '➕'
             try:
