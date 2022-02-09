@@ -258,7 +258,7 @@ async def on_message(message):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://api.mathjs.org/v4/?expr={calccontent}') as r:
                 #res = await r.json()
-                embed = discord.Embed(title="Result", description=r, color=0x00ff00)
+                embed = discord.Embed(title="Result", description=f'https://api.mathjs.org/v4/?expr={calccontent}', color=0x00ff00)
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/Qrdecode'):
         await message.channel.send(
