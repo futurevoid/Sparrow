@@ -253,7 +253,8 @@ async def on_message(message):
         await message.channel.send(
             f'{message.author.mention} send the equation to calculate')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        calccontent = calc.content
+        calc_content = calc.content
+        calccontent = calc_content.replace('+', '--')
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://api.mathjs.org/v4/?expr={calccontent}') as r:
                 res = await r.json()
@@ -300,16 +301,7 @@ async def on_message(message):
             else:
                 await message.channel.send(f'{message.author.mention} The role has not been added to the {user.mention}')        
         else:
-            await message.channel.send(f'{message.author.mention} you are not an admin')
-    elif message.content.startswith('0xrandomhadith') or message.content.startswith('/randomhadith'):
-        await message.channel.purge(limit=1)
-        while True:
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get('https://api.quran.com/v3/hadith/random') as r:
-                    res = await r.json()
-                    embed = discord.Embed(title=f"{res['data']['text']}", description=f"{res['data']['source']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                    await asyncio.sleep(300)                 
+            await message.channel.send(f'{message.author.mention} you are not an admin')            
     elif message.content.startswith('0xinv') or message.content.startswith('/inv'):
         message.channel.purge(limit=1)
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
