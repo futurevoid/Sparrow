@@ -252,7 +252,7 @@ async def on_message(message):
         rolecontent = role.content
         await message.add_reaction('✅')
         def check(reaction, user):
-            return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
+            return user == message.author or message.mentions[2] and str(reaction.emoji) in '✅'
         reaction, user = await client.wait_for('reaction_add', timeout= 60 ,check=check)
         
         if str(reaction.emoji) == '✅':
