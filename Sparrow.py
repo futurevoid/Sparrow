@@ -242,6 +242,49 @@ async def on_message(message):
         output= output_unfiltered[0].data.decode('utf-8')
         embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
         await message.channel.send(embed=embed)
+    elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
+        await message.channel.send(
+            f'{message.author.mention} enter the user to add the role to him')
+        user = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        await message.channel.send(
+            f'{message.author.mention} enter the role to add him')
+        role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        usercontent = user.content
+        rolecontent = role.content
+        print(usercontent)
+        print(rolecontent)
+        role = discord.utils.get(message.guild.roles, name=rolecontent)
+        if role is None:
+            await message.channel.send(
+                f'{message.author.mention} the role name is not correct \n اسم الرتبة غير صحيح')
+        else:
+            member = discord.utils.get(message.guild.members, name=usercontent)
+            await member.add_roles(role)
+            await message.channel.send(
+                f'{message.author.mention} the role has been added to the user')  
+    elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
+        await message.channel.send(
+            f'{message.author.mention} enter the role to add him')
+        role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        rolecontent = role.content
+        print(rolecontent)
+        role = discord.utils.get(message.guild.roles, name=rolecontent)
+        if role is None:
+            await message.channel.send(
+                f'{message.author.mention} the role name is not correct')
+        else:
+            await message.add_reaction('\U0001f44d')
+            def check(reaction, user):
+                return user == message.author and str(reaction.emoji) == '\U0001f44d'
+            try:
+                reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
+            except asyncio.TimeoutError:
+                await message.channel.send(
+                    f'{message.author.mention} reaction time out')
+            else:
+                await message.channel.send(
+                    f'{message.author.mention} the role has been added to the user')
+                await user.add_roles(role)
 
 
 tvar = "ix"
