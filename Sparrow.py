@@ -263,27 +263,23 @@ async def on_message(message):
             await message.channel.send(
                 f'{message.author.mention} the role has been added to the user')  
     elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
-        await message.channel.send(
-            f'{message.author.mention} enter the role to add him')
-        role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        rolecontent = role.content
-        print(rolecontent)
-        role = discord.utils.get(message.guild.roles, name=rolecontent)
+        user = message.mentions[0]
+        role = message.content[8:]
         if role is None:
             await message.channel.send(
                 f'{message.author.mention} the role name is not correct')
         else:
-            await message.add_reaction('\U0001f44d')
+            await client.message.add_reaction('➕')
             def check(reaction, user):
-                return user == message.author and str(reaction.emoji) == '\U0001f44d'
+                return user == message.mentions[0] and str(reaction.emoji) == '➕'
             try:
                 reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
             except asyncio.TimeoutError:
                 await message.channel.send(
-                    f'{message.author.mention} reaction time out')
+                    f'{message.author.mention} Reaction timed out')
             else:
                 await message.channel.send(
-                    f'{message.author.mention} the role has been added to the user')
+                    f'{message.author.mention} The role has been added to the user')
                 await user.add_roles(role)
 
 
