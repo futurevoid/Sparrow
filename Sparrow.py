@@ -245,9 +245,10 @@ async def on_message(message):
         embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
         await message.channel.send(embed=embed)
     elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
-        user  = message.mentions[2]
+        user  = message.mentions[0]
         await message.channel.send(
             f'{message.author.mention} enter the role name to add {message.mentions[0].mention}')
+        user = message.mentions[2]
         role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         rolecontent = role.content
         await message.add_reaction('✅')
