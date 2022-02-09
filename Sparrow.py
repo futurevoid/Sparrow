@@ -108,7 +108,7 @@ async def on_message(message):
                 try:
                     user = message.mentions[0]
                 except IndexError:
-                    await message.channel.send("0xarole <user> , Gives a role to a user")
+                    await message.channel.send("0xunmute <user> , Unmutes a user")
                 if user.guild_permissions.administrator:
                     await message.channel.send(
                     '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unmuted")
