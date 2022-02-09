@@ -88,7 +88,10 @@ async def on_message(message):
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
         try:
             if message.author.guild_permissions.administrator:
-                user = message.mentions[0]
+                try:
+                    user = message.mentions[0]
+                except IndexError:
+                    await message.channel.send("0xarole <user> , Gives a role to a user")
                 if user.guild_permissions.administrator:
                     await message.channel.send(
                         '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be muted")
@@ -102,7 +105,10 @@ async def on_message(message):
     elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
         try:
             if message.author.guild_permissions.administrator:
-                user = message.mentions[0]
+                try:
+                    user = message.mentions[0]
+                except IndexError:
+                    await message.channel.send("0xarole <user> , Gives a role to a user")
                 if user.guild_permissions.administrator:
                     await message.channel.send(
                     '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unmuted")
