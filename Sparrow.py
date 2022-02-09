@@ -263,13 +263,13 @@ async def on_message(message):
             await message.channel.send(
                 f'{message.author.mention} the role has been added to the user')  
     elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
-        #await message.channel.send(
-         #   f'{message.author.mention} enter the role to add him')
-        #role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        #rolecontent = role.content
-        #print(rolecontent)
         user = message.mentions[0]
-        role = discord.utils.get(message.guild.roles, name=message.content[10:])
+        await message.channel.send(
+            f'{message.author.mention} enter the role to add {user}')
+        role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        rolecontent = role.content
+        #print(rolecontent)
+        role = discord.utils.get(message.guild.roles, name=rolecontent)
         print(message.content[9:])
         if role is None:
             await message.channel.send(
