@@ -249,8 +249,8 @@ async def on_message(message):
             f'{message.author.mention} enter the role name to add {user.mention}')
         role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         rolecontent = role.content
-        await msg.add_reaction('✅')
-        await msg.add_reaction('❌')
+        await message.add_reaction('✅')
+        await message.add_reaction('❌')
         def check(reaction, user):
             return user == message.mentions[0] and str(reaction.emoji) in ['✅', '❌']
         reaction, user = await client.wait_for('reaction_add', check=check)
