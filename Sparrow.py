@@ -46,7 +46,6 @@ bot = commands.Bot(command_prefix='0x')
 @client.event
 async def on_message(message):
     global hadith_number_int
-    global msg
     if message.author == client.user:
         return
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
@@ -83,64 +82,88 @@ async def on_message(message):
         embed.add_field(name="0xunban <user>", value="Unbans a user", inline=False)
         embed.add_field(name="0xmute <user>", value="Mutes a user", inline=False)
         embed.add_field(name="0xunmute <user>", value="Unmutes a user", inline=False)
+        embed.add_field(name="0xclear <number of messages>", value="Clears a number of messages", inline=False)
+        embed.add_field(name="0xarole <user>", value="Gives a role to a user", inline=False)
         await message.channel.send(embed=embed)
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
-        if message.author.guild_permissions.administrator:
-            user = message.mentions[0]
-            if user.guild_permissions.administrator:
-                await message.channel.send(
-                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be muted")
+        try:
+            if message.author.guild_permissions.administrator:
+                user = message.mentions[0]
+                if user.guild_permissions.administrator:
+                    await message.channel.send(
+                        '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be muted")
+                else:
+                    await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
+                    await user.edit(mute=True)
             else:
-                await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
-                await user.edit(mute=True)
-        else:
-            await message.channel.send('{0.author.mention}'.format(message))
+                await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
+        except discord.Forbidden:
+            await message.channel.send(f'{message.author.mention} I dont have permission to mute users')        
     elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
-        if message.author.guild_permissions.administrator:
-            user = message.mentions[0]
-            if user.guild_permissions.administrator:
-                await message.channel.send(
+        try:
+            if message.author.guild_permissions.administrator:
+                user = message.mentions[0]
+                if user.guild_permissions.administrator:
+                    await message.channel.send(
                     '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unmuted")
+                else:
+                    await message.channel.send('{0.author.mention}'.format(message) + "user is unmuted")
+                    await user.edit(mute=False)
             else:
-                await message.channel.send('{0.author.mention}'.format(message) + "user is unmuted")
-                await user.edit(mute=False)
-        else:
-            await message.channel.send('{0.author.mention}'.format(message))
+                await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
+        except discord.Forbidden:
+                    await message.channel.send(f'{message.author.mention} I dont have permission to unmute users')        
     elif message.content.startswith('0xkick') or message.content.startswith('/kick'):
-        if message.author.guild_permissions.administrator:
-            user = message.mentions[0]
-            if user.guild_permissions.administrator:
-                await message.channel.send(
+        try:
+            if message.author.guild_permissions.administrator:
+                user = message.mentions[0]
+                if user.guild_permissions.administrator:
+                    await message.channel.send(
                     '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be kicked")
+                else:
+                    await message.channel.send('{0.author.mention}'.format(message) + "user is kicked")
+                    await user.guild.kick(user)
             else:
-                await message.channel.send('{0.author.mention}'.format(message) + "user is kicked")
-                await user.guild.kick(user)
-        else:
-            await message.channel.send('{0.author.mention}'.format(message))
+                await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
+        except discord.Forbidden:
+            await message.channel.send(f'{message.author.mention} I dont have permission to kick users')      
     elif message.content.startswith('0xban') or message.content.startswith('/ban'):
-        if message.author.guild_permissions.administrator:
-            user = message.mentions[0]
-            await message.channel.send('{0.author.mention}'.format(message) + "user is banned")
-            await user.guild.ban(user)
-        else:
-            await message.channel.send('{0.author.mention}'.format(message))
-    elif message.content.startswith('0xunban') or message.content.startswith('/unban'):
-        if message.author.guild_permissions.administrator:
-            user = message.mentions[0]
-            if user.guild_permissions.administrator:
-                await message.channel.send(
-                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unbanned")
+        try:
+            if message.author.guild_permissions.administrator:
+                user = message.mentions[0]
+                if user.guild_permissions.administrator:
+                    await message.channel.send(
+                    '{0.author.mention}'.format(message) + f"{message.mentions[0]} is an admin and cannot be banned")
+                else:
+                    await message.channel.send('{0.author.mention}'.format(message) + "user is banned")
+                    await user.guild.ban(user)
             else:
-                await message.channel.send('{0.author.mention}'.format(message) + "user is unbanned")
-                await user.guild.unban(user)
-        else:
-            await message.channel.send('{0.author.mention} not an admin'.format(message))
+                await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
+        except discord.Forbidden:
+            await message.channel.send(f'{message.author.mention} I dont have permission to kick users')        
+    elif message.content.startswith('0xunban') or message.content.startswith('/unban'):
+        try:
+            if message.author.guild_permissions.administrator:
+                user = message.mentions[0]
+                if user.guild_permissions.administrator:
+                    await message.channel.send(
+                        '{0.author.mention}'.format(message) + f"{message.mentions[0]} cannot be unbanned")
+                else:
+                    await message.channel.send('{0.author.mention}'.format(message) + "user is unbanned")
+                    await user.guild.unban(user)
+            else:
+                await message.channel.send('{0.author.mention} not an admin'.format(message))
+        except discord.Forbidden:
+            await message.channel.send(f'{message.author.mention} I dont have permission to unban users')    
     elif message.content.startswith('0xclear') or message.content.startswith('/clear'):
-        if message.author.guild_permissions.administrator:
-            mc = int(message.content[7:])
-            await message.channel.purge(limit=mc)
-        else:
-            await message.channel.send('{0.author.mention} not an admin'.format(message))
+        try:
+            if message.author.guild_permissions.administrator:
+                mc = int(message.content[7:])
+                await message.channel.purge(limit=mc)
+            else:
+                await message.channel.send('{0.author.mention} not an admin'.format(message))
+        except discord.Forbidden:
+                    await message.channel.send(f'{message.author.mention} I dont have permission to clear messages')        
     elif message.content.startswith('0xmushaf'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg') as r:
@@ -263,11 +286,13 @@ async def on_message(message):
                     user  = message.mentions[0]
                     role_to_add = discord.utils.get(message.guild.roles, name=rolecontent)
                     await user.add_roles(role_to_add)
-                    await message.channel.send(f'{message.author.mention} your role has been added')
+                    await message.channel.send(f'{message.author.mention} The role has been added to {user.mention}')
                 except asyncio.TimeoutError:
                     await message.channel.send(f'{message.author.mention} Reaction Timeout')
+                except discord.Forbidden:
+                    await message.channel.send(f'{message.author.mention} I dont have permission to add roles')
             else:
-                await message.channel.send(f'{message.author.mention} your role has not been added')        
+                await message.channel.send(f'{message.author.mention} The role has not been added to the {user.mention}')        
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')        
 
