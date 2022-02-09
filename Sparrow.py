@@ -250,19 +250,15 @@ async def on_message(message):
         role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         rolecontent = role.content
         await message.add_reaction('✅')
-        await message.add_reaction('❌')
         def check(reaction, user):
-            return user == message.author or message.mentions[0] and str(reaction.emoji) in ['✅', '❌']
+            return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
         reaction, user = await client.wait_for('reaction_add', check=check)
         print(str(reaction.emoji))
         if str(reaction.emoji) == '✅':
             role_to_add = discord.utils.get(message.guild.roles, name=rolecontent)
             await user.add_roles(role_to_add)
             await message.channel.send(f'{message.author.mention} your role has been added')
-        elif str(reaction.emoji) == '❌':
-            role_to_remove = discord.utils.get(message.guild.roles, name=rolecontent)
-            await message.channel.send(f'{message.author.mention} your role has not been added')
-            await user.remove_roles(role_to_remove)
+        
 
 tvar = "ix"
 tvarn = "zk"
