@@ -263,8 +263,13 @@ async def on_message(message):
             await message.channel.send(
                 f'{message.author.mention} the role has been added to the user')  
     elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
+        #await message.channel.send(
+         #   f'{message.author.mention} enter the role to add him')
+        #role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        #rolecontent = role.content
+        #print(rolecontent)
         user = message.mentions[0]
-        role = message.content[8:]
+        role = discord.utils.get(message.guild.roles, name=message.content[9:])
         if role is None:
             await message.channel.send(
                 f'{message.author.mention} the role name is not correct')
@@ -276,10 +281,10 @@ async def on_message(message):
                 reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
             except asyncio.TimeoutError:
                 await message.channel.send(
-                    f'{message.author.mention} Reaction timed out')
+                    f'{message.author.mention} reaction time out')
             else:
                 await message.channel.send(
-                    f'{message.author.mention} The role has been added to the user')
+                    f'{message.author.mention} the role has been added to the user')
                 await user.add_roles(role)
 
 
