@@ -258,6 +258,7 @@ async def on_message(message):
         calc_content = calc.content
         calccontent = calc_content.replace('+', '--')
         result = os.system(f'curl api.mathjs.org/v4/?expr={calccontent}')
+        print(result)
         embed = discord.Embed(title="Result", description=f'{result}', color=0x00ff00)
         await message.channel.send(embed=embed)
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/Qrdecode'):
