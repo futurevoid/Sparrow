@@ -5,6 +5,7 @@ import datetime as dt
 from importlib.resources import contents
 import json
 import os
+from pickle import GET
 import random
 import sys
 import time
@@ -22,7 +23,7 @@ from keep_alive import keep_alive
 from PIL import Image
 from pyzbar import pyzbar
 import urllib.request
-import urllib3.request
+import urllib3
 client = discord.Client()
 
 
@@ -234,7 +235,7 @@ async def on_message(message):
         qrcontent = qr.content
         print(qrcontent)
         try:
-            img = Image.open(urllib3.request.urlopen(qrcontent))
+            img = Image.open(requests.get(qrcontent))
         except:
             img= Image.open(qrcontent)    
         output_unfiltered = pyzbar.decode(img)
