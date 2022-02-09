@@ -246,7 +246,7 @@ async def on_message(message):
     elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
         user  = message.author
         await message.channel.send(
-            f'{message.author.mention} enter the role name to add {user.mention}')
+            f'{message.author.mention} enter the role name to add {message.mentions[0].mention}')
         role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         rolecontent = role.content
         await message.add_reaction('✅')
