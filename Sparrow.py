@@ -302,8 +302,8 @@ async def on_message(message):
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')
     elif message.content.startswith('0xinvisible') or message.content.startswith('/invisible'):
-        while True:
-            await message.channel.send('\u3164')
+        
+            await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
 
 tvar = "ix"
 tvarn = "zk"
