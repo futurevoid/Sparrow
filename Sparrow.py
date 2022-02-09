@@ -251,6 +251,7 @@ async def on_message(message):
         user = message.mentions[1]
         role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         rolecontent = role.content
+        print(user)
         await message.add_reaction('✅')
         def check(reaction, user):
             return user == message.author or message.mentions[1] and str(reaction.emoji) in '✅'
