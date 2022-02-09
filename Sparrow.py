@@ -11,6 +11,7 @@ import random
 import sys
 import time
 from email import message
+from unittest import result
 import aiohttp
 import discord
 # from more_itertools import sliced
@@ -25,6 +26,7 @@ from PIL import Image
 from pyzbar import pyzbar
 import urllib.request
 import urllib3
+import os
 client = discord.Client()
 
 
@@ -255,11 +257,9 @@ async def on_message(message):
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calc_content = calc.content
         calccontent = calc_content.replace('+', '--')
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://api.mathjs.org/v4/?expr={calccontent}') as r:
-                #res = await r.json()
-                embed = discord.Embed(title="Result", description=f'https://api.mathjs.org/v4/?expr={calccontent}', color=0x00ff00)
-                await message.channel.send(embed=embed)
+        result = os.system(f'curl api.mathjs.org/v4/?expr={calccontent}')
+        embed = discord.Embed(title="Result", description=f'{result}', color=0x00ff00)
+        await message.channel.send(embed=embed)
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/Qrdecode'):
         await message.channel.send(
             f'{message.author.mention} send the qr code to be decoded ')
