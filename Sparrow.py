@@ -242,52 +242,25 @@ async def on_message(message):
         output= output_unfiltered[0].data.decode('utf-8')
         embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
         await message.channel.send(embed=embed)
-    elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
+    elif message.content.startswith('0xaddrolesbyreaction') or message.content.startswith('/addrolesbyreaction'):
+        user  = message.mentions[0]
         await message.channel.send(
-            f'{message.author.mention} enter the user to add the role to him')
-        user = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        await message.channel.send(
-            f'{message.author.mention} enter the role to add him')
-        role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        usercontent = user.content
-        rolecontent = role.content
-        print(usercontent)
-        print(rolecontent)
-        role = discord.utils.get(message.guild.roles, name=rolecontent)
-        if role is None:
-            await message.channel.send(
-                f'{message.author.mention} the role name is not correct \n اسم الرتبة غير صحيح')
-        else:
-            member = discord.utils.get(message.guild.members, name=usercontent)
-            await member.add_roles(role)
-            await message.channel.send(
-                f'{message.author.mention} the role has been added to the user')  
-    elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
-        user = message.mentions[0]
-        await message.channel.send(
-            f'{message.author.mention} enter the role to add {user}')
+            f'{message.author.mention} enter the role name to add {user.mention}')
         role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         rolecontent = role.content
-        #print(rolecontent)
-        role = discord.utils.get(message.guild.roles, name=rolecontent)
-        print(message.content[9:])
-        if role is None:
-            await message.channel.send(
-                f'{message.author.mention} the role name is not correct')
-        else:
-            await message.add_reaction('➕')
-            def check(reaction, user):
-                return user == message.mentions[0] and str(reaction.emoji) == '➕'
-            try:
-                reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
-            except asyncio.TimeoutError:
-                await message.channel.send(
-                    f'{message.author.mention} reaction time out')
-            else:
-                await message.channel.send(
-                    f'{message.author.mention} the role has been added to the user')
-                await user.add_roles(role)
-
+        await msg.add_reaction('✅')
+        await msg.add_reaction('❌')
+        def check(reaction, user):
+            return user == message.mentions[0] and str(reaction.emoji) in ['✅', '❌']
+        reaction, user = await client.wait_for('reaction_add', check=check)
+        if str(reaction.emoji) == '✅':
+            role_to_add = discord.utils.get(message.guild.roles, name=rolecontent)
+            await user.add_roles(role_to_add)
+            await message.channel.send(f'{message.author.mention} your role has been added')
+        elif str(reaction.emoji) == '❌':
+            role_to_remove = discord.utils.get(message.guild.roles, name=rolecontent)
+            await message.channel.send(f'{message.author.mention} your role has not been added')
+            await user.remove_roles(role_to_remove)
 
 tvar = "ix"
 tvarn = "zk"
