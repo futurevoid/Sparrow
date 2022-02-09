@@ -253,7 +253,8 @@ async def on_message(message):
         def check(reaction, user):
             return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
         reaction, user = await client.wait_for('reaction_add', check=check)
-        if reaction == '✅':
+        reause = reaction , user
+        if reause == '✅':
             role_to_add = discord.utils.get(message.guild.roles, name=rolecontent)
             await user.add_roles(role_to_add)
             await message.channel.send(f'{message.author.mention} your role has been added')
