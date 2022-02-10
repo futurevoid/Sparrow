@@ -261,6 +261,9 @@ async def on_message(message):
             "available operations are: +, -, *, /, **, %,(),sin, cos, tan, cot, log, ln, sqrt, pi, e")
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
+        user = message.mentions[0]
+        def check(user):
+            return user == message.mentions[0]   
         calc = await client.wait_for('message', check=check, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
