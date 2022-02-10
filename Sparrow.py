@@ -24,7 +24,6 @@ from matplotlib import image
 from keep_alive import keep_alive
 from PIL import Image
 from pyzbar import pyzbar
-import urllib.request
 import urllib3
 import os
 client = discord.Client()
@@ -253,9 +252,17 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
+            "available operations are: +, -, *, /, **, %,(),sin, cos, tan, cot, log, ln, sqrt, pi, e")
+        await message.channel.send(
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        calc_content = calc.content
+        calccontent = calc.content
+        calc_content_urlencoded = urllib3.parse.quote(calccontent)
+        if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
+            calc_content_rep = calccontent.replace('sin()' or 'cos()' or 'tan()' or 'cot()', 'sin(' , 'cos(','tan(','cot(',)
+            calc_content = calc_content_rep.add(' deg)')
+        else:
+            calc_content = calc_content_urlencoded    
         try:
             site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content}")
             site_request_content = site_request.text
