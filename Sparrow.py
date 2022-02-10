@@ -51,8 +51,8 @@ bot = commands.Bot(command_prefix='0x')
 async def on_message(message):
     global hadith_number_int
     global check
-    def check(reaction, user):
-            return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
+    def check(user):
+            return user == message.author 
     if message.author == client.user:
         return
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
