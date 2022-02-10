@@ -253,15 +253,16 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
-            f'{message.author.mention} send the equation to calculate')
+            f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calc_content = calc.content
-        print(calc_content)
-        calccontent = calc_content.replace('+', '--')
-        #result = os.system(f'curl api.mathjs.org/v4/?expr={calccontent})
-        #print(result)
-        embed = discord.Embed(title="Result", description=os.system(f'curl api.mathjs.org/v4/?expr={calccontent}'), color=0x00ff00)
-        await message.channel.send(embed=embed)
+        try:
+            site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content}")
+            site_request_content = site_request.text
+            embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        except requests.exceptions.RequestException as e:
+            await message.channel.send(f'{message.author.mention} {e}')    
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/Qrdecode'):
         await message.channel.send(
             f'{message.author.mention} send the qr code to be decoded ')
