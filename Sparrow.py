@@ -1,6 +1,6 @@
 # create a discord bot that will automatically send messages after a certain amount of time has passed
 # (in this case, the time is set to 5 seconds)
-from ast import Try
+from ast import Try, parse
 import asyncio
 import datetime as dt
 from importlib.resources import contents
@@ -22,10 +22,12 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from discord.utils import get
 from matplotlib import image
+import urllib3
 from keep_alive import keep_alive
 from PIL import Image
 from pyzbar import pyzbar
 from urllib3 import *
+import urllib.parse
 import os
 client = discord.Client()
 
@@ -258,7 +260,7 @@ async def on_message(message):
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        calc_content_urlencoded = urlencode(calccontent)
+        calc_content_urlencoded = urllib.parse.urlencode(calccontent ,doseq=True)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
             calc_content_rep = calccontent.replace('sin()' or 'cos()' or 'tan()' or 'cot()', 'sin(' , 'cos(','tan(','cot(',)
             calc_content = calc_content_rep.add(' deg)')
