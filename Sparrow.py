@@ -24,7 +24,7 @@ from matplotlib import image
 from keep_alive import keep_alive
 from PIL import Image
 from pyzbar import pyzbar
-import urllib3
+import urllib
 import os
 client = discord.Client()
 
@@ -257,7 +257,7 @@ async def on_message(message):
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        calc_content_urlencoded = urllib3.parse.quote(calccontent)
+        calc_content_urlencoded = urllib.urlencode(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
             calc_content_rep = calccontent.replace('sin()' or 'cos()' or 'tan()' or 'cot()', 'sin(' , 'cos(','tan(','cot(',)
             calc_content = calc_content_rep.add(' deg)')
