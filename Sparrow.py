@@ -260,7 +260,7 @@ async def on_message(message):
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        calc_content_urlencoded = urllib.parse.quote(calccontent ,doseq=True)
+        calc_content_urlencoded = urllib.parse.quote(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
             calc_content_rep = calccontent.replace('sin()' or 'cos()' or 'tan()' or 'cot()', 'sin(' , 'cos(','tan(','cot(',)
             calc_content = calc_content_rep.add(' deg)')
