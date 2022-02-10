@@ -15,6 +15,7 @@ from unittest import result
 from urllib.parse import urlencode
 import aiohttp
 import discord
+from psutil import users
 # from more_itertools import sliced
 import requests
 from discord import FFmpegPCMAudio
@@ -258,13 +259,13 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
-            "available operations are: +, -, *, /, **, %,(),sin, cos, tan, cot, log, ln, sqrt, pi, e")
+            "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, log, ln, sqrt, pi, e")
+        user = message.author
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
-        user = message.mentions
-        def check(user):
-            return user == message.mentions   
-        calc = await client.wait_for('message', check=check, timeout=60.0)
+        
+        
+        calc = await client.wait_for('message', check=message.author == user, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
