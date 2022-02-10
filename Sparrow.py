@@ -50,6 +50,9 @@ bot = commands.Bot(command_prefix='0x')
 @client.event
 async def on_message(message):
     global hadith_number_int
+    global check
+    def check(reaction, user):
+            return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
     if message.author == client.user:
         return
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
@@ -258,14 +261,14 @@ async def on_message(message):
             "available operations are: +, -, *, /, **, %,(),sin, cos, tan, cot, log, ln, sqrt, pi, e")
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
-        calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        calc = await client.wait_for('message', check=check, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
-            calc_content_rep = calccontent.replace('sin()', 'sin(')
-            calc_content_rep = calc_content_rep.replace('cos()', 'cos(')
-            calc_content_rep = calc_content_rep.replace('tan()', 'tan(')
-            calc_content_rep = calc_content_rep.replace('cot()', 'cot(')
+            calc_content_rep = calccontent.replace('', 'sin(')
+            calc_content_rep = calccontent.replace('cos()', 'cos(')
+            calc_content_rep = calccontent.replace('tan()', 'tan(')
+            calc_content_rep = calccontent.replace('cot()', 'cot(')
             calc_content = calc_content_rep+'deg)'
         else:
             calc_content = calc_content_urlencoded    
