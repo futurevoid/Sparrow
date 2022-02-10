@@ -262,7 +262,10 @@ async def on_message(message):
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
-            calc_content_rep = calccontent.replace('sin()' or 'cos()' or 'tan()' or 'cot()', 'sin(' , 'cos(','tan(','cot(',)
+            calc_content_rep = calccontent.replace('sin()', 'sin(')
+            calc_content_rep = calc_content_rep.replace('cos()', 'cos(')
+            calc_content_rep = calc_content_rep.replace('tan()', 'tan(')
+            calc_content_rep = calc_content_rep.replace('cot()', 'cot(')
             calc_content = calc_content_rep.add(' deg)')
         else:
             calc_content = calc_content_urlencoded    
