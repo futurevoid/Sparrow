@@ -266,7 +266,7 @@ async def on_message(message):
             calc_content_rep = calc_content_rep.replace('cos()', 'cos(')
             calc_content_rep = calc_content_rep.replace('tan()', 'tan(')
             calc_content_rep = calc_content_rep.replace('cot()', 'cot(')
-            calc_content = calc_content_rep.add(' deg)')
+            calc_content = calc_content_rep+'deg)'
         else:
             calc_content = calc_content_urlencoded    
         try:
