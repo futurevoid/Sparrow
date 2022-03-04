@@ -47,6 +47,7 @@ bot = commands.Bot(command_prefix='0x')
 async def on_message(message):
     global hadith_number_int
     global check 
+    global autos
     def check(user):
             return user == message.author 
     if message.author == client.user:
@@ -181,12 +182,10 @@ async def on_message(message):
                 embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
-        global autos
-        autos = 'false'
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions are stopped")
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
+        global autos
         autos='true'
         while autos == 'true':
             if not autos:
@@ -222,7 +221,9 @@ async def on_message(message):
                                           description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
-        
+    elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
+        global autos
+        autos = 'false'                
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
             f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
