@@ -265,7 +265,8 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
-            "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, log, ln, sqrt, pi, e")
+            "available operations are: +, -, *, /, ^, %,(), log, ln, sqrt, pi, e"+"\n"+
+            "sin(your number deg), cos(your number deg), tan(your number deg), cot(your number deg), sec(your number deg), csc(your number deg), arcsin(your number deg), arccos(your number deg), arctan(your number deg), arccot(your number deg), arcsec(your number deg), arccsc(your number deg)")
         user = message.author
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
