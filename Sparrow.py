@@ -271,7 +271,7 @@ async def on_message(message):
             f'{message.author.mention} enter your calculation')
         
         
-        calc = await client.wait_for('message', check=message.author == message.author, timeout=60.0)
+        calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
         print(calccontent)
@@ -301,7 +301,9 @@ async def on_message(message):
         except:
             img= Image.open(qrcontent)    
         output_unfiltered = pyzbar.decode(img)
+        print(output_unfiltered)
         output= output_unfiltered[0].data.decode('utf-8')
+        print(output)
         embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
         await message.channel.send(embed=embed)
     elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
