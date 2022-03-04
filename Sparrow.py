@@ -46,7 +46,7 @@ bot = commands.Bot(command_prefix='0x')
 @client.event
 async def on_message(message):
     global hadith_number_int
-    global check
+    global check 
     def check(user):
             return user == message.author 
     if message.author == client.user:
@@ -181,8 +181,17 @@ async def on_message(message):
                 embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
+    elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
+        global autos
+        autos = False
+        await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions are stopped")
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
-        while message.content != '0xstopautos':
+        await message.channel.purge(limit=1)
+        global autos
+        autos=True
+        while True:
+            if not autos:
+                break
             mushafno = random.randint(1,600)
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
@@ -201,7 +210,11 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
-        while message.content != '0xstopautos':
+        global autos
+        autos=True
+        while True:
+            if not autos:
+                break
             async with aiohttp.ClientSession() as cs:
                 randayah = random.randint(1, 6236)
                 async with cs.get(f'http://api.alquran.cloud/v1/ayah/{randayah}') as r:
