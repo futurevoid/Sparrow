@@ -173,13 +173,23 @@ async def on_message(message):
                 await message.channel.send('{0.author.mention} not an admin'.format(message))
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to clear messages')        
-    elif message.content.startswith('0xmushaf'):
+    elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
+        mushafno = message.content[9:]
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg') as r:
+            async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                 # res = await r.json()
-                embed = discord.Embed(title=f"mushaf:{message.content[9:]}", description="", color=0x00ff00)
-                embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{message.content[9:]}.jpg')
+                embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
+                embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
+    elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
+        while message.content != '0xstopautos':
+            mushafno = random.randint(1,600)
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
+                    # res = await r.json()
+                    embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
+                    embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
+                    await message.channel.send(embed=embed)            
     elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'http://api.alquran.cloud/v1/ayah/{message.content[6:]}') as r:
@@ -190,7 +200,7 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
-        while True:
+        while message.content != '0xstopautos':
             async with aiohttp.ClientSession() as cs:
                 randayah = random.randint(1, 6236)
                 async with cs.get(f'http://api.alquran.cloud/v1/ayah/{randayah}') as r:
@@ -199,6 +209,7 @@ async def on_message(message):
                                           description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
+        
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
             f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
@@ -264,7 +275,7 @@ async def on_message(message):
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
-            calc_content_rep = calccontent.replace('', 'sin(')
+            calc_content_rep = calccontent.replace('sin()', 'sin(')
             calc_content_rep = calccontent.replace('cos()', 'cos(')
             calc_content_rep = calccontent.replace('tan()', 'tan(')
             calc_content_rep = calccontent.replace('cot()', 'cot(')
