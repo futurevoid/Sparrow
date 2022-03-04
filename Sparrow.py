@@ -274,6 +274,7 @@ async def on_message(message):
         calc = await client.wait_for('message', check=message.author ==user, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
+        print(calccontent)
         if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
             calc_content_rep = calccontent.replace('sin()', 'sin(')
             calc_content_rep = calccontent.replace('cos()', 'cos(')
