@@ -208,7 +208,6 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
-        global autos
         autos='true'
         while autos == 'true':
             if not autos:
@@ -222,7 +221,6 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
     elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
-        global autos
         autos = 'false'                
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
