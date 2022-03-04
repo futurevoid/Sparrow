@@ -271,7 +271,7 @@ async def on_message(message):
             f'{message.author.mention} enter your calculation')
         
         
-        calc = await client.wait_for('message', check=message.author ==user, timeout=60.0)
+        calc = await client.wait_for('message', check=message.author == message.author, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
         print(calccontent)
