@@ -77,9 +77,11 @@ async def on_message(message):
         embed.add_field(name="0xping", value="Shows the bot latency", inline=False)
         embed.add_field(name="0xqr <content>", value="Creates a QR code with your content", inline=False)
         embed.add_field(name="0xmushaf <number of page in the mushaf>", value="Shows a mushaf page", inline=False)
-        embed.add_field(name="0xautoayah", value="Shows a random ayah every 5 minutes", inline=False)
         embed.add_field(name="0xayah <surah number:ayah number>", value="Shows a  ayah", inline=False)
         embed.add_field(name="0xhadith", value="Shows you a hadith", inline=False)
+        embed.add_field(name="0xautoayah", value="Shows a random ayah every 5 minutes", inline=False)
+        embed.add_field(name="0xautomushaf", value="Shows a random mushaf page every 5 minutes", inline=False)
+        embed.add_field(name="0xstopautos", value="Stops all automatic functions", inline=False)
         # embed.add_field(name="0xhadith_info" , value="Shows the hadith info", inline=False)
         embed.add_field(name="0xkick <user>", value="Kicks a user", inline=False)
         embed.add_field(name="0xban <user>", value="Bans a user", inline=False)
@@ -88,6 +90,7 @@ async def on_message(message):
         embed.add_field(name="0xunmute <user>", value="Unmutes a user", inline=False)
         embed.add_field(name="0xclear <number of messages>", value="Clears a number of messages", inline=False)
         embed.add_field(name="0xarole <user>", value="Gives a role to a user", inline=False)
+
         await message.channel.send(embed=embed)
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
         try:
@@ -378,7 +381,8 @@ async def on_message(message):
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
-        await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')    
+        await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
+        
 tvar = "ix"
 tvarn = "zk"
 tvarU = tvar.upper()
