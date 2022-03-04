@@ -185,7 +185,6 @@ async def on_message(message):
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions are stopped")
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
-        #global autos
         autos='true'
         while autos == 'true':
             if not autos:
@@ -221,7 +220,8 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
     elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
-        autos = 'false'                
+        autos = 'false'
+        await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions have been stopped")                
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
             f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
