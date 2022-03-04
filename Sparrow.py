@@ -183,12 +183,12 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
         global autos
-        autos = False
+        autos = 'false'
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions are stopped")
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
-        autos=True
-        while True:
+        autos='true'
+        while autos == 'true':
             if not autos:
                 break
             mushafno = random.randint(1,600)
@@ -210,8 +210,8 @@ async def on_message(message):
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
         global autos
-        autos=True
-        while True:
+        autos='true'
+        while autos == 'true':
             if not autos:
                 break
             async with aiohttp.ClientSession() as cs:
