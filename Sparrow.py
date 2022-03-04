@@ -185,7 +185,7 @@ async def on_message(message):
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions are stopped")
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
-        global autos
+        #global autos
         autos='true'
         while autos == 'true':
             if not autos:
