@@ -181,7 +181,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
+    elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         while message.content != '0xstopautos':
             mushafno = random.randint(1,600)
             async with aiohttp.ClientSession() as cs:
@@ -189,7 +189,8 @@ async def on_message(message):
                     # res = await r.json()
                     embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                     embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
-                    await message.channel.send(embed=embed)            
+                    await message.channel.send(embed=embed)
+                    await asyncio.sleep(30)            
     elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'http://api.alquran.cloud/v1/ayah/{message.content[6:]}') as r:
