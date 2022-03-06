@@ -80,7 +80,7 @@ async def on_message(message):
         embed.add_field(name="0xayah <surah number:ayah number>", value="Shows a  ayah", inline=False)
         embed.add_field(name="0xhadith", value="Shows you a hadith", inline=False)
         embed.add_field(name="0xautoayah", value="Shows a random ayah every 5 minutes", inline=False)
-        embed.add_field(name="0xautomushaf", value="Shows a random mushaf page every 5 minutes", inline=False)
+        embed.add_field(name="0xautomushaf", value="Shows a random mushaf page every day", inline=False)
         embed.add_field(name="0xstopautos", value="Stops all automatic functions", inline=False)
         # embed.add_field(name="0xhadith_info" , value="Shows the hadith info", inline=False)
         embed.add_field(name="0xkick <user>", value="Kicks a user", inline=False)
