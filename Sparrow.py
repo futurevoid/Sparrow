@@ -278,6 +278,18 @@ async def on_message(message):
                 else:
                     await message.channel.send(
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
+    elif message.content.startswith('0xazkar-alsabah') or message.content.startswith('/azkar-alsabah'):
+        embed = discord.Embed(title="الأذكار الصباح", description="", color=0x00ff00)
+        embed.add_field(name="أيه الكرسي", value="مره واحده", inline=False)
+        embed.add_field(name="سورة الإِخْلاَصِ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="أَصْـبَحْنا وَأَصْـبَحَ المُـلْكُ لله وَالحَمدُ لله ، لا إلهَ إلاّ اللّهُ وَحدَهُ لا شَريكَ لهُ، لهُ المُـلكُ ولهُ الحَمْـد، وهُوَ على كلّ شَيءٍ قدير", value="مره واحده", inline=False)
+        embed.add_field(name="اللّهـمَّ أَنْتَ رَبِّـي لا إلهَ إلاّ أَنْتَ ، خَلَقْتَنـي وَأَنا عَبْـدُك ، وَأَنا عَلـى عَهْـدِكَ وَوَعْـدِكَ ما اسْتَـطَعْـت ، أَعـوذُبِكَ مِنْ شَـرِّ ما صَنَـعْت ، أَبـوءُ لَـكَ بِنِعْـمَتِـكَ عَلَـيَّ وَأَبـوءُ بِذَنْـبي فَاغْفـِرْ لي فَإِنَّـهُ لا يَغْـفِرُ الذُّنـوبَ إِلاّ أَنْتَ .", value="مره واحده", inline=False)
+        embed.add_field(name="اللّهـمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلُ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="أَعـوذُ بِكَلِمـاتِ اللّهِ التّـامّـاتِ مِنْ شَـرِّ ما خَلَـق.", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللّهـمَّ عافِـني في بَدَنـي ، اللّهـمَّ عافِـني في سَمْـعي ، اللّهـمَّ عافِـني في بَصَـري ، لا إلهَ إلاّ أَنْتَ.", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللّهـمَّ إِنّـي أَعـوذُ بِكَ مِنَ الْكُـفر ، وَالفَـقْر ، وَأَعـوذُ بِكَ مِنْ عَذابِ القَـبْر ، لا إلهَ إلاّ أَنْتَ.", value="ثلاث مرات", inline=False)
+        
+
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
             "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e"+
