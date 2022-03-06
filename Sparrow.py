@@ -89,7 +89,7 @@ async def on_message(message):
         embed.add_field(name="0xmute <user>", value="Mutes a user", inline=False)
         embed.add_field(name="0xunmute <user>", value="Unmutes a user", inline=False)
         embed.add_field(name="0xclear <number of messages>", value="Clears a number of messages", inline=False)
-        embed.add_field(name="0xarole <user>", value="Gives a role to a user", inline=False)
+        embed.add_field(name="0xaddrole <user>", value="Gives a role to a user", inline=False)
 
         await message.channel.send(embed=embed)
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
@@ -333,7 +333,7 @@ async def on_message(message):
         print(output)
         embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
         await message.channel.send(embed=embed)
-    elif message.content.startswith('0xarole') or message.content.startswith('/arole'):
+    elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
         
         if message.author.guild_permissions.administrator:
             user  = message.mentions[0]
@@ -361,6 +361,33 @@ async def on_message(message):
                 await message.channel.send(f'{message.author.mention} The role has not been added to the {user.mention}')        
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')            
+    elif message.content.startswith('0xremoverole') or message.content.startswith('/removerole'):
+        if message.author.guild_permissions.administrator:
+            user  = message.mentions[0]
+            await message.channel.send(
+            f'{message.author.mention} enter the role name to remove {message.mentions[0].mention}')
+            role = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+            rolecontent = role.content
+            print(user)
+            await message.add_reaction('✅')
+            def check(reaction, user):
+                return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
+            reaction, user = await client.wait_for('reaction_remove', timeout= 60 ,check=check)
+        
+            if str(reaction.emoji) == '✅':
+                try:
+                    user  = message.mentions[0]
+                    role_to_remove = discord.utils.get(message.guild.roles, name=rolecontent)
+                    await user.remove_roles(role_to_remove)
+                    await message.channel.send(f'{message.author.mention} The role has been removed from {user.mention}')
+                except asyncio.TimeoutError:
+                    await message.channel.send(f'{message.author.mention} Reaction Timeout')
+                except discord.Forbidden:
+                    await message.channel.send(f'{message.author.mention} I dont have permission to remove roles')
+            else:
+                await message.channel.send(f'{message.author.mention} The role has not been removed from the {user.mention}')        
+        else:
+            await message.channel.send(f'{message.author.mention} you are not an admin')
     elif message.content.startswith('0xinv') or message.content.startswith('/inv'):
         message.channel.purge(limit=1)
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
