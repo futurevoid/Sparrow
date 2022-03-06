@@ -185,6 +185,17 @@ async def on_message(message):
                 embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
+    elif message.content.startswith('0xplay') or message.content.startswith('/play'):
+        try:
+            if message.author.guild_permissions.administrator:
+                url = message.content[7:]
+                voice = await bot.join_voice_channel(message.author.voice_channel)
+                player = await voice.create_ytdl_player(url)
+                player.start()
+            else:
+                await message.channel.send('{0.author.mention} not an admin'.format(message))
+        except discord.Forbidden:
+            await message.channel.send(f'{message.author.mention} I dont have permission to play music')
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
         autos='true'
