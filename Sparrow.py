@@ -185,7 +185,6 @@ async def on_message(message):
                 embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
-        await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions are stopped")
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
         autos='true'
@@ -288,7 +287,7 @@ async def on_message(message):
         embed.add_field(name="أَعـوذُ بِكَلِمـاتِ اللّهِ التّـامّـاتِ مِنْ شَـرِّ ما خَلَـق.", value="ثلاث مرات", inline=False)
         embed.add_field(name="اللّهـمَّ عافِـني في بَدَنـي ، اللّهـمَّ عافِـني في سَمْـعي ، اللّهـمَّ عافِـني في بَصَـري ، لا إلهَ إلاّ أَنْتَ.", value="ثلاث مرات", inline=False)
         embed.add_field(name="اللّهـمَّ إِنّـي أَعـوذُ بِكَ مِنَ الْكُـفر ، وَالفَـقْر ، وَأَعـوذُ بِكَ مِنْ عَذابِ القَـبْر ، لا إلهَ إلاّ أَنْتَ.", value="ثلاث مرات", inline=False)
-        
+
 
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
