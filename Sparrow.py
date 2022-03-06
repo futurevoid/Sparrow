@@ -197,10 +197,10 @@ async def on_message(message):
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xplay') or message.content.startswith('/play'):
-        url = ctx.message.content
+        url = message.content
         url = url.strip('0xplay ')
 
-        author = ctx.message.author
+        author = message.author
         voice_channel = author.voice_channel
         vc = await client.join_voice_channel(voice_channel)
 
