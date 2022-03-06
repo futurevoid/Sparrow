@@ -38,11 +38,22 @@ async def on_ready():
     await client.change_presence(activity = discord.Game("0xhelp for help " + "0xhelp للمساعده")) 
 
 # bot prefix
-bot = commands.Bot(command_prefix='0x')
+bot = Bot('0x')
 
 
 # create an event that will run when !hello is called
 # create a function that will run when a message is sent
+@bot.command(pass_context=True)
+async def yt(ctx):
+    url = ctx.message.content
+    url = url.strip('0xyt ')
+
+    author = ctx.message.author
+    voice_channel = author.voice_channel
+    vc = await client.join_voice_channel(voice_channel)
+
+    player = await vc.create_ytdl_player(url)
+    player.start()
 @client.event
 async def on_message(message):
     global hadith_number_int
@@ -186,16 +197,16 @@ async def on_message(message):
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
     elif message.content.startswith('0xplay') or message.content.startswith('/play'):
-        try:
-            if message.author.guild_permissions.administrator:
-                url = message.content[7:]
-                voice = await bot.join_voice_channel(message.author.voice_channel)
-                player = await voice.create_ytdl_player(url)
-                player.start()
-            else:
-                await message.channel.send('{0.author.mention} not an admin'.format(message))
-        except discord.Forbidden:
-            await message.channel.send(f'{message.author.mention} I dont have permission to play music')
+        url = ctx.message.content
+        url = url.strip('0xplay ')
+
+        author = ctx.message.author
+        voice_channel = author.voice_channel
+        vc = await client.join_voice_channel(voice_channel)
+
+        player = await vc.create_ytdl_player(url)
+        player.start()
+    
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
         autos='true'
