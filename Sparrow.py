@@ -188,6 +188,8 @@ async def on_message(message):
                 await message.channel.purge(limit=mc)
             else:
                 await message.channel.send('{0.author.mention} not an admin'.format(message))
+        except ValueError:
+            await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xclear <number of messages>")
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to clear messages')        
     elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
