@@ -297,13 +297,18 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
 
     elif message.content.startswith('0xsabah') or message.content.startswith('/azkar-alsabah'):
-        embed = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
-        embed.add_field(value ="أيه الكرسي", name="مره واحده", inline=False)
-        embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIL_yES9n9uiR_2TcazkUqbQ1aweNuTGYmJQ&usqp=CAU")
-        embed.add_field(value ="سورة الإِخْلاَصِ", name="ثلاث مرات", inline=False)
-        embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfUHuSCy23HzaM4EcvmC1o3w4GP2KeuRmnxg&usqp=CAU")
-        embed.add_field(value ="سورة الناس", name="ثلاث مرات", inline=False)
-        embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxfFUQ8HcYHScyTPqbNU2pNFC_pQ6AgNVpVA&usqp=CAU")
+        embed1 = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
+        embed2 = discord.Embed(title="مره واحده", description="أيه الكرسي", color=0x00ff00)
+        embed3 = discord.Embed(title="ثلاث مرات", description="سورة الإِخْلاَصِ", color=0x00ff00)
+        embed4 = discord.Embed(title="ثلاث مرات", description=" سورة الفلق", color=0x00ff00)
+        embed5 = discord.Embed(title="ثلاث مرات", description="سورة الناس", color=0x00ff00)
+        #embed.add_field(value ="أيه الكرسي", name="مره واحده", inline=False)
+        embed2.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIL_yES9n9uiR_2TcazkUqbQ1aweNuTGYmJQ&usqp=CAU")
+        #embed.add_field(value ="سورة الإِخْلاَصِ", name="ثلاث مرات", inline=False)
+        embed3.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfUHuSCy23HzaM4EcvmC1o3w4GP2KeuRmnxg&usqp=CAU")
+        #embed.add_field(value ="سورة الناس", name="ثلاث مرات", inline=False)
+        embed4.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxfFUQ8HcYHScyTPqbNU2pNFC_pQ6AgNVpVA&usqp=CAU")
+        embed5.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQBQV-22u_Ni4IR7490WCTwIpQNsTifQ0r7w&usqp=CAU")
         embed.add_field(value ="أَصْـبَحْنا وَأَصْـبَحَ المُـلْكُ لله وَالحَمدُ لله ، لا إلهَ إلاّ اللّهُ وَحدَهُ لا شَريكَ لهُ، لهُ المُـلكُ ولهُ الحَمْـد، وهُوَ على كلّ شَيءٍ قدير", name="مره واحده", inline=False)
         embed.add_field(name ="مره واحده", value="اللّهـمَّ أَنْتَ رَبِّـي لا إلهَ إلاّ أَنْتَ ، خَلَقْتَنـي وَأَنا عَبْـدُك ، وَأَنا عَلـى عَهْـدِكَ وَوَعْـدِكَ ما اسْتَـطَعْـت ، أَعـوذُبِكَ مِنْ شَـرِّ ما صَنَـعْت ، أَبـوءُ لَـكَ بِنِعْـمَتِـكَ عَلَـيَّ وَأَبـوءُ بِذَنْـبي فَاغْفـِرْ لي فَإِنَّـهُ لا يَغْـفِرُ الذُّنـوبَ إِلاّ أَنْتَ .",  inline=False)
         embed.add_field(value ="اللّهـمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلُ", name="ثلاث مرات", inline=False)
@@ -334,7 +339,12 @@ async def on_message(message):
         embed.add_field(value ="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", name="عشر مرات", inline=False)
         embed.add_field(value ="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", name="مئة مره", inline=False)
         embed.add_field(value ="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", name="مئة مره", inline=False)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed1)
+        await message.channel.send(embed=embed2)
+        await message.channel.send(embed=embed3)
+        await message.channel.send(embed=embed4)
+        await message.channel.send(embed=embed5)
+
 
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
