@@ -295,7 +295,7 @@ async def on_message(message):
                     await message.channel.send(
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
 
-    elif message.content.startswith('0xazkar-alsabah') or message.content.startswith('/azkar-alsabah'):
+    elif message.content.startswith('0xsabah') or message.content.startswith('/azkar-alsabah'):
         embed = discord.Embed(title="الأذكار الصباح", description="", color=0x00ff00)
         embed.add_field(name="أيه الكرسي", value="مره واحده", inline=False)
         embed.add_field(name="سورة الإِخْلاَصِ", value="ثلاث مرات", inline=False)
@@ -329,7 +329,7 @@ async def on_message(message):
         embed.add_field(name="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", value="عشر مرات", inline=False)
         embed.add_field(name="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", value="مئة مره", inline=False)
         embed.add_field(name="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", value="مئة مره", inline=False)
-        await client.send_message(message.channel, embed=embed)
+        await client.say(message.channel, embed=embed)
 
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
