@@ -339,11 +339,12 @@ async def on_message(message):
         embed.add_field(value ="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", name="عشر مرات", inline=False)
         embed.add_field(value ="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", name="مئة مره", inline=False)
         embed.add_field(value ="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", name="مئة مره", inline=False)
-        await message.channel.send(embed=embed)
+        
         await message.channel.send(embed=embed2)
         await message.channel.send(embed=embed3)
         await message.channel.send(embed=embed4)
         await message.channel.send(embed=embed5)
+        await message.channel.send(embed=embed)
 
 
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
