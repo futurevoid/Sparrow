@@ -25,6 +25,7 @@ from pyzbar import pyzbar
 from urllib3 import *
 import urllib.parse
 import os
+from youtube_dl import YoutubeDL as YTDL
 client = discord.Client()
 
 
@@ -43,17 +44,6 @@ bot = Bot('0x')
 
 # create an event that will run when !hello is called
 # create a function that will run when a message is sent
-@bot.command(pass_context=True)
-async def yt(ctx):
-    url = ctx.message.content
-    url = url.strip('0xyt ')
-
-    author = ctx.message.author
-    voice_channel = author.voice_channel
-    vc = await client.join_voice_channel(voice_channel)
-
-    player = await vc.create_ytdl_player(url)
-    player.start()
 @client.event
 async def on_message(message):
     global hadith_number_int
@@ -66,25 +56,31 @@ async def on_message(message):
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
         msg = 'Hello {0.author.mention}'.format(message)
         await message.channel.send(msg)
+
     elif message.content.startswith('0xlog') or message.content.startswith('/log'):
         msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n-------'.format(
             message)
         await message.channel.send(msg)
+
     elif message.content.startswith('0xping') or message.content.startswith('/ping'):
         before = time.monotonic()
         msg = await message.channel.send('Pinging...')
         after = time.monotonic()
         ping = (after - before) * 1000
         await msg.edit(content=f'Pong! 🏓 {round(ping)}ms {message.author.mention}')
+
     elif message.content.startswith('0xqr') or message.content.startswith('/qr'):
         sliced = message.content[4:]
         slicedr = sliced.replace(" ", "%20")
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
         await message.channel.send(msg)
+
     elif message.content.startswith('0xhelp') or message.content.startswith('/help'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
                               color=0x00ff00)
-        embed.add_field(name="0xhelp", value="Shows the help menu", inline=False)
+        embed.add_field(name="0xhelp", value="Shows this help menu", inline=False)
+        embed.add_field(name="0xhello", value="Says hello", inline=False)
+        embed.add_field(name="0xlog", value="Some Nerdy Stuff", inline=False)
         embed.add_field(name="0xping", value="Shows the bot latency", inline=False)
         embed.add_field(name="0xqr <content>", value="Creates a QR code with your content", inline=False)
         embed.add_field(name="0xmushaf <number of page in the mushaf>", value="Shows a mushaf page", inline=False)
@@ -101,8 +97,8 @@ async def on_message(message):
         embed.add_field(name="0xunmute <user>", value="Unmutes a user", inline=False)
         embed.add_field(name="0xclear <number of messages>", value="Clears a number of messages", inline=False)
         embed.add_field(name="0xaddrole <user>", value="Gives a role to a user", inline=False)
-
         await message.channel.send(embed=embed)
+
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
         try:
             if message.author.guild_permissions.administrator:
@@ -120,6 +116,7 @@ async def on_message(message):
                 await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to mute users')        
+
     elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
         try:
             if message.author.guild_permissions.administrator:
@@ -136,7 +133,8 @@ async def on_message(message):
             else:
                 await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
         except discord.Forbidden:
-                    await message.channel.send(f'{message.author.mention} I dont have permission to unmute users')        
+                    await message.channel.send(f'{message.author.mention} I dont have permission to unmute users')     
+
     elif message.content.startswith('0xkick') or message.content.startswith('/kick'):
         try:
             if message.author.guild_permissions.administrator:
@@ -150,7 +148,8 @@ async def on_message(message):
             else:
                 await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
         except discord.Forbidden:
-            await message.channel.send(f'{message.author.mention} I dont have permission to kick users')      
+            await message.channel.send(f'{message.author.mention} I dont have permission to kick users')  
+
     elif message.content.startswith('0xban') or message.content.startswith('/ban'):
         try:
             if message.author.guild_permissions.administrator:
@@ -164,7 +163,8 @@ async def on_message(message):
             else:
                 await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
         except discord.Forbidden:
-            await message.channel.send(f'{message.author.mention} I dont have permission to kick users')        
+            await message.channel.send(f'{message.author.mention} I dont have permission to kick users')   
+
     elif message.content.startswith('0xunban') or message.content.startswith('/unban'):
         try:
             if message.author.guild_permissions.administrator:
@@ -179,6 +179,7 @@ async def on_message(message):
                 await message.channel.send('{0.author.mention} not an admin'.format(message))
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to unban users')    
+
     elif message.content.startswith('0xclear') or message.content.startswith('/clear'):
         try:
             if message.author.guild_permissions.administrator:
@@ -196,17 +197,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xplay') or message.content.startswith('/play'):
-        url = message.content
-        url = url.strip('0xplay ')
 
-        author = message.author
-        voice_channel = author.voice_channel
-        vc = await client.join_voice_channel(voice_channel)
-
-        player = await vc.create_ytdl_player(url)
-        player.start()
-    
     elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
         autos='true'
@@ -220,7 +211,8 @@ async def on_message(message):
                     embed = discord.Embed(title=f"mushaf:{mushafno}", description="", color=0x00ff00)
                     embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                     await message.channel.send(embed=embed)
-                    await asyncio.sleep(300)            
+                    await asyncio.sleep(300)       
+
     elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'http://api.alquran.cloud/v1/ayah/{message.content[6:]}') as r:
@@ -229,6 +221,7 @@ async def on_message(message):
                                       description=f"{res['data']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
                 await message.channel.send(embed=embed)
+
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
         autos='true'
@@ -243,9 +236,11 @@ async def on_message(message):
                                           description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
+
     elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
         autos = 'false'
-        await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions have been stopped")                
+        await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions have been stopped")     
+
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
             f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
@@ -299,6 +294,7 @@ async def on_message(message):
                 else:
                     await message.channel.send(
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
+
     elif message.content.startswith('0xazkar-alsabah') or message.content.startswith('/azkar-alsabah'):
         embed = discord.Embed(title="الأذكار الصباح", description="", color=0x00ff00)
         embed.add_field(name="أيه الكرسي", value="مره واحده", inline=False)
@@ -309,29 +305,45 @@ async def on_message(message):
         embed.add_field(name="أَعـوذُ بِكَلِمـاتِ اللّهِ التّـامّـاتِ مِنْ شَـرِّ ما خَلَـق.", value="ثلاث مرات", inline=False)
         embed.add_field(name="اللّهـمَّ عافِـني في بَدَنـي ، اللّهـمَّ عافِـني في سَمْـعي ، اللّهـمَّ عافِـني في بَصَـري ، لا إلهَ إلاّ أَنْتَ.", value="ثلاث مرات", inline=False)
         embed.add_field(name="اللّهـمَّ إِنّـي أَعـوذُ بِكَ مِنَ الْكُـفر ، وَالفَـقْر ، وَأَعـوذُ بِكَ مِنْ عَذابِ القَـبْر ، لا إلهَ إلاّ أَنْتَ.", value="ثلاث مرات", inline=False)
-
+        embed.add_field(name="اللّهُـمَّ إِنِّـي أَصْبَـحْتُ أُشْـهِدُك ، وَأُشْـهِدُ حَمَلَـةَ عَـرْشِـك ، وَمَلَائِكَتَكَ ، وَجَمـيعَ خَلْـقِك ، أَنَّـكَ أَنْـتَ اللهُ لا إلهَ إلاّ أَنْـتَ وَحْـدَكَ لا شَريكَ لَـك ، وَأَنَّ ُ مُحَمّـداً عَبْـدُكَ وَرَسـولُـك", value="اربع مرات", inline=False)
+        embed.add_field(name="رَضيـتُ بِاللهِ رَبَّـاً وَبِالإسْلامِ ديـناً وَبِمُحَـمَّدٍ صلى الله عليه وسلم نَبِيّـاً و رسولا", value="اربع مرات", inline=False)
+        embed.add_field(name="اللّهُـمَّ إِنِّـي أَسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في الدُّنْـيا وَالآخِـرَة ، اللّهُـمَّ إِنِّـي أَسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في ديني وَدُنْـيايَ وَأهْـلي وَمالـي ، اللّهُـمَّ اسْتُـرْ عـوْراتي وَآمِـنْ رَوْعاتـي ، اللّهُـمَّ احْفَظْـني مِن بَـينِ يَدَيَّ وَمِن خَلْفـي وَعَن يَمـيني وَعَن شِمـالي ، وَمِن فَوْقـي ، وَأَعـوذُ بِعَظَمَـتِكَ أَن أُغْـتالَ مِن تَحْتـي", value="ثلاث مرات", inline=False)
+        embed.add_field(name="أستغفر الله العظيم الَّذِي لاَ إلَهَ إلاَّ هُوَ، الحَيُّ القَيُّومُ، وَأتُوبُ إلَيه", value="ثلاث مرات", inline=False)
+        embed.add_field(name="يَا رَبِّ , لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ , وَلِعَظِيمِ سُلْطَانِكَ.", value="ثلاث مرات", inline=False)
+        embed.add_field(name="حسْبِـيَ اللّهُ لا إلهَ إلاّ هُوَ عَلَـيهِ تَوَكَّـلتُ وَهُوَ رَبُّ العَرْشِ العَظـيم", value="سبع مرات", inline=False)
+        embed.add_field(name="اللّهُـمَّ ما أَصْبَـَحَ بي مِـنْ نِعْـمَةٍ أَو بِأَحَـدٍ مِـنْ خَلْـقِك ، فَمِـنْكَ وَحْـدَكَ لاَ شريكَ لَـك ، فَلَـكَ الْحَمْـدُ وَلَـكَ الشُّكْـر", value="مره واحده", inline=False)
+        embed.add_field(name="اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور", value="مره واحده", inline=False)
+        embed.add_field(name="أَمْسَيْـنا عَلَى فِطْرَةِ الإسْلاَمِ، وَعَلَى كَلِمَةِ الإِخْلاَصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إبْرَاهِيمَ حَنِيفاً مُسْلِماً وَمَا كَانَ مِنَ المُشْرِكِينَ", value="مره واحده", inline=False)
+        embed.add_field(name="سُبْحَانَ اللهِ وَبِحَمْـدِهِ عَدَدَ خَلْـقِه ، وَرِضـا نَفْسِـه ، وَزِنَـةَ عَـرْشِـه ، وَمِـدادَ كَلِمـاتِـه", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ الْحَمْـدُ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللّهُـمَّ عافِـني في بَدَنـي ، اللّهُـمَّ عافِـني في سَمْـعي ، اللّهُـمَّ عافِـني في بَصَـري ، لا إلهَ إلاّ أَنْـتَ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللّهُـمَّ إِنّـي أَعـوذُ بِكَ مِنَ الْكُـفر ، وَالفَـقْر ، وَأَعـوذُ بِكَ مِنْ عَذابِ القَـبْر ، لا إلهَ إلاّ أَنْـتَ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللّهُـمَّ إِنِّـي أسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في الدُّنْـيا وَالآخِـرَة ، اللّهُـمَّ إِنِّـي أسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في ديني وَدُنْـيايَ وَأهْـلي وَمالـي ، اللّهُـمَّ اسْتُـرْ عـوْراتي وَآمِـنْ رَوْعاتـي ، اللّهُـمَّ احْفَظْـني مِن بَـينِ يَدَيَّ وَمِن خَلْفـي وَعَن يَمـيني وَعَن شِمـالي ، وَمِن فَوْقـي ، وَأَعـوذُ بِعَظَمَـتِكَ أَن أُغْـتالَ مِن تَحْتـي", value="مره واحده", inline=False)
+        embed.add_field(name="أَصْبَـحْـنا وَأَصْبَـحْ المُـلكُ للهِ رَبِّ العـالَمـين ، اللّهُـمَّ إِنِّـي أسْـأَلُـكَ خَـيْرَ هـذا الـيَوْم ، فَـتْحَهُ ، وَنَصْـرَهُ ، وَنـورَهُ وَبَـرَكَتَـهُ ، وَهُـداهُ ، وَأَعـوذُ بِـكَ مِـنْ شَـرِّ ما فـيهِ وَشَـرِّ ما بَعْـدَه.", value="مره واحده", inline=False)
+        embed.add_field(name="اللّهُـمَّ عالِـمَ الغَـيْبِ وَالشّـهادَةِ فاطِـرَ السّماواتِ وَالأرْضِ رَبَّ كـلِّ شَـيءٍ وَمَليـكَه ، أَشْهَـدُ أَنْ لا إِلـهَ إِلاّ أَنْت ، أَعـوذُ بِكَ مِن شَـرِّ نَفْسـي وَمِن شَـرِّ الشَّيْـطانِ وَشِرْكِهِ ، وَأَنْ أَقْتَـرِفَ عَلـى نَفْسـي سوءاً أَوْ أَجُـرَّهُ إِلـى مُسْـلِم.", value="مره واحده", inline=False)
+        embed.add_field(name="اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ على نَبِيِّنَا مُحمَّد", value="عشر مرات", inline=False)
+        embed.add_field(name="اللَّهُمَّ إِنَّا نَعُوذُ بِكَ مِنْ أَنْ نُشْرِكَ بِكَ شَيْئًا نَعْلَمُهُ ، وَنَسْتَغْفِرُكَ لِمَا لَا نَعْلَمُهُ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنْ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنْ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ، وَقَهْرِ الرِّجَال", value="ثلاث مرات", inline=False)
+        embed.add_field(name="يا رَبِّ  لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ  وَلِعَظِيمِ سُلْطَانِكَ", value="ثلاث مرات", inline=False)
+        embed.add_field(name="اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا", value="مره واحده", inline=False)
+        embed.add_field(name="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", value="عشر مرات", inline=False)
+        embed.add_field(name="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", value="مئة مره", inline=False)
+        embed.add_field(name="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", value="مئة مره", inline=False)
+        await client.send_message(message.channel, embed=embed)
 
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
             "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e"+
-            "\n"+"example: 2+2,sin(90 deg),sin(75 rad)")
+            "\n"+"example: 2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi")
         user = message.author
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
-        
-        
+
+
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
         calc_content_urlencoded = urllib.parse.quote(calccontent)
-        print(calc_content_urlencoded)
-        if 'sin' or 'cos' or 'tan' or 'cot' in calccontent:
-            calc_content_rep = calccontent.replace('sin()', 'sin(')
-            calc_content_rep = calccontent.replace('cos()', 'cos(')
-            calc_content_rep = calccontent.replace('tan()', 'tan(')
-            calc_content_rep = calccontent.replace('cot()', 'cot(')
-            calc_content = calc_content_rep+'deg)'
-        else:
-            calc_content = calc_content_urlencoded    
+        print(calc_content_urlencoded)   
         try:
             site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
             site_request_content = site_request.text
@@ -339,6 +351,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         except requests.exceptions.RequestException as e:
             await message.channel.send(f'{message.author.mention} {e}')    
+
     elif message.content.startswith('0xQrdecode') or message.content.startswith('/Qrdecode'):
         await message.channel.send(
             f'{message.author.mention} send the qr code to be decoded ')
@@ -355,6 +368,7 @@ async def on_message(message):
         print(output)
         embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
         await message.channel.send(embed=embed)
+
     elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
         
         if message.author.guild_permissions.administrator:
@@ -382,7 +396,8 @@ async def on_message(message):
             else:
                 await message.channel.send(f'{message.author.mention} The role has not been added to the {user.mention}')        
         else:
-            await message.channel.send(f'{message.author.mention} you are not an admin')            
+            await message.channel.send(f'{message.author.mention} you are not an admin')     
+
     elif message.content.startswith('0xremoverole') or message.content.startswith('/removerole'):
         if message.author.guild_permissions.administrator:
             user  = message.mentions[0]
@@ -410,6 +425,7 @@ async def on_message(message):
                 await message.channel.send(f'{message.author.mention} The role has not been removed from the {user.mention}')        
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')
+
     elif message.content.startswith('0xinv') or message.content.startswith('/inv'):
         message.channel.purge(limit=1)
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
