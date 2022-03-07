@@ -36,7 +36,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('-------')
-    await client.change_presence(activity = discord.Game("0xhelp for help " + "0xhelp للمساعده")) 
+    await client.change_presence(activity = discord.Game("0xhelp for help " +"\n"+ "0xhelp للمساعده")) 
 
 # bot prefix
 bot = Bot('0x')
@@ -329,8 +329,8 @@ async def on_message(message):
         embed.add_field(name="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", value="عشر مرات", inline=False)
         embed.add_field(name="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", value="مئة مره", inline=False)
         embed.add_field(name="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", value="مئة مره", inline=False)
-        await message.channel.send(message.channel, embed=embed)
-
+        await message.channel.send(embed=embed)
+        
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
             "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e"+
