@@ -297,7 +297,7 @@ async def on_message(message):
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
 
     elif message.content.startswith('0xsabah') or message.content.startswith('/azkar-alsabah'):
-        embed1 = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
+        embed = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
         embed2 = discord.Embed(title="مره واحده", description="أيه الكرسي", color=0x00ff00)
         embed3 = discord.Embed(title="ثلاث مرات", description="سورة الإِخْلاَصِ", color=0x00ff00)
         embed4 = discord.Embed(title="ثلاث مرات", description=" سورة الفلق", color=0x00ff00)
@@ -339,7 +339,7 @@ async def on_message(message):
         embed.add_field(value ="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", name="عشر مرات", inline=False)
         embed.add_field(value ="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", name="مئة مره", inline=False)
         embed.add_field(value ="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", name="مئة مره", inline=False)
-        await message.channel.send(embed=embed1)
+        await message.channel.send(embed=embed)
         await message.channel.send(embed=embed2)
         await message.channel.send(embed=embed3)
         await message.channel.send(embed=embed4)
