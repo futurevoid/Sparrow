@@ -299,7 +299,11 @@ async def on_message(message):
     elif message.content.startswith('0xsabah') or message.content.startswith('/azkar-alsabah'):
         embed = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
         embed.add_field(value ="أيه الكرسي", name="مره واحده", inline=False)
+        embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIL_yES9n9uiR_2TcazkUqbQ1aweNuTGYmJQ&usqp=CAU")
         embed.add_field(value ="سورة الإِخْلاَصِ", name="ثلاث مرات", inline=False)
+        embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfUHuSCy23HzaM4EcvmC1o3w4GP2KeuRmnxg&usqp=CAU")
+        embed.add_field(value ="سورة الناس", name="ثلاث مرات", inline=False)
+        embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxfFUQ8HcYHScyTPqbNU2pNFC_pQ6AgNVpVA&usqp=CAU")
         embed.add_field(value ="أَصْـبَحْنا وَأَصْـبَحَ المُـلْكُ لله وَالحَمدُ لله ، لا إلهَ إلاّ اللّهُ وَحدَهُ لا شَريكَ لهُ، لهُ المُـلكُ ولهُ الحَمْـد، وهُوَ على كلّ شَيءٍ قدير", name="مره واحده", inline=False)
         embed.add_field(name ="مره واحده", value="اللّهـمَّ أَنْتَ رَبِّـي لا إلهَ إلاّ أَنْتَ ، خَلَقْتَنـي وَأَنا عَبْـدُك ، وَأَنا عَلـى عَهْـدِكَ وَوَعْـدِكَ ما اسْتَـطَعْـت ، أَعـوذُبِكَ مِنْ شَـرِّ ما صَنَـعْت ، أَبـوءُ لَـكَ بِنِعْـمَتِـكَ عَلَـيَّ وَأَبـوءُ بِذَنْـبي فَاغْفـِرْ لي فَإِنَّـهُ لا يَغْـفِرُ الذُّنـوبَ إِلاّ أَنْتَ .",  inline=False)
         embed.add_field(value ="اللّهـمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلُ", name="ثلاث مرات", inline=False)
