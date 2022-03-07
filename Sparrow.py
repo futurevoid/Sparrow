@@ -54,7 +54,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
-        msg = 'Hello {0.author.mention}'.format(message)
+        msg = 'Hello {0.author.mention}'.format(message)+ "\n" + "{0.author.mention} مرحبا ".format(message)
         await message.channel.send(msg)
 
     elif message.content.startswith('0xlog') or message.content.startswith('/log'):
