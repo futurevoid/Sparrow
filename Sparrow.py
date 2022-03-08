@@ -221,7 +221,10 @@ async def on_message(message):
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to clear messages')        
     elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
-        mushafno = message.content[9:]
+        mushafno_unstriped = message.content
+        mushafno = mushafno_unstriped.strip('0xmushaf ')
+        if mushafno == '':
+            await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xmushaf <mushaf number>")
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                 # res = await r.json()
