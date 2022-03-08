@@ -225,9 +225,9 @@ async def on_message(message):
         mushafno = mushafno_unstriped.strip('0xmushaf ')
         if mushafno == '':
             await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xmushaf <mushaf number>")
-        for mushafno in range(1,9):
+        for message.content in range(1,9):
             mushafno = '00'+str(mushafno)
-        for mushafno in range(10,99):
+        for message.content in range(10,99):
             mushafno = '0'+str(mushafno)                                         
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
@@ -243,9 +243,9 @@ async def on_message(message):
             if not autos:
                 break
             mushafno = random.randint(1,600)
-            for mushafno in range(1,9):
+            for message.content in range(1,9):
                 mushafno = '00'+str(mushafno)
-            for mushafno in range(10,99):
+            for message.content in range(10,99):
                 mushafno = '0'+str(mushafno)    
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
