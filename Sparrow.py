@@ -50,6 +50,7 @@ async def on_message(message):
     global hadith_number_int
     global check 
     global autos
+    global user
     def check(user):
             return user == message.author 
     if message.author == client.user:
@@ -97,6 +98,8 @@ async def on_message(message):
         embed.add_field(name ="0xmute <user>", value ="Mutes a user", inline=False)
         embed.add_field(name ="0xunmute <user>", value ="Unmutes a user", inline=False)
         embed.add_field(name ="0xclear <number of messages>", value ="Clears a number of messages", inline=False)
+        embed.add_field(name ="0xavatar <user>", value ="Shows a user's avatar", inline=False)
+
         embed.add_field(name ="0xaddrole <user>", value ="Gives a role to a user", inline=False)
         await message.channel.send(embed=embed)
 
@@ -117,6 +120,31 @@ async def on_message(message):
                 await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to mute users')        
+
+    elif message.content.startswith('0xserverinfo') or message.content.startswith('/serverinfo'):
+        embed = discord.Embed(title="Server Info", description="Here is a list of commands{0.author.mention}".format(message),
+                              color=0x00ff00)
+        embed.set_thumbnail(url=message.guild.icon_url)
+        embed.add_field(name="Server Name", value=message.guild.name, inline=False)
+        embed.add_field(name="Server ID", value=message.guild.id, inline=False)
+        embed.add_field(name="Server Owner", value=message.guild.owner, inline=False)
+        embed.add_field(name="Server Region", value=message.guild.region, inline=False)
+        embed.add_field(name="Server Members", value=message.guild.member_count, inline=False)
+        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
+        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
+        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
+        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
+        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
+        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
+        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
+        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
+        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
+    elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
+        try:
+            user = message.mentions[0]
+            await message.channel.send(f'{message.author.mention}', file=discord.File(user.avatar_url))
+        except IndexError:
+            await message.channel.send('{0.author.mention}'.format(message) + "You need to mention a user")
 
     elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
         try:
