@@ -225,26 +225,10 @@ async def on_message(message):
         mushafno = mushafno_unstriped.strip('0xmushaf ')
         if mushafno == '':
             await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xmushaf <mushaf number>")
-        if mushafno == '1':
-            mushafno = '001'
-        if mushafno == '2':
-            mushafno = '002'
-        if mushafno == '3':
-            mushafno = '003'
-        if mushafno == '4':
-            mushafno = '004'
-        if mushafno == '5':
-            mushafno = '005'
-        if mushafno == '6':
-            mushafno = '006'
-        if mushafno == '7':
-            mushafno = '007'
-        if mushafno == '8':
-            mushafno = '008'
-        if mushafno == '9':
-            mushafno = '009'
-        if mushafno == '10':
-            mushafno = '010'                                        
+        for mushafno in range(1,9):
+            mushafno = '00'+mushafno
+        for mushafno in range(10,99):
+            mushafno = '0'+mushafno                                         
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                 # res = await r.json()
@@ -259,26 +243,10 @@ async def on_message(message):
             if not autos:
                 break
             mushafno = random.randint(1,600)
-            if mushafno == '1':
-                mushafno = '001'
-            if mushafno == '2':
-                mushafno = '002'
-            if mushafno == '3':
-                mushafno = '003'
-            if mushafno == '4':
-                mushafno = '004'
-            if mushafno == '5':
-                mushafno = '005'
-            if mushafno == '6':
-                mushafno = '006'
-            if mushafno == '7':
-                mushafno = '007'
-            if mushafno == '8':
-                mushafno = '008'
-            if mushafno == '9':
-                mushafno = '009'
-            if mushafno == '10':
-                mushafno = '010'  
+            for mushafno in range(1,9):
+                mushafno = '00'+mushafno
+            for mushafno in range(10,99):
+                mushafno = '0'+mushafno    
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                     # res = await r.json()
