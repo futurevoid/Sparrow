@@ -244,9 +244,9 @@ async def on_message(message):
                 break
             mushafno = random.randint(1,600)
             for mushafno in range(1,9):
-                mushafno = '00'+mushafno
+                mushafno = '00'+str(mushafno)
             for mushafno in range(10,99):
-                mushafno = '0'+mushafno    
+                mushafno = '0'+str(mushafno)    
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                     # res = await r.json()
