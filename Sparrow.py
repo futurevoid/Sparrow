@@ -124,7 +124,7 @@ async def on_message(message):
             await message.channel.send(f'{message.author.mention} I dont have permission to mute users')        
 
     elif message.content.startswith('0xserverinfo') or message.content.startswith('/serverinfo'):
-        embed = discord.Embed(title="Server Info", description="Here is a list of commands{0.author.mention}".format(message),
+        embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
                               color=0x00ff00)
         embed.set_thumbnail(url=message.guild.icon_url)
         embed.add_field(name="Server Name", value=message.guild.name, inline=False)
