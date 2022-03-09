@@ -130,22 +130,15 @@ async def on_message(message):
         embed.add_field(name="Server Name", value=message.guild.name, inline=False)
         embed.add_field(name="Server ID", value=message.guild.id, inline=False)
         embed.add_field(name="Server Owner", value=message.guild.owner, inline=False)
-        embed.add_field(name="Server Region", value=message.guild.region, inline=False)
+        embed.add_field(name="Server verification level", value=message.guild.verification_level, inline=False)
         embed.add_field(name="Server Members", value=message.guild.member_count, inline=False)
         embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
         embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
-        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
-        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
-        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
-        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
-        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
-        embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
-        embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
         await message.channel.send(embed=embed)   
     elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
             user = message.mentions[0]
-            await message.channel.send(f'{message.author.mention}', file=discord.File(user.avatar_url))
+            await message.channel.send(f'{message.author.mention} \n {user.avatar_url}')
         except IndexError:
             await message.channel.send('{0.author.mention}'.format(message) + "You need to mention a user")
 
