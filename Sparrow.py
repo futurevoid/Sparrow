@@ -141,6 +141,7 @@ async def on_message(message):
         embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
         embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
         embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
+        await message.channel.send(embed=embed)   
     elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
             user = message.mentions[0]
