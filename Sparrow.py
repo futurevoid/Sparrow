@@ -349,6 +349,62 @@ async def on_message(message):
                     await message.channel.send(
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
 
+    elif message.content.startswith('0xautosabah') or message.content.startswith('/autosabah'):
+        await message.channel.purge(limit=1)
+        autos='true'
+        while autos == 'true':
+            if not autos:
+                break
+            embed = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
+            embed2 = discord.Embed(title="مره واحده", description="أيه الكرسي", color=0x00ff00)
+            embed3 = discord.Embed(title="ثلاث مرات", description="سورة الإِخْلاَصِ", color=0x00ff00)
+            embed4 = discord.Embed(title="ثلاث مرات", description=" سورة الفلق", color=0x00ff00)
+            embed5 = discord.Embed(title="ثلاث مرات", description="سورة الناس", color=0x00ff00)
+            #embed.add_field(value ="أيه الكرسي", name="مره واحده", inline=False)
+            embed2.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIL_yES9n9uiR_2TcazkUqbQ1aweNuTGYmJQ&usqp=CAU")
+            #embed.add_field(value ="سورة الإِخْلاَصِ", name="ثلاث مرات", inline=False)
+            embed3.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfUHuSCy23HzaM4EcvmC1o3w4GP2KeuRmnxg&usqp=CAU")
+            #embed.add_field(value ="سورة الناس", name="ثلاث مرات", inline=False)
+            embed4.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxfFUQ8HcYHScyTPqbNU2pNFC_pQ6AgNVpVA&usqp=CAU")
+            embed5.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQBQV-22u_Ni4IR7490WCTwIpQNsTifQ0r7w&usqp=CAU")
+            embed.add_field(value ="أَصْـبَحْنا وَأَصْـبَحَ المُـلْكُ لله وَالحَمدُ لله ، لا إلهَ إلاّ اللّهُ وَحدَهُ لا شَريكَ لهُ، لهُ المُـلكُ ولهُ الحَمْـد، وهُوَ على كلّ شَيءٍ قدير", name="مره واحده", inline=False)
+            embed.add_field(name ="مره واحده", value="اللّهـمَّ أَنْتَ رَبِّـي لا إلهَ إلاّ أَنْتَ ، خَلَقْتَنـي وَأَنا عَبْـدُك ، وَأَنا عَلـى عَهْـدِكَ وَوَعْـدِكَ ما اسْتَـطَعْـت ، أَعـوذُبِكَ مِنْ شَـرِّ ما صَنَـعْت ، أَبـوءُ لَـكَ بِنِعْـمَتِـكَ عَلَـيَّ وَأَبـوءُ بِذَنْـبي فَاغْفـِرْ لي فَإِنَّـهُ لا يَغْـفِرُ الذُّنـوبَ إِلاّ أَنْتَ .",  inline=False)
+            embed.add_field(value ="اللّهـمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلُ", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="أَعـوذُ بِكَلِمـاتِ اللّهِ التّـامّـاتِ مِنْ شَـرِّ ما خَلَـق.", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللّهـمَّ عافِـني في بَدَنـي ، اللّهـمَّ عافِـني في سَمْـعي ، اللّهـمَّ عافِـني في بَصَـري ، لا إلهَ إلاّ أَنْتَ.", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللّهـمَّ إِنّـي أَعـوذُ بِكَ مِنَ الْكُـفر ، وَالفَـقْر ، وَأَعـوذُ بِكَ مِنْ عَذابِ القَـبْر ، لا إلهَ إلاّ أَنْتَ.", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللّهُـمَّ إِنِّـي أَصْبَـحْتُ أُشْـهِدُك ، وَأُشْـهِدُ حَمَلَـةَ عَـرْشِـك ، وَمَلَائِكَتَكَ ، وَجَمـيعَ خَلْـقِك ، أَنَّـكَ أَنْـتَ اللهُ لا إلهَ إلاّ أَنْـتَ وَحْـدَكَ لا شَريكَ لَـك ، وَأَنَّ ُ مُحَمّـداً عَبْـدُكَ وَرَسـولُـك", name="اربع مرات", inline=False)
+            embed.add_field(value ="رَضيـتُ بِاللهِ رَبَّـاً وَبِالإسْلامِ ديـناً وَبِمُحَـمَّدٍ صلى الله عليه وسلم نَبِيّـاً و رسولا", name=" ثلاث مرات", inline=False)
+            embed.add_field(name ="ثلاث مرات", value="اللّهُـمَّ إِنِّـي أَسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في الدُّنْـيا وَالآخِـرَة ، اللّهُـمَّ إِنِّـي أَسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في ديني وَدُنْـيايَ وَأهْـلي وَمالـي ، اللّهُـمَّ اسْتُـرْ عـوْراتي وَآمِـنْ رَوْعاتـي ، اللّهُـمَّ احْفَظْـني مِن بَـينِ يَدَيَّ وَمِن خَلْفـي وَعَن يَمـيني وَعَن شِمـالي ، وَمِن فَوْقـي ، وَأَعـوذُ بِعَظَمَـتِكَ أَن أُغْـتالَ مِن تَحْتـي",  inline=False)
+            embed.add_field(value ="أستغفر الله العظيم الَّذِي لاَ إلَهَ إلاَّ هُوَ، الحَيُّ القَيُّومُ، وَأتُوبُ إلَيه", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="يَا رَبِّ , لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ , وَلِعَظِيمِ سُلْطَانِكَ.", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="حسْبِـيَ اللّهُ لا إلهَ إلاّ هُوَ عَلَـيهِ تَوَكَّـلتُ وَهُوَ رَبُّ العَرْشِ العَظـيم", name="سبع مرات", inline=False)
+            embed.add_field(value ="اللّهُـمَّ ما أَصْبَـَحَ بي مِـنْ نِعْـمَةٍ أَو بِأَحَـدٍ مِـنْ خَلْـقِك ، فَمِـنْكَ وَحْـدَكَ لاَ شريكَ لَـك ، فَلَـكَ الْحَمْـدُ وَلَـكَ الشُّكْـر", name="مره واحده", inline=False)
+            embed.add_field(value ="اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور", name="مره واحده", inline=False)
+            embed.add_field(value ="أصبحنا عَلَى فِطْرَةِ الإسْلاَمِ، وَعَلَى كَلِمَةِ الإِخْلاَصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إبْرَاهِيمَ حَنِيفاً مُسْلِماً وَمَا كَانَ مِنَ المُشْرِكِينَ", name="مره واحده", inline=False)
+            embed.add_field(value ="سُبْحَانَ اللهِ وَبِحَمْـدِهِ عَدَدَ خَلْـقِه ، وَرِضـا نَفْسِـه ، وَزِنَـةَ عَـرْشِـه ، وَمِـدادَ كَلِمـاتِـه", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ الْحَمْـدُ", name="مره واحده", inline=False)
+            embed.add_field(value ="اللّهُـمَّ عافِـني في بَدَنـي ، اللّهُـمَّ عافِـني في سَمْـعي ، اللّهُـمَّ عافِـني في بَصَـري ، لا إلهَ إلاّ أَنْـتَ", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللّهُـمَّ إِنّـي أَعـوذُ بِكَ مِنَ الْكُـفر ، وَالفَـقْر ، وَأَعـوذُ بِكَ مِنْ عَذابِ القَـبْر ، لا إلهَ إلاّ أَنْـتَ", name="ثلاث مرات", inline=False)
+            embed.add_field(name ="مره واحده", value="اللّهُـمَّ إِنِّـي أسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في الدُّنْـيا وَالآخِـرَة ، اللّهُـمَّ إِنِّـي أسْـأَلُـكَ العَـفْوَ وَالعـافِـيةَ في ديني وَدُنْـيايَ وَأهْـلي وَمالـي ، اللّهُـمَّ اسْتُـرْ عـوْراتي وَآمِـنْ رَوْعاتـي ، اللّهُـمَّ احْفَظْـني مِن بَـينِ يَدَيَّ وَمِن خَلْفـي وَعَن يَمـيني وَعَن شِمـالي ، وَمِن فَوْقـي ، وَأَعـوذُ بِعَظَمَـتِكَ أَن أُغْـتالَ مِن تَحْتـي", inline=False)
+            embed.add_field(value ="أَصْبَـحْـنا وَأَصْبَـحْ المُـلكُ للهِ رَبِّ العـالَمـين ، اللّهُـمَّ إِنِّـي أسْـأَلُـكَ خَـيْرَ هـذا الـيَوْم ، فَـتْحَهُ ، وَنَصْـرَهُ ، وَنـورَهُ وَبَـرَكَتَـهُ ، وَهُـداهُ ، وَأَعـوذُ بِـكَ مِـنْ شَـرِّ ما فـيهِ وَشَـرِّ ما بَعْـدَه.", name="مره واحده", inline=False)
+            embed.add_field(name ="مره واحده", value="اللّهُـمَّ عالِـمَ الغَـيْبِ وَالشّـهادَةِ فاطِـرَ السّماواتِ وَالأرْضِ رَبَّ كـلِّ شَـيءٍ وَمَليـكَه ، أَشْهَـدُ أَنْ لا إِلـهَ إِلاّ أَنْت ، أَعـوذُ بِكَ مِن شَـرِّ نَفْسـي وَمِن شَـرِّ الشَّيْـطانِ وَشِرْكِهِ ، وَأَنْ أَقْتَـرِفَ عَلـى نَفْسـي سوءاً أَوْ أَجُـرَّهُ إِلـى مُسْـلِم.", inline=False)
+            embed.add_field(value ="اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ على نَبِيِّنَا مُحمَّد", name="عشر مرات", inline=False)
+            embed.add_field(value ="اللَّهُمَّ إِنَّا نَعُوذُ بِكَ مِنْ أَنْ نُشْرِكَ بِكَ شَيْئًا نَعْلَمُهُ ، وَنَسْتَغْفِرُكَ لِمَا لَا نَعْلَمُهُ", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنْ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنْ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ، وَقَهْرِ الرِّجَال", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="يا رَبِّ  لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ  وَلِعَظِيمِ سُلْطَانِكَ", name="ثلاث مرات", inline=False)
+            embed.add_field(value ="اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا", name="مره واحده", inline=False)
+            embed.add_field(value ="لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ", name="عشر مرات", inline=False)
+            embed.add_field(value ="أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", name="مئة مره", inline=False)
+            embed.add_field(value ="سُبْحـانَ اللهِ وَبِحَمْـدِهِ", name="مئة مره", inline=False)
+
+            await message.channel.send(embed=embed2)
+            await message.channel.send(embed=embed3)
+            await message.channel.send(embed=embed4)
+            await message.channel.send(embed=embed5)
+            await message.channel.send(embed=embed)
+            await asyncio.sleep(86400)
+
     elif message.content.startswith('0xsabah') or message.content.startswith('/azkar-alsabah'):
         embed = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
         embed2 = discord.Embed(title="مره واحده", description="أيه الكرسي", color=0x00ff00)
@@ -398,8 +454,7 @@ async def on_message(message):
         await message.channel.send(embed=embed4)
         await message.channel.send(embed=embed5)
         await message.channel.send(embed=embed)
-
-
+    
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         await message.channel.send(
             "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e"+
