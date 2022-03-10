@@ -141,7 +141,7 @@ async def on_message(message):
     elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
             user = message.author
-            embed = discord.Embed(title=f"{message.author.name}", description=f"[Avatar Link]({user.avatar_url})")
+            embed = discord.Embed(title=f"{message.author.name}{message.author.tag}", description=f"[Avatar Link]({user.avatar_url})")
             embed.set_thumbnail(url=user.avatar_url)
             embed.set_image(url=user.avatar_url)
             await message.channel.send(embed=embed)
