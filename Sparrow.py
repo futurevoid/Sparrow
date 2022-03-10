@@ -177,7 +177,7 @@ async def on_message(message):
             user = message.author
             embed = discord.Embed(title=f"{message.author.name}#{message.author.discriminator}", )
             embed.set_thumbnail(url=user.avatar_url)
-            embed.add_field(name=f"[Avatar Link]({user.avatar_url})", value='',inline=False)
+            embed.add_field(name=f"[Avatar Link]({user.avatar_url})", value="\u3164",inline=False)
             embed.set_image(url=user.avatar_url)
             embed.set_footer(text=f"Requested by {message.author.name}#{message.author.discriminator}", icon_url=user.avatar_url)
             await message.channel.send(embed=embed)
