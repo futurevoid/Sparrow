@@ -36,11 +36,7 @@ Unmutes a user
 0xqr <content>
 Creates a QR code with your content
 <br> </br>
-0xcat
-Shows a random cat
-<br> </br>
-0xcatfact
-Shows a random cat fact
+
 
   
   
