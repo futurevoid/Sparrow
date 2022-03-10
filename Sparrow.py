@@ -250,7 +250,9 @@ async def on_message(message):
     elif message.content==('0xclear') or message.content==('/clear'):
         try:
             if message.author.guild_permissions.administrator:
-                mc = int(message.content[7:])
+                clrss =message.content
+                clr = clrss.strip('0xclear')
+                mc = int(clr)
                 await message.channel.purge(limit=mc)
             else:
                 await message.channel.send('{0.author.mention} not an admin'.format(message))
