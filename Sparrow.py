@@ -156,9 +156,9 @@ async def on_message(message):
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to mute users')        
 
-    elif message.content=='evil':
-        await message.author.edit(mute=True)
-        await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
+    #elif message.content=='evil':
+        #await message.author.edit(mute=True)
+        #await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
 
     elif message.content==('0xserverinfo') or message.content==('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
