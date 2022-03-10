@@ -141,11 +141,11 @@ async def on_message(message):
     elif message.content==('0xavatar') or message.content==('/avatar'):
         try:
             user = message.author
-            embed = discord.Embed(title=f"{message.author.name}#{message.author.discriminator}", description=f"[Avatar Link]({user.avatar_url})")
+            embed = discord.Embed(title=f"{message.author.name}#{message.author.discriminator}", description=f"[Avatar Link]({user.avatar_url})", icon_url={user.avatar_url}, color=0x00ff00)
             embed.set_thumbnail(url=user.avatar_url)
             embed.set_image(url=user.avatar_url)
+            embed.set_footer(text=f"Requested by {message.author.name}#{message.author.discriminator}",icon_url=user.avatar_url)
             await message.channel.send(embed=embed)
-            embed.set_footer(text=f"Requested by {message.author.name}#{message.author.discriminator}")
         except IndexError:
             await message.channel.send('{0.author.mention}'.format(message) + "You need to mention a user")
         except discord.Forbidden:
