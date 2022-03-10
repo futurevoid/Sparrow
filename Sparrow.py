@@ -56,7 +56,7 @@ async def on_message(message):
             return user == message.author 
     if message.author == client.user:
         return
-    elif message.content==('0x'):
+    elif message.content.startswith('0x'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
                               color=0x00ff00)
         embed.add_field(name ="0xhelp", value ="Shows this help menu", inline=False)
@@ -86,29 +86,29 @@ async def on_message(message):
         embed.add_field(name ="0xlistroles", value ="Shows a list of roles", inline=False)
         await message.channel.send(embed=embed)
 
-    elif message.content==('0xhello') or message.content==('/hello'):
+    elif message.content.startswith('0xhello') or message.content.startswith('/hello'):
         msg = 'Hey wassup bro {0.author.mention}'.format(message)
         await message.channel.send(msg)
 
-    elif message.content==('0xlog') or message.content==('/log'):
+    elif message.content.startswith('0xlog') or message.content.startswith('/log'):
         msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n {client.activity.emoji}\n-------'.format(
             message)
         await message.channel.send(msg)
 
-    elif message.content==('0xping') or message.content==('/ping'):
+    elif message.content.startswith('0xping') or message.content.startswith('/ping'):
         before = time.monotonic()
         msg = await message.channel.send('Pinging...')
         after = time.monotonic()
         ping = (after - before) * 1000
         await msg.edit(content=f'Pong! 🏓 {round(ping)}ms {message.author.mention}')
 
-    elif message.content==('0xqr') or message.content==('/qr'):
+    elif message.content.startswith('0xqr') or message.content.startswith('/qr'):
         sliced = message.content.strip('0xqr')
         slicedr = sliced.replace(" ", "%20")
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
         await message.channel.send(msg)
 
-    elif message.content==('0xhelp') or message.content==('/help'):
+    elif message.content.startswith('0xhelp') or message.content.startswith('/help'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
                               color=0x00ff00)
         embed.add_field(name ="0xhelp", value ="Shows this help menu", inline=False)
@@ -138,7 +138,7 @@ async def on_message(message):
         embed.add_field(name ="0xlistroles", value ="Shows a list of roles", inline=False)
         await message.channel.send(embed=embed)
 
-    if message.content==('0xmute') or message.content==('/mute'):
+    if message.content.startswith('0xmute') or message.content.startswith('/mute'):
         try:
             if message.author.guild_permissions.administrator:
                 try:
@@ -160,7 +160,7 @@ async def on_message(message):
         #await message.author.edit(mute=True)
         #await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
 
-    elif message.content==('0xserverinfo') or message.content==('/serverinfo'):
+    elif message.content.startswith('0xserverinfo') or message.content.startswith('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
                               color=0x00ff00)
         embed.set_thumbnail(url=message.guild.icon_url)
@@ -172,7 +172,7 @@ async def on_message(message):
         embed.add_field(name="Server Boosts", value=message.guild.premium_subscription_count, inline=False)
         embed.add_field(name="Server Boost Tier", value=message.guild.premium_tier, inline=False)
         await message.channel.send(embed=embed)   
-    elif message.content==('0xavatar') or message.content==('/avatar'):
+    elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
             user = message.author
             embed = discord.Embed(title=f"{message.author.name}#{message.author.discriminator}", description=f"[Avatar Link]({user.avatar_url})", icon_url=user.avatar_url)
@@ -184,7 +184,7 @@ async def on_message(message):
             await message.channel.send('{0.author.mention}'.format(message) + "You need to mention a user")
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to fetch info')    
-    elif message.content==('0xunmute') or message.content==('/unmute'):
+    elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
         try:
             if message.author.guild_permissions.administrator:
                 try:
@@ -202,7 +202,7 @@ async def on_message(message):
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to unmute users')     
 
-    elif message.content==('0xkick') or message.content==('/kick'):
+    elif message.content.startswith('0xkick') or message.content.startswith('/kick'):
         try:
             if message.author.guild_permissions.administrator:
                 user = message.mentions[0]
@@ -217,7 +217,7 @@ async def on_message(message):
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to kick users')  
 
-    elif message.content==('0xban') or message.content==('/ban'):
+    elif message.content.startswith('0xban') or message.content.startswith('/ban'):
         try:
             if message.author.guild_permissions.administrator:
                 user = message.mentions[0]
@@ -232,7 +232,7 @@ async def on_message(message):
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to kick users')   
 
-    elif message.content==('0xunban') or message.content==('/unban'):
+    elif message.content.startswith('0xunban') or message.content.startswith('/unban'):
         try:
             if message.author.guild_permissions.administrator:
                 user = message.mentions[0]
@@ -247,7 +247,7 @@ async def on_message(message):
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to unban users')    
 
-    elif message.content==('0xclear') or message.content==('/clear'):
+    elif message.content.startswith('0xclear') or message.content.startswith('/clear'):
         try:
             if message.author.guild_permissions.administrator:
                 clrss =message.content
@@ -260,7 +260,8 @@ async def on_message(message):
             await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xclear <number of messages>")
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to clear messages')        
-    elif message.content==('0xmushaf') or message.content==('/mushaf'):
+    
+    elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
         mushafno_unstriped = message.content
         mushafno = mushafno_unstriped.strip('0xmushaf ')
         if mushafno == '':
@@ -295,7 +296,7 @@ async def on_message(message):
                 embed.set_image(url=f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg')
                 await message.channel.send(embed=embed)
 
-    elif message.content==('0xautomushaf') or message.content==('/automushaf'):
+    elif message.content.startswith('0xautomushaf') or message.content.startswith('/automushaf'):
         await message.channel.purge(limit=1)
         autos='true'
         while autos == 'true':
@@ -310,7 +311,7 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(86400)       
 
-    elif message.content==('0xayah') or message.content==('/ayah'):
+    elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'http://api.alquran.cloud/v1/ayah/{message.content[6:]}') as r:
                 res = await r.json()
@@ -319,7 +320,7 @@ async def on_message(message):
                 # embed.set_image(url=res['data']['url'])
                 await message.channel.send(embed=embed)
 
-    elif message.content==('0xautoayah') or message.content==('/autoayah'):
+    elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
         autos='true'
         while autos == 'true':
@@ -334,11 +335,11 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
 
-    elif message.content==('0xstopautos') or message.content==('/stopautos'):
+    elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
         autos = 'false'
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions have been stopped")     
 
-    elif message.content==('0xhadith') or message.content==('/hadith'):
+    elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
             f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
         await message.channel.send(
@@ -392,7 +393,7 @@ async def on_message(message):
                     await message.channel.send(
                         f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
 
-    elif message.content==('0xautosabah') or message.content==('/autosabah'):
+    elif message.content.startswith('0xautosabah') or message.content.startswith('/autosabah'):
         await message.channel.purge(limit=1)
         autos='true'
         while autos == 'true':
@@ -448,7 +449,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
             await asyncio.sleep(86400)
 
-    elif message.content==('0xsabah') or message.content==('/azkar-alsabah'):
+    elif message.content.startswith('0xsabah') or message.content.startswith('/azkar-alsabah'):
         embed = discord.Embed(title="أذكار الصباح", description="", color=0x00ff00)
         embed2 = discord.Embed(title="مره واحده", description="أيه الكرسي", color=0x00ff00)
         embed3 = discord.Embed(title="ثلاث مرات", description="سورة الإِخْلاَصِ", color=0x00ff00)
@@ -498,7 +499,7 @@ async def on_message(message):
         await message.channel.send(embed=embed5)
         await message.channel.send(embed=embed)
     
-    elif message.content==('0xcalc') or message.content==('/calc'):
+    elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         #await message.channel.send(
         embed = discord.embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
         embed.add_field(name = "example: 2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi", inline=False)
@@ -519,7 +520,7 @@ async def on_message(message):
         except requests.exceptions.RequestException as e:
             await message.channel.send(f'{message.author.mention} {e}')        
 
-    elif message.content==('0xaddrole') or message.content==('/addrole'):
+    elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
         
         if message.author.guild_permissions.administrator:
             user  = message.mentions[0]
@@ -548,7 +549,7 @@ async def on_message(message):
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')     
 
-    elif message.content==('0xremoverole') or message.content==('/removerole'):
+    elif message.content.startswith('0xremoverole') or message.content.startswith('/removerole'):
         if message.author.guild_permissions.administrator:
             user  = message.mentions[0]
             await message.channel.send(
@@ -576,11 +577,11 @@ async def on_message(message):
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')
 
-    elif message.content==('0xlistroles') or message.content==('/listroles'):
+    elif message.content.startswith('0xlistroles') or message.content.startswith('/listroles'):
         await message.channel.send(f'{message.author.mention} The list of roles is:')
         for role in message.guild.roles:
            await message.channel.send(role.name)
-    elif message.content==('0xinv') or message.content==('/inv'):
+    elif message.content.startswith('0xinv') or message.content.startswith('/inv'):
         message.channel.purge(limit=1)
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
