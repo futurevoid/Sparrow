@@ -56,7 +56,7 @@ async def on_message(message):
             return user == message.author 
     if message.author == client.user:
         return
-    elif message.content.startswith('0x'):
+    elif message.content==('0x'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
                               color=0x00ff00)
         embed.add_field(name ="0xhelp", value ="Shows this help menu", inline=False)
