@@ -1,5 +1,6 @@
 # create a discord bot that will automatically send messages after a certain amount of time has passed
 # (in this case, the time is set to 5 seconds)
+from ast import increment_lineno
 import asyncio
 import datetime as dt
 import json
@@ -101,7 +102,8 @@ async def on_message(message):
         embed.add_field(name ="0xunmute <user>", value ="Unmutes a user", inline=False)
         embed.add_field(name ="0xclear <number of messages>", value ="Clears a number of messages", inline=False)
         embed.add_field(name ="0xavatar <user>", value ="Shows a user's avatar", inline=False)
-
+        embed.add_field(name ="0xserverinfo", value ="Shows the server info", inline=False)
+        embed.add_field(name ="0xinvite", value ="Shows the bot invite link", inline=False)
         embed.add_field(name ="0xaddrole <user>", value ="Gives a role to a user", inline=False)
         await message.channel.send(embed=embed)
 
@@ -137,11 +139,14 @@ async def on_message(message):
         await message.channel.send(embed=embed)   
     elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
-            user = message.mentions[0]
-            await message.channel.send(f'{message.author.mention} \n {user.avatar_url}')
+            user = message.author
+            embed = discord.Embed(title=f"{user.avatar_icon}{message.author.mention}", description=f"[Avatar Link]({user.avatar_url})")
+            embed.set_image(url=user.avatar_thmubnail)
+            await message.channel.send(embed=embed)
         except IndexError:
             await message.channel.send('{0.author.mention}'.format(message) + "You need to mention a user")
-
+        except discord.Forbidden:
+                    await message.channel.send(f'{message.author.mention} I dont have permission to fetch info')    
     elif message.content.startswith('0xunmute') or message.content.startswith('/unmute'):
         try:
             if message.author.guild_permissions.administrator:
@@ -241,6 +246,9 @@ async def on_message(message):
             mushafno = '009'
         if mushafno == '10':
             mushafno = '010'                                        
+        if mushafno == '11':
+            mushafno = '011'
+
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                 # res = await r.json()
@@ -452,9 +460,9 @@ async def on_message(message):
         await message.channel.send(embed=embed)
     
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
-        await message.channel.send(
-            "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e"+
-            "\n"+"example: 2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi")
+        #await message.channel.send(
+        embed = discord.embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
+        embed.add_field(name = "example: 2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi", inline=False)
         user = message.author
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
@@ -470,24 +478,7 @@ async def on_message(message):
             embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
             await message.channel.send(embed=embed)
         except requests.exceptions.RequestException as e:
-            await message.channel.send(f'{message.author.mention} {e}')    
-
-    elif message.content.startswith('0xQrdecode') or message.content.startswith('/Qrdecode'):
-        await message.channel.send(
-            f'{message.author.mention} send the qr code to be decoded ')
-        qr = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)                              
-        qrcontent = qr.content
-        print(qrcontent)
-        try:
-            img = Image.open(requests.get(qrcontent))
-        except:
-            img= Image.open(qrcontent)    
-        output_unfiltered = pyzbar.decode(img)
-        print(output_unfiltered)
-        output= output_unfiltered[0].data.decode('utf-8')
-        print(output)
-        embed = discord.Embed(title=f"your QRcode Data", description=f"{output}", color=0x00ff00)
-        await message.channel.send(embed=embed)
+            await message.channel.send(f'{message.author.mention} {e}')        
 
     elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
         
