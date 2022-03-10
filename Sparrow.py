@@ -140,7 +140,7 @@ async def on_message(message):
     elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
             user = message.author
-            embed = discord.Embed(title=f"{user.avatar_icon}{message.author.mention}", description=f"[Avatar Link]({user.avatar_url})")
+            embed = discord.Embed(title=f"{user.avatar_thumbnail}{message.author.mention}", description=f"[Avatar Link]({user.avatar_url})")
             embed.set_image(url=user.avatar_thmubnail)
             await message.channel.send(embed=embed)
         except IndexError:
