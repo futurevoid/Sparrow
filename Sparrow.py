@@ -87,11 +87,11 @@ async def on_message(message):
         await message.channel.send(embed=embed)
 
     elif message.content==('0xhello') or message.content==('/hello'):
-        msg = 'Hello {0.author.mention}'.format(message)+ "\n" + "{0.author.mention} مرحبا ".format(message)
+        msg = 'Hey wassup bro {0.author.mention}'.format(message)
         await message.channel.send(msg)
 
     elif message.content==('0xlog') or message.content==('/log'):
-        msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n-------'.format(
+        msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n {client.activity.emoji}\n-------'.format(
             message)
         await message.channel.send(msg)
 
@@ -158,6 +158,7 @@ async def on_message(message):
 
     elif message.content=='evil':
         await user.edit(mute=True)
+        await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
 
     elif message.content==('0xserverinfo') or message.content==('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
