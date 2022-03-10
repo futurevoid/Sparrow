@@ -56,6 +56,36 @@ async def on_message(message):
             return user == message.author 
     if message.author == client.user:
         return
+    elif message.content==('0x'):
+        embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
+                              color=0x00ff00)
+        embed.add_field(name ="0xhelp", value ="Shows this help menu", inline=False)
+        embed.add_field(name ="0xhello", value ="Says hello", inline=False)
+        embed.add_field(name ="0xlog", value ="Some Nerdy Stuff", inline=False)
+        embed.add_field(name ="0xping", value ="Shows the bot latency", inline=False)
+        embed.add_field(name ="0xqr <content>", value ="Creates a QR code with your content", inline=False)
+        embed.add_field(name ="0xmushaf <number of page in the mushaf>", value ="Shows a mushaf page", inline=False)
+        embed.add_field(name ="0xayah <surah number:ayah number>", value ="Shows a  ayah", inline=False)
+        embed.add_field(name ="0xsabah", value ="Shows اذكار الصباح", inline=False)
+        embed.add_field(name ="0xhadith", value ="Shows you a hadith", inline=False)
+        embed.add_field(name ="0xautoayah", value ="Shows a random ayah every 5 minutes", inline=False)
+        embed.add_field(name ="0xautomushaf", value ="Shows a random mushaf page every day", inline=False)
+        embed.add_field(name ="0xautosabah", value ="Shows اذكار الصباح every day", inline=False)
+        embed.add_field(name ="0xstopautos", value ="Stops all automatic functions", inline=False)
+        embed.add_field(name ="0xkick <user>", value ="Kicks a user", inline=False)
+        embed.add_field(name ="0xban <user>", value ="Bans a user", inline=False)
+        embed.add_field(name ="0xunban <user>", value ="Unbans a user", inline=False)
+        embed.add_field(name ="0xmute <user>", value ="Mutes a user", inline=False)
+        embed.add_field(name ="0xunmute <user>", value ="Unmutes a user", inline=False)
+        embed.add_field(name ="0xclear <number of messages>", value ="Clears a number of messages", inline=False)
+        embed.add_field(name ="0xavatar <user>", value ="Shows a user's avatar", inline=False)
+        embed.add_field(name ="0xserverinfo", value ="Shows the server info", inline=False)
+        embed.add_field(name ="0xinvite", value ="Shows the bot invite link", inline=False)
+        embed.add_field(name ="0xaddrole <user>", value ="Gives a role to a user", inline=False)
+        embed.add_field(name ="0xremoverole <user>", value ="Removes a role from a user", inline=False)
+        embed.add_field(name ="0xlistroles", value ="Shows a list of roles", inline=False)
+        await message.channel.send(embed=embed)
+
     elif message.content==('0xhello') or message.content==('/hello'):
         msg = 'Hello {0.author.mention}'.format(message)+ "\n" + "{0.author.mention} مرحبا ".format(message)
         await message.channel.send(msg)
@@ -73,7 +103,7 @@ async def on_message(message):
         await msg.edit(content=f'Pong! 🏓 {round(ping)}ms {message.author.mention}')
 
     elif message.content==('0xqr') or message.content==('/qr'):
-        sliced = message.content[4:]
+        sliced = message.content.strip('0xqr')
         slicedr = sliced.replace(" ", "%20")
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
         await message.channel.send(msg)
@@ -125,6 +155,9 @@ async def on_message(message):
                 await message.channel.send('{0.author.mention}'.format(message) + "You are not an admin")
         except discord.Forbidden:
             await message.channel.send(f'{message.author.mention} I dont have permission to mute users')        
+
+    elif message.content=='evil':
+        await user.edit(mute=True)
 
     elif message.content==('0xserverinfo') or message.content==('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
