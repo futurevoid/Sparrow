@@ -94,7 +94,6 @@ async def on_message(message):
         embed.add_field(name ="0xautomushaf", value ="Shows a random mushaf page every day", inline=False)
         embed.add_field(name ="0xautosabah", value ="Shows اذكار الصباح every day", inline=False)
         embed.add_field(name ="0xstopautos", value ="Stops all automatic functions", inline=False)
-        # embed.add_field(name ="0xhadith_info" , value ="Shows the hadith info", inline=False)
         embed.add_field(name ="0xkick <user>", value ="Kicks a user", inline=False)
         embed.add_field(name ="0xban <user>", value ="Bans a user", inline=False)
         embed.add_field(name ="0xunban <user>", value ="Unbans a user", inline=False)
@@ -105,6 +104,8 @@ async def on_message(message):
         embed.add_field(name ="0xserverinfo", value ="Shows the server info", inline=False)
         embed.add_field(name ="0xinvite", value ="Shows the bot invite link", inline=False)
         embed.add_field(name ="0xaddrole <user>", value ="Gives a role to a user", inline=False)
+        embed.add_field(name ="0xremoverole <user>", value ="Removes a role from a user", inline=False)
+        embed.add_field(name ="0xlistroles", value ="Shows a list of roles", inline=False)
         await message.channel.send(embed=embed)
 
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
@@ -140,7 +141,7 @@ async def on_message(message):
     elif message.content.startswith('0xavatar') or message.content.startswith('/avatar'):
         try:
             user = message.author
-            embed = discord.Embed(title=f"{message.author.mention}", description=f"[Avatar Link]({user.avatar_url})")
+            embed = discord.Embed(title=f"{message.author.name}", description=f"[Avatar Link]({user.avatar_url})")
             embed.set_thumbnail(url=user.avatar_url)
             embed.set_image(url=user.avatar_url)
             await message.channel.send(embed=embed)
@@ -538,6 +539,10 @@ async def on_message(message):
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')
 
+    elif message.content.startswith('0xlistroles') or message.content.startswith('/listroles'):
+        await message.channel.send(f'{message.author.mention} The list of roles is:')
+        for role in message.guild.roles:
+           await message.channel.send(role.name)
     elif message.content.startswith('0xinv') or message.content.startswith('/inv'):
         message.channel.purge(limit=1)
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
