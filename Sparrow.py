@@ -108,6 +108,11 @@ async def on_message(message):
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
         await message.channel.send(msg)
 
+    elif message.content.startswith('0xlistroles') or message.content.startswith('/listroles'):
+        msg = f'{message.author.mention} Here is a list of roles:'.format(message)
+        for role in message.guild.roles:
+            msg += f'\n{role.name}'
+        await message.channel.send(msg)    
     elif message.content.startswith('0xhelp') or message.content.startswith('/help'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
                               color=0x00ff00)
