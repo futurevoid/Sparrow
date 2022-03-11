@@ -165,7 +165,7 @@ async def on_message(message):
         #await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
 
     elif message.content.startswith('0xinvite') or message.content.startswith('/invite'):
-        await message.channel.send(f'{message.author.mention} Here is the bot invite link: [Invite Link](https://discord.com/api/oauth2/authorize?client_id=938395752873476096&permissions=8&scope=bot)')
+        await message.channel.send(f'{message.author.mention} Here is the bot invite link:https://discord.com/api/oauth2/authorize?client_id=938395752873476096&permissions=8&scope=bot')
     elif message.content.startswith('0xserverinfo') or message.content.startswith('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
                               color=0x00ff00)
