@@ -91,7 +91,7 @@ async def on_message(message):
         await message.channel.send(msg)
 
     elif message.content.startswith('0xlog') or message.content.startswith('/log'):
-        msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n {client.activity.emoji}\n-------'.format(
+        msg = f'Message sent\n{message.content}\n{message.author}\n{message.channel}\n{message.guild}\n{message.id}\n{message.type}\n{message.attachments}\n{client.user.id}\n{client.user.name}\n{client.user.discriminator}\n{client.user.avatar}\n-------'.format(
             message)
         await message.channel.send(msg)
 
