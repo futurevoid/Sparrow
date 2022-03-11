@@ -165,7 +165,7 @@ async def on_message(message):
 
     elif message.content.startswith('0xinvite') or message.content.startswith('/invite'):
         embed = discord.Embed(title="Here is the bot invite link{0.author.mention}", description="[Avatar Link](https://discord.com/api/oauth2/authorize?client_id=938395752873476096&permissions=8&scope=bot)".format(message))
-
+        await message.channel.send(embed=embed)
     elif message.content.startswith('0xserverinfo') or message.content.startswith('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
                               color=0x00ff00)
