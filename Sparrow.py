@@ -140,7 +140,6 @@ async def on_message(message):
         embed.add_field(name ="0xinvite", value ="Shows the bot invite link", inline=False)
         embed.add_field(name ="0xaddrole user", value ="Gives a role to a user", inline=False)
         embed.add_field(name ="0xremoverole user", value ="Removes a role from a user", inline=False)
-        embed.add_field(name ="0xlistroles", value ="Shows a list of roles", inline=False)
         await message.channel.send(embed=embed)
 
     if message.content.startswith('0xmute') or message.content.startswith('/mute'):
@@ -165,6 +164,8 @@ async def on_message(message):
         #await message.author.edit(mute=True)
         #await message.channel.send('{0.author.mention}'.format(message) + "user is muted")
 
+    elif message.content.startswith('0xinvite') or message.content.startswith('/invite'):
+        await message.channel.send(f'{message.author.mention} Here is the bot invite link: [Invite Link]({bot.user.invite_url})')
     elif message.content.startswith('0xserverinfo') or message.content.startswith('/serverinfo'):
         embed = discord.Embed(title="Server Info", description="Here is the info buddy {0.author.mention}".format(message),
                               color=0x00ff00)
@@ -565,7 +566,7 @@ async def on_message(message):
             await message.add_reaction('✅')
             def check(reaction, user):
                 return user == message.author or message.mentions[0] and str(reaction.emoji) in '✅'
-            reaction, user = await client.wait_for('reaction_remove', timeout= 60 ,check=check)
+            reaction, user = await client.wait_for('reaction_', timeout= 60 ,check=check)
         
             if str(reaction.emoji) == '✅':
                 try:
@@ -582,10 +583,7 @@ async def on_message(message):
         else:
             await message.channel.send(f'{message.author.mention} you are not an admin')
 
-    elif message.content.startswith('0xlistroles') or message.content.startswith('/listroles'):
-        await message.channel.send(f'{message.author.mention} The list of roles is:')
-        for role in message.guild.roles:
-           await message.channel.send(role.name)
+
     elif message.content.startswith('0xinv') or message.content.startswith('/inv'):
         message.channel.purge(limit=1)
         await message.channel.send('\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164\u3164')
