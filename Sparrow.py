@@ -508,6 +508,7 @@ async def on_message(message):
         user = message.author
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
+        await message.channel.send(embed=embed)    
 
 
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
