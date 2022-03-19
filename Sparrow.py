@@ -107,11 +107,6 @@ async def on_message(message):
         msg = f'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={slicedr}'.format(message)
         await message.channel.send(msg)
 
-    elif message.content.startswith('0xlistroles') or message.content.startswith('/listroles'):
-        msg = f'{message.author.mention} Here is a list of roles:'.format(message)
-        for role in message.guild.roles:
-            msg += f'\n{role.name}'
-        await message.channel.send(msg)    
     elif message.content.startswith('0xhelp') or message.content.startswith('/help'):
         embed = discord.Embed(title="Help", description="Here is a list of commands{0.author.mention}".format(message),
                               color=0x00ff00)
@@ -508,7 +503,7 @@ async def on_message(message):
     
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         #await message.channel.send(
-        embed = discord.embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
+        embed = discord.Embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
         embed.add_field(name = "example: 2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi", inline=False)
         user = message.author
         await message.channel.send(
