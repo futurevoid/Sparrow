@@ -504,7 +504,7 @@ async def on_message(message):
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         #await message.channel.send(
         embed = discord.Embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
-        embed.add_field(name = "example: 2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi",value='', inline=False)
+        embed.add_field(name = "example:",value="2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi", inline=False)
         user = message.author
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
