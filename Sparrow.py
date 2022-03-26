@@ -253,11 +253,8 @@ async def on_message(message):
         try:
             if message.author.guild_permissions.administrator:
                 clrss =message.content
-                print(clrss)
                 clr = message.content[7:]
-                print(clr)
                 mc = int(clr)
-                print(mc)
                 await message.channel.purge(limit=mc)
             else:
                 await message.channel.send('{0.author.mention} not an admin'.format(message))
