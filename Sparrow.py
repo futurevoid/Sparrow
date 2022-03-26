@@ -298,6 +298,15 @@ async def on_message(message):
                                       description=f"{res['data']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
                 await message.channel.send(embed=embed)
+    elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f'https://wolframalpha.com/input/?i=9--x') as r:
+                res = await r.json()
+                print(res)
+                #embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
+                #                      description=f"{res['data']['text']}", color=0x00ff00)
+                # embed.set_image(url=res['data']['url'])
+                #await message.channel.send(embed=embed)            
 
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
@@ -488,34 +497,13 @@ async def on_message(message):
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        calccontent = calc.content
-        try:
-            if calccontent.find('y'):
-                y= sympy.Symbol('y')
-                expr = calccontent
-                sol_unstriped = sympy.solve(expr, y)
-                sol = sol_unstriped[0]
-                embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
-                await message.channel.send(embed=embed)
-            else:
-                pass 
-        except:
-            pass
-        if calccontent.find('x'):
-            x= sympy.Symbol('x')
-            expr = calccontent
-            sol_unstriped = sympy.solve(expr, x)
-            sol = sol_unstriped[0]
-            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
-            await message.channel.send(embed=embed)
-        else:
-            pass     
+        calccontent = calc.content  
         calc_content_urlencoded = urllib.parse.quote(calccontent)   
         try:
             if calc_content_urlencoded.find('y') or calc_content_urlencoded.find('x'):
                 pass 
             else:
-                site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
+                site_request = requests.get(f"https://wolframalpha.com/input/?i={calc_content_urlencoded}")
                 site_request_content = site_request.text
                 embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
                 await message.channel.send(embed=embed)
