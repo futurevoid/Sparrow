@@ -487,13 +487,19 @@ async def on_message(message):
         await message.channel.send(embed=embed)
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
-
-                
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        if calccontent.find('x') or calccontent.find('y'):
-            x= sympy.Symbol('x')
+        if calccontent.find('y'):
             y= sympy.Symbol('y')
+            expr = calccontent
+            soll = sympy.solve(expr, y)
+            sol = str(soll)
+            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        else:
+            pass 
+        if calccontent.find('x'):
+            x= sympy.Symbol('x')
             expr = calccontent
             soll = sympy.solve(expr, x , y)
             sol = str(soll)
