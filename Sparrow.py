@@ -297,17 +297,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
                                       description=f"{res['data']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
-                await message.channel.send(embed=embed)
-    elif message.content.startswith('0xhh') or message.content.startswith('/ayah'):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://wolframalpha.com/input/?i=9--x') as r:
-                res = await r.json()
-                print(res)
-                await message.channel.send(res)
-                #embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
-                #                      description=f"{res['data']['text']}", color=0x00ff00)
-                # embed.set_image(url=res['data']['url'])
-                #await message.channel.send(embed=embed)            
+                await message.channel.send(embed=embed)     
 
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
