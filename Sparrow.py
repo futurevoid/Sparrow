@@ -1,5 +1,6 @@
 # create a discord bot that will automatically send messages after a certain amount of time has passed
 # (in this case, the time is set to 5 seconds)
+from bs4 import BeautifulSoup
 import sympy
 import asyncio
 import datetime as dt
@@ -496,7 +497,10 @@ async def on_message(message):
             else:
                 site_request = requests.get(f"https://wolframalpha.com/input/?i={calc_content_urlencoded}")
                 site_request_content = site_request.text
-                embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
+                soup = BeautifulSoup(site_request_content, 'html.parser')
+                result = soup.find('div', attrs={'class': 'result'})
+                result_text = result.text
+                embed = discord.Embed(title="Result", description=f"{result_text}", color=0x00ff00)
                 await message.channel.send(embed=embed)
         except requests.exceptions.RequestException as e:
             await message.channel.send(f'{message.author.mention} {e}')        
