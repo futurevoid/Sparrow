@@ -298,7 +298,7 @@ async def on_message(message):
                                       description=f"{res['data']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
                 await message.channel.send(embed=embed)
-    elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
+    elif message.content.startswith('0xayahh') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://wolframalpha.com/input/?i=9--x') as r:
                 res = await r.json()
