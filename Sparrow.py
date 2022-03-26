@@ -491,7 +491,7 @@ async def on_message(message):
                 
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        if calccontent.startswith('x') or calccontent.startswith('y'):
+        if calccontent.find('x') or calccontent.find('y'):
             x= sympy.Symbol('x')
             expr = calccontent
             sol = sympy.solve(expr, x)
