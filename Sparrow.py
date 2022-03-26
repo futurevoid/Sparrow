@@ -492,8 +492,8 @@ async def on_message(message):
         if calccontent.find('y'):
             y= sympy.Symbol('y')
             expr = calccontent
-            soll = sympy.solve(expr, y)
-            sol = str(soll)
+            sol_unstriped = sympy.solve(expr, y)
+            sol = sol_unstriped.strip('[]')
             embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
             await message.channel.send(embed=embed)
         else:
@@ -501,8 +501,8 @@ async def on_message(message):
         if calccontent.find('x'):
             x= sympy.Symbol('x')
             expr = calccontent
-            soll = sympy.solve(expr, x)
-            sol = str(soll)
+            sol_unstriped = sympy.solve(expr, x)
+            sol = sol_unstriped.strip('[]')
             embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
             await message.channel.send(embed=embed)
         else:
