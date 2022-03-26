@@ -254,7 +254,7 @@ async def on_message(message):
             if message.author.guild_permissions.administrator:
                 clrss =message.content
                 print(clrss)
-                clr = message.content[:7]
+                clr = message.content[7:]
                 print(clr)
                 mc = int(clr)
                 print(mc)
