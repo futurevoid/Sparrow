@@ -493,8 +493,9 @@ async def on_message(message):
         calccontent = calc.content
         if calccontent.find('x') or calccontent.find('y'):
             x= sympy.Symbol('x')
+            y= sympy.Symbol('y')
             expr = calccontent
-            sol = sympy.solve(expr, x)
+            sol = sympy.solve(expr, x , y)
             embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
             await message.channel.send(embed=embed)
         else:
