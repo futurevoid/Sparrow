@@ -488,10 +488,18 @@ async def on_message(message):
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
 
+                
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        calc_content_urlencoded = urllib.parse.quote(calccontent)
-        print(calc_content_urlencoded)   
+        if calccontent.startswith('x') or calccontent.startswith('y'):
+            x= sympy.Symbol('x')
+            expr = calccontent
+            sol = sympy.solve(expr, x)
+            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        else:
+            pass     
+        calc_content_urlencoded = urllib.parse.quote(calccontent)   
         try:
             site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
             site_request_content = site_request.text
