@@ -303,6 +303,7 @@ async def on_message(message):
             async with cs.get(f'https://wolframalpha.com/input/?i=9--x') as r:
                 res = await r.json()
                 print(res)
+                await message.channel.send(res)
                 #embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
                 #                      description=f"{res['data']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
