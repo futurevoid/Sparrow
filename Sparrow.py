@@ -253,7 +253,7 @@ async def on_message(message):
         try:
             if message.author.guild_permissions.administrator:
                 clrss =message.content
-                clr = clrss.strip('0xclear')
+                clr = message.content[:7]
                 mc = int(clr)
                 await message.channel.purge(limit=mc)
             else:
