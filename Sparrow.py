@@ -1,6 +1,6 @@
 # create a discord bot that will automatically send messages after a certain amount of time has passed
 # (in this case, the time is set to 5 seconds)
-from ast import increment_lineno
+import sympy
 import asyncio
 import datetime as dt
 import json
@@ -268,29 +268,6 @@ async def on_message(message):
         mushafno = mushafno_unstriped.strip('0xmushaf ')
         if mushafno == '':
             await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xmushaf <mushaf number>")
-        if mushafno == '1':
-            mushafno = '001'
-        if mushafno == '2':
-            mushafno = '002'
-        if mushafno == '3':
-            mushafno = '003'
-        if mushafno == '4':
-            mushafno = '004'
-        if mushafno == '5':
-            mushafno = '005'
-        if mushafno == '6':
-            mushafno = '006'
-        if mushafno == '7':
-            mushafno = '007'
-        if mushafno == '8':
-            mushafno = '008'
-        if mushafno == '9':
-            mushafno = '009'
-        if mushafno == '10':
-            mushafno = '010'                                        
-        if mushafno == '11':
-            mushafno = '011'
-
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://www.searchtruth.org/quran/images1/{mushafno}.jpg') as r:
                 # res = await r.json()
@@ -341,6 +318,7 @@ async def on_message(message):
         autos = 'false'
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions have been stopped")     
 
+    
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         await message.channel.send(
             f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
@@ -506,10 +484,9 @@ async def on_message(message):
         embed = discord.Embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
         embed.add_field(name = "example:",value="2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi", inline=False)
         user = message.author
+        await message.channel.send(embed=embed)
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
-        await message.channel.send(embed=embed)    
-
 
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
