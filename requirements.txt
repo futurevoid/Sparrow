@@ -15,7 +15,6 @@ cffi==1.15.0
 chardet==4.0.0
 click==8.0.4
 colorama==0.4.4
-configobj==5.1.0.dev0
 constantly==15.1.0
 contextlib2==0.6.0.post1
 cryptography==36.0.2
@@ -169,4 +168,3 @@ yarl==1.7.2
 youtube-dl==2021.12.17
 zipp==3.7.0
 zope.interface==5.4.0
-beautifulsoup4
