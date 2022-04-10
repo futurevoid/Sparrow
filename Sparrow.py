@@ -498,7 +498,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         else:
             pass 
-        if calccontent.find('x'):
+        if calccontent.find('x')==0:
             x= sympy.Symbol('x')
             expr = calccontent
             soll = sympy.solve(expr, x)
