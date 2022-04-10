@@ -30,4 +30,4 @@ Werkzeug==2.0.3
 yarl==1.7.2
 youtube-dl==2021.12.17
 sympy
-beautifulsoup4==4.10.0
+#beautifulsoup4==4.10.0
