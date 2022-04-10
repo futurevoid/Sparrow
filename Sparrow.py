@@ -507,14 +507,15 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         else:
             pass     
-        calc_content_urlencoded = urllib.parse.quote(calccontent)   
-        try:
-            site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
-            site_request_content = site_request.text
-            embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
+        #calc_content_urlencoded = urllib.parse.quote(calccontent)   
+        if calccontent.find('+'):
+            expr = calccontent
+            soll = sympy.solve(expr)
+            sol = str(soll)
+            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
             await message.channel.send(embed=embed)
-        except requests.exceptions.RequestException as e:
-            await message.channel.send(f'{message.author.mention} {e}')        
+            #try:
+               #sympy.        
 
     elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
         
