@@ -53,6 +53,8 @@ async def on_message(message):
     global check 
     global autos
     global user
+    global calcsol
+    
     def check(user):
             return user == message.author 
     if message.author == client.user:
