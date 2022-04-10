@@ -510,7 +510,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         else:
             pass        
-        if calccontent.find('+'):
+        if '+' in calccontent == True:
             try:
                calcsol_str = calccontent
                calcsol = int(calcsol_str)
@@ -520,7 +520,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        elif calccontent.find('-')==0:
+        elif '-' in calccontent == True:
             try:
                 calcsol_str = calccontent
                 calcsol = int(calcsol_str)
@@ -529,7 +529,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)                   
-        elif calccontent.find('*')==0:
+        elif '*' in calccontent == True:
             try:
                 calcsol = sympy.Mul(calccontent)
                 embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
@@ -537,7 +537,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        elif calccontent.find('/')==0:
+        elif '/' in calccontent == True:
             try:
                 calcsol = sympy.div(calccontent)
                 embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
@@ -545,7 +545,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        elif calccontent.find('^')==0:
+        elif '^' in calccontent == True:
             try:
                 calcsol = sympy.Pow(calccontent)
                 embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
@@ -553,7 +553,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)   
-        elif calccontent.find('sin')==0:
+        elif 'sin' in calccontent == True:
             try:
                 prerad1 = calccontent.replace('sin(','')
                 prerad2 = prerad1.replace(')','')
@@ -565,7 +565,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        elif calccontent.find('cos')==0:
+        elif 'cos' in calccontent == True:
             try:
                 prerad1 = calccontent.replace('cos(','')
                 prerad2 = prerad1.replace(')','')
@@ -577,7 +577,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        elif calccontent.find('tan')==0:
+        elif 'tan' in calccontent == True:
             try:
                 rad = math.radians(calccontent)
                 calcsol = sympy.tan(rad)
@@ -586,7 +586,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        elif calccontent.find('cot')==0:
+        elif 'cot' in calccontent == True:
             try:
                 rad = math.radians(calccontent)
                 calcsol = sympy.cot(rad)
