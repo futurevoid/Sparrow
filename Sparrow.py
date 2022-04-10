@@ -718,5 +718,5 @@ tbvar = "otm"
 tbvarU = tbvar.upper()
 tbovar = "RN"
 tbovarl = tbovar.lower()
-#keep_alive()
+keep_alive()
 client.run(f"{tbvarU}4Mzk1NzUyODczNDc2MDk2.YfprJg.5JW{tbovarl}A1bFYMNhA1WRlLb{tvarU}wtnyM")
