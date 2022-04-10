@@ -510,7 +510,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         else:
             pass        
-        if calccontent.find('+')==0:
+        if calccontent.find('+'):
             try:
                calcsol_str = calccontent
                calcsol = int(calcsol_str)
