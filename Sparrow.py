@@ -557,6 +557,7 @@ async def on_message(message):
             try:
                 prerad1 = calccontent.replace('sin(','')
                 prerad2 = prerad1.replace(')','')
+                print(prerad2)
                 rad = math.radians(prerad2)
                 calcsol = sympy.sin(rad)
                 embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
