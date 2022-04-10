@@ -1,6 +1,5 @@
 # create a discord bot that will automatically send messages after a certain amount of time has passed
 # (in this case, the time is set to 5 seconds)
-from bs4 import BeautifulSoup
 import sympy
 import asyncio
 import datetime as dt
@@ -254,7 +253,7 @@ async def on_message(message):
         try:
             if message.author.guild_permissions.administrator:
                 clrss =message.content
-                clr = message.content[7:]
+                clr = clrss.strip('0xclear')
                 mc = int(clr)
                 await message.channel.purge(limit=mc)
             else:
@@ -298,7 +297,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
                                       description=f"{res['data']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
-                await message.channel.send(embed=embed)     
+                await message.channel.send(embed=embed)
 
     elif message.content.startswith('0xautoayah') or message.content.startswith('/autoayah'):
         await message.channel.purge(limit=1)
@@ -489,19 +488,31 @@ async def on_message(message):
         await message.channel.send(
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        calccontent = calc.content  
+        calccontent = calc.content
+        if calccontent.find('y'):
+            y= sympy.Symbol('y')
+            expr = calccontent
+            soll = sympy.solve(expr, y)
+            sol = str(soll)
+            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        else:
+            pass 
+        if calccontent.find('x'):
+            x= sympy.Symbol('x')
+            expr = calccontent
+            soll = sympy.solve(expr, x)
+            sol = str(soll)
+            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        else:
+            pass     
         calc_content_urlencoded = urllib.parse.quote(calccontent)   
         try:
-            if calc_content_urlencoded.find('y') or calc_content_urlencoded.find('x'):
-                pass 
-            else:
-                site_request = requests.get(f"https://wolframalpha.com/input/?i={calc_content_urlencoded}")
-                site_request_content = site_request.text
-                soup = BeautifulSoup(site_request_content, 'html.parser')
-                result = soup.find('div', attrs={'class': 'result'})
-                result_text = result.text
-                embed = discord.Embed(title="Result", description=f"{result_text}", color=0x00ff00)
-                await message.channel.send(embed=embed)
+            site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
+            site_request_content = site_request.text
+            embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
+            await message.channel.send(embed=embed)
         except requests.exceptions.RequestException as e:
             await message.channel.send(f'{message.author.mention} {e}')        
 
