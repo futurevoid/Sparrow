@@ -168,3 +168,4 @@ yarl==1.7.2
 youtube-dl==2021.12.17
 zipp==3.7.0
 zope.interface==5.4.0
+configobj
