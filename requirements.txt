@@ -29,5 +29,5 @@ urllib3==1.26.8
 Werkzeug==2.0.3
 yarl==1.7.2
 youtube-dl==2021.12.17
-sympy==1
+sympy==900
 #beautifulsoup4==4.10.0
