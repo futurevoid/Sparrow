@@ -612,15 +612,7 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)    
-        else:
-            try:
-                #calcsol = sympy.Eq(calccontent)
-                calcsol = sympy.solve(calccontent)
-                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
-                await message.channel.send(embed=embed)
-            except Exception as e:
-                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
-                await message.channel.send(embed=embed)
+        
         
                 
                        
