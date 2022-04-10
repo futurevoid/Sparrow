@@ -1,5 +1,6 @@
 # create a discord bot that will automatically send messages after a certain amount of time has passed
 # (in this case, the time is set to 5 seconds)
+import math
 import sympy
 import asyncio
 import datetime as dt
@@ -482,7 +483,7 @@ async def on_message(message):
     elif message.content.startswith('0xcalc') or message.content.startswith('/calc'):
         #await message.channel.send(
         embed = discord.Embed(title = "available operations are: +, -, *, /, ^, %,(),sin, cos, tan, cot, sec, csc, log, ln, sqrt, pi, e", description="", color = 0x00ff00)
-        embed.add_field(name = "example:",value="2+2,sin(90 deg),sin(75 rad),log(100),ln(100),sqrt(100),pi", inline=False)
+        embed.add_field(name = "example:",value="2+2,sin(90),log(100),ln(100),sqrt(100),pi", inline=False)
         user = message.author
         await message.channel.send(embed=embed)
         await message.channel.send(
@@ -509,7 +510,8 @@ async def on_message(message):
             pass        
         if calccontent.find('+')==0:
             try:
-               calcsol = sympy.Sum(calccontent)
+               calcsol_str = calccontent
+               calcsol = int(calcsol_str)
                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
                await message.channel.send(embed=embed)
             except Exception as e:
@@ -517,7 +519,8 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
         elif calccontent.find('-')==0:
             try:
-                calcsol = eval(calccontent)
+                calcsol_str = calccontent
+                calcsol = int(calcsol_str)
                 embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
                 await message.channel.send(embed=embed)
             except Exception as e:
@@ -531,12 +534,89 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
                 await message.channel.send(embed=embed)
-        else:
-            calc_content_urlencoded = urllib.parse.quote(calccontent)
+        elif calccontent.find('/')==0:
+            try:
+                calcsol = sympy.div(calccontent)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+        elif calccontent.find('^')==0:
+            try:
+                calcsol = sympy.Pow(calccontent)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)   
+        elif calccontent.find('sin')==0:
+            try:
+                prerad1 = calccontent.replace('sin(','')
+                prerad2 = prerad1.replace(')','')
+                rad = math.radians(prerad2)
+                calcsol = sympy.sin(rad)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+        elif calccontent.find('cos')==0:
+            try:
+                prerad1 = calccontent.replace('cos(','')
+                prerad2 = prerad1.replace(')','')
+                rad = math.radians(prerad2)
+                rad = math.radians(calccontent)
+                calcsol = sympy.cos(rad)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+        elif calccontent.find('tan')==0:
+            try:
+                rad = math.radians(calccontent)
+                calcsol = sympy.tan(rad)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+        elif calccontent.find('cot')==0:
+            try:
+                rad = math.radians(calccontent)
+                calcsol = sympy.cot(rad)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+        elif calccontent.find('sec')==0:
+            try:
+                rad = math.radians(calccontent)
+                calcsol = sympy.sec(rad)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)                                            
+        elif calccontent.find('csc')==0:
+            try:
+                rad = math.radians(calccontent)
+                calcsol = sympy.csc(rad)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)    
+        calc_content_urlencoded = urllib.parse.quote(calccontent)  
+        try:
             site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
             site_request_content = site_request.text
             embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
             await message.channel.send(embed=embed)
+        except requests.exceptions.RequestException as e:
+                await message.channel.send(f'{message.author.mention} {e}')
                 
                        
                         
@@ -638,5 +718,5 @@ tbvar = "otm"
 tbvarU = tbvar.upper()
 tbovar = "RN"
 tbovarl = tbovar.lower()
-keep_alive()
+#keep_alive()
 client.run(f"{tbvarU}4Mzk1NzUyODczNDc2MDk2.YfprJg.5JW{tbovarl}A1bFYMNhA1WRlLb{tvarU}wtnyM")
