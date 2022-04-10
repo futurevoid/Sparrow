@@ -118,7 +118,7 @@ async def on_message(message):
         embed.add_field(name ="0xlog", value ="Some Nerdy Stuff", inline=False)
         embed.add_field(name ="0xping", value ="Shows the bot latency", inline=False)
         embed.add_field(name ="0xqr content", value ="Creates a QR code with your content", inline=False)
-        embed.add_field(name ="0xcalc expression", value ="Calculates an expression", inline=False)
+        #embed.add_field(name ="0xcalc expression", value ="Calculates an expression", inline=False)
         embed.add_field(name ="0xmushaf number of page in the mushaf", value ="Shows a mushaf page", inline=False)
         embed.add_field(name ="0xayah surah number:ayah number", value ="Shows a  ayah", inline=False)
         embed.add_field(name ="0xsabah", value ="Shows اذكار الصباح", inline=False)
