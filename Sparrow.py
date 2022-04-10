@@ -489,7 +489,7 @@ async def on_message(message):
             f'{message.author.mention} enter your calculation')
         calc = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         calccontent = calc.content
-        if calccontent.find('y'):
+        if calccontent.find('y')==0:
             y= sympy.Symbol('y')
             expr = calccontent
             soll = sympy.solve(expr, y)
@@ -506,17 +506,40 @@ async def on_message(message):
             embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
             await message.channel.send(embed=embed)
         else:
-            pass     
-        #calc_content_urlencoded = urllib.parse.quote(calccontent)   
-        if calccontent.find('+'):
-            expr = calccontent
-            soll = sympy.solve(expr)
-            sol = str(soll)
-            embed = discord.Embed(title="Result", description=f"{sol}", color=0x00ff00)
-            await message.channel.send(embed=embed)
-            #try:
-               #sympy.        
-
+            pass        
+        if calccontent.find('+')==0:
+            try:
+               calcsol = sympy.Sum(calccontent)
+               embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+               await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+        elif calccontent.find('-')==0:
+            try:
+                calcsol = eval(calccontent)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)                   
+        elif calccontent.find('*')==0:
+            try:
+                calcsol = sympy.Mul(calccontent)
+                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(title="Error", description=f"{e}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+            else:
+                calc_content_urlencoded = urllib.parse.quote(calccontent)
+                site_request = requests.get(f"https://api.mathjs.org/v4/?expr={calc_content_urlencoded}")
+                site_request_content = site_request.text
+                embed = discord.Embed(title="Result", description=f"{site_request_content}", color=0x00ff00)
+                await message.channel.send(embed=embed)
+                
+                       
+                        
     elif message.content.startswith('0xaddrole') or message.content.startswith('/addrole'):
         
         if message.author.guild_permissions.administrator:
