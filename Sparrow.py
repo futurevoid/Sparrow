@@ -54,7 +54,7 @@ async def on_message(message):
     global autos
     global user
     global calcsol
-    
+
     def check(user):
             return user == message.author 
     if message.author == client.user:
@@ -514,6 +514,7 @@ async def on_message(message):
             try:
                calcsol_str = calccontent
                calcsol = int(calcsol_str)
+               print(calcsol)
                embed = discord.Embed(title="Result", description=f"{calcsol}", color=0x00ff00)
                await message.channel.send(embed=embed)
             except Exception as e:
