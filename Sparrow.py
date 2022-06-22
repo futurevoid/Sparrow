@@ -266,6 +266,8 @@ async def on_message(message):
         except discord.Forbidden:
                     await message.channel.send(f'{message.author.mention} I dont have permission to clear messages')        
     
+    
+
     elif message.content.startswith('0xmushaf') or message.content.startswith('/mushaf'):
         mushafno_unstriped = message.content
         mushafno = mushafno_unstriped.strip('0xmushaf ')
@@ -317,65 +319,39 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
 
+    elif message.content.startswith('0xautoazkar') or message.content.startswith('/autoazkar'):
+        pass
+
+    
     elif message.content.startswith('0xstopautos') or message.content.startswith('/stopautos'):
         autos = 'false'
         await message.channel.send('{0.author.mention}'.format(message) + "all automatic functions have been stopped")     
 
     
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
-        await message.channel.send(
-            f'{message.author.mention} available hadith books are: bukhari, muslim, abudawud, tirmidzi, nasai, malik, ibnu-majah')
-        await message.channel.send(
-            f'{message.author.mention} كتب الحديث المتوفرة هي:\n صحيح البخاري= bukhari \n صحيح مسلم = muslim\n سنن ابي داود = abudawud\n جامع الترمذي = tirmidzi\n سنن النسائي = nasai\n موطأ مالك = malik\n سنن ابن ماجة = ibnu-majah')
-        await message.channel.send(
-            f'{message.author.mention} send the hadith book name \n اكتب اسم الكتاب الذي تريده  ')
-        book = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        await message.channel.send(f'{message.author.mention} send the hadith number \n اكتب رقم الحديث الذي تريده')
-        hadith_number = await client.wait_for('message', check=lambda message: message.author == message.author,
-                                              timeout=60.0)
-        hadith_no = hadith_number.content
-        try:
-            hadith_number_int = int(float(hadith_no))
-        except ValueError:
-            pass
-        bookcontent = book.content
-        bookcontentlower = bookcontent.lower()
+        input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        
         #print(bookcontentlower)
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://api.hadith.sutanlab.id/books/{bookcontentlower}/{hadith_number_int}') as r:
+            async with cs.get(f'https://dorar-hadith-api.herokuapp.com/api/search?value={input}') as r:
                 res = await r.json()
-                if bookcontentlower == 'bukhari':
-                    embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                elif bookcontentlower == 'muslim':
-                    embed = discord.Embed(title=f"صحيح مسلم:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                elif bookcontentlower == 'abudawud':
-                    embed = discord.Embed(title=f"سنن ابي داود:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                elif bookcontentlower == 'tirmidzi':
-                    embed = discord.Embed(title=f"جامع الترمذي:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                elif bookcontentlower == 'nasai':
-                    embed = discord.Embed(title=f"سنن النسائي:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                elif bookcontentlower == 'malik':
-                    embed = discord.Embed(title=f"موطأ مالك:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                elif bookcontentlower == 'ibnu-majah':
-                    embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}",
-                                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
-                    await message.channel.send(embed=embed)
-                else:
-                    await message.channel.send(
-                        f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
-
+                #if bookcontentlower == 'bukhari':
+                #    embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}",
+                #                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                #    await message.channel.send(embed=embed)
+                #elif bookcontentlower == 'ibnu-majah':
+                #    embed = discord.Embed(title=f"سنن ابن ماجة:{res['data']['contents']['number']}",
+                #                          description=f"{res['data']['contents']['arab']}", color=0x00ff00)
+                #    await message.channel.send(embed=embed)
+                #else:
+                #    await message.channel.send(
+                #        f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
+                def increment_button():
+                    increment_value = 1
+                    A += increment_value
+                discord.ui.button(label="↠" ,style=discord.ui.ButtonStyle.primary)
+                async def button_callback(self, button, interaction):
+                    await interaction.response.send_message("You clicked the button!")       
     elif message.content.startswith('0xautosabah') or message.content.startswith('/autosabah'):
         await message.channel.purge(limit=1)
         autos='true'
