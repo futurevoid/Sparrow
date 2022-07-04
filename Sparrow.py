@@ -329,10 +329,9 @@ async def on_message(message):
 
     
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
-        input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
-        
         if input.content == '0xhadith':
-            await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xhadith <hadith number>")
+            await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xhadith <hadith context>")
+        input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         #print(bookcontentlower)
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://dorar-hadith-api.herokuapp.com/api/search?value={input}') as r:
@@ -348,12 +347,12 @@ async def on_message(message):
                 #else:
                 #    await message.channel.send(
                 #        f'{message.author.mention} the book name is not correct \n اسم الكتاب غير صحيح')
-                def increment_button():
-                    increment_value = 1
-                    A += increment_value
-                discord.ui.button(label="↠" ,style=discord.ui.ButtonStyle.primary)
-                async def button_callback(self, button, interaction):
-                    await interaction.response.send_message("You clicked the button!")       
+                #def increment_button():
+                #    increment_value = 1
+                #    A += increment_value
+                #discord.ui.button(label="↠" ,style=discord.ui.ButtonStyle.primary)
+                #async def button_callback(self, button, interaction):
+                #    await interaction.response.send_message("You clicked the button!")       
     elif message.content.startswith('0xautosabah') or message.content.startswith('/autosabah'):
         await message.channel.purge(limit=1)
         autos='true'
