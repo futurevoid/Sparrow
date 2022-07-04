@@ -331,6 +331,8 @@ async def on_message(message):
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
         input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         
+        if input.content == '0xhadith':
+            await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xhadith <hadith number>")
         #print(bookcontentlower)
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f'https://dorar-hadith-api.herokuapp.com/api/search?value={input}') as r:
