@@ -329,12 +329,10 @@ async def on_message(message):
 
     
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
-        #if input.content == '0xhadith':
-        #    await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xhadith <hadith context>")
-        input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
+        #input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         #print(bookcontentlower)
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://dorar-hadith-api.herokuapp.com/api/search?value={input}') as r:
+            async with cs.get(f'https://dorar-hadith-api.herokuapp.com/api/search?value={"انما"}') as r:
                 res = await r.json()
                 #if bookcontentlower == 'bukhari':
                 #    embed = discord.Embed(title=f"صحيح البخاري:{res['data']['contents']['number']}",
