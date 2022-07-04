@@ -329,8 +329,8 @@ async def on_message(message):
 
     
     elif message.content.startswith('0xhadith') or message.content.startswith('/hadith'):
-        if input.content == '0xhadith':
-            await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xhadith <hadith context>")
+        #if input.content == '0xhadith':
+        #    await message.channel.send('{0.author.mention}'.format(message) + "usage: "+"0xhadith <hadith context>")
         input = await client.wait_for('message', check=lambda message: message.author == message.author, timeout=60.0)
         #print(bookcontentlower)
         async with aiohttp.ClientSession() as cs:
@@ -352,7 +352,8 @@ async def on_message(message):
                 #    A += increment_value
                 #discord.ui.button(label="↠" ,style=discord.ui.ButtonStyle.primary)
                 #async def button_callback(self, button, interaction):
-                #    await interaction.response.send_message("You clicked the button!")       
+                #    await interaction.response.send_message("You clicked the button!") 
+                await message.channel.send(f'{message.author.mention} {res[0]}')       
     elif message.content.startswith('0xautosabah') or message.content.startswith('/autosabah'):
         await message.channel.purge(limit=1)
         autos='true'
