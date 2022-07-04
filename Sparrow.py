@@ -23,8 +23,6 @@ from discord.utils import get
 from matplotlib import image
 #import urllib3
 from keep_alive import keep_alive
-from PIL import Image
-from pyzbar import pyzbar
 from urllib3 import *
 import urllib.parse
 import os
