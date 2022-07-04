@@ -12,7 +12,7 @@ Shows the help menu
 
 # Package Requirements
 Linux:sudo pip3 install -r requirements.txt
-Windows / Mac: pip3 install -r requirements.txt
+Windows / Mac: pip install -r requirements.txt
   
   
   
