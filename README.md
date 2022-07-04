@@ -11,8 +11,11 @@ https://discord.com/api/oauth2/authorize?client_id=938395752873476096&permission
 Shows the help menu
 
 # Package Requirements
-Linux:sudo pip3 install -r requirements.txt
-Windows / Mac: pip install -r requirements.txt
-  
+```bash
+    #Linux:
+    sudo pip3 install -r requirements.txt
+    #Windows / Mac: 
+    pip install -r requirements.txt
+```  
   
   
