@@ -10,8 +10,9 @@ https://discord.com/api/oauth2/authorize?client_id=938395752873476096&permission
 0xhelp
 Shows the help menu
 
-  
-  
+# Package Requirements
+Linux:sudo pip3 install -r requirements.txt
+Windows / Mac: pip3 install -r requirements.txt
   
   
   
