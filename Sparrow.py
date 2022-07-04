@@ -351,7 +351,7 @@ async def on_message(message):
                 #discord.ui.button(label="↠" ,style=discord.ui.ButtonStyle.primary)
                 #async def button_callback(self, button, interaction):
                 #    await interaction.response.send_message("You clicked the button!") 
-                await message.channel.send(f'{message.author.mention} {res[0]}')       
+        await message.channel.send(f'{message.author.mention} {res[0]}')       
     elif message.content.startswith('0xautosabah') or message.content.startswith('/autosabah'):
         await message.channel.purge(limit=1)
         autos='true'
