@@ -27,6 +27,8 @@ from urllib3 import *
 import urllib.parse
 import os
 from youtube_dl import YoutubeDL as YTDL
+
+
 client = discord.Client()
 
 
@@ -42,7 +44,7 @@ async def on_ready():
 # bot prefix
 bot = Bot('0x')
 
-
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 # create an event that will run when !hello is called
 # create a function that will run when a message is sent
 @client.event
