@@ -44,7 +44,7 @@ async def on_ready():
 # bot prefix
 bot = Bot('0x')
 
-#slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 # create an event that will run when !hello is called
 # create a function that will run when a message is sent
 @client.event
