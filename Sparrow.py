@@ -312,10 +312,10 @@ async def on_message(message):
                 break
             async with aiohttp.ClientSession() as cs:
                 randayah = random.randint(1, 6236)
-                async with cs.get(f'http://api.alquran.cloud/v1/ayah/{randayah}') as r:
+                async with cs.get(f'https://api.quran.com/api/v4/verses/random?words=true') as r:
                     res = await r.json()
                     embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
-                                          description=f"{res['data']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
+                                          description=f"{res['words']['text']}\n {randayah}:الايه رقم", color=0x00ff00)
                     await message.channel.send(embed=embed)
                     await asyncio.sleep(300)
 
