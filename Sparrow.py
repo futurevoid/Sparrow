@@ -297,10 +297,10 @@ async def on_message(message):
 
     elif message.content.startswith('0xayah') or message.content.startswith('/ayah'):
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'http://api.alquran.cloud/v1/ayah/{message.content[6:]}') as r:
+            async with cs.get(f'https://api.quran.com/api/v4/verses/by_key/{message.content[6:]}?words=true') as r:
                 res = await r.json()
                 embed = discord.Embed(title=f"{res['data']['surah']['name']}:{res['data']['surah']['number']}",
-                                      description=f"{res['data']['text']}", color=0x00ff00)
+                                      description=f"{res['words']['text']}", color=0x00ff00)
                 # embed.set_image(url=res['data']['url'])
                 await message.channel.send(embed=embed)
 
